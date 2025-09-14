@@ -16,8 +16,8 @@ jobs:
       - name: Extract Version
         id: vars
         run: |
-          VERSION=${GITHUB_REF#refs/heads/release/}
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          RAW_REF="${GITHUB_REF#refs/heads/}"
+          VERSION="${RAW_REF#Release/}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Setup .NET
