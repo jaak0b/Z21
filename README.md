@@ -1,6 +1,6 @@
 # Z21 [![](https://github.com/Jakob-Eichberger/z21Client/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/Jakob-Eichberger/z21Client/actions/workflows/dotnet.yml)
 
-<img src="https://github.com/ZIMO-Elektronik/Z21/raw/master/data/images/logo.png" width="15%" align="right">
+[![.NET](https://github.com/Jakob-Eichberger/Z21/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/dotnet.yml)
 
 The ROCO Z21 is a command station with support for LocoNet, R-Bus and XpressNet devices. It has an open LAN interface with a well-documented protocol that has been continuously developed since then. This C# library of the same name contains platform-independent code for the client-side (i.e. the part that runs on a computer/smart phone) implementation of the protocol.
 
