@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <LangVersion>12</LangVersion>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Z21</Title>
+    <Authors>Jakob Eichberger</Authors>
+    <Description>Z21Client partially implements the z21 lan protocoll for the digital command center z21/Z21 from Roco/Fleischmann.</Description>
+    <RepositoryUrl>https://github.com/Jakob-Eichberger/z21Client</RepositoryUrl>
+    <PackageTags>Z21;Roco;Fleischman</PackageTags>
+    <Configurations>Debug</Configurations>
+    <VersionPrefix>4.0.0</VersionPrefix>
+    <Platforms>x64</Platforms>
+    <Nullable>enable</Nullable>
+    <TargetFrameworks>net8.0;net8.0-windows;net9.0</TargetFrameworks>
+    <Version>5.0.3-alpha</Version>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RootNamespace>Z21</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="LICENSE" Pack="true" PackagePath="" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.8" />
+  </ItemGroup>
+</Project>
