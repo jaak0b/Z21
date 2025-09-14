@@ -1,0 +1,39 @@
+name: Build and Deploy Versioned Docs
+
+on:
+  push:
+    branches:
+      - 'release/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Extract Version
+        id: vars
+        run: |
+          RAW_REF="${GITHUB_REF#refs/heads/}"
+          VERSION="${RAW_REF#Release/}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x'
+
+      - name: Install DocFX
+        run: dotnet tool install -g docfx
+
+      - name: Build Docs
+        run: docfx src/docfx.json
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./src/_site
+          destination_dir: ${{ steps.vars.outputs.version }}
