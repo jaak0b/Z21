@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Z21.Client", "Z21Client\Z21.Client.csproj", "{A6BAE63F-5DBE-4AE7-B2C5-5CB89C25BA15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Z21.Client", "Z21.Client\Z21.Client.csproj", "{A6BAE63F-5DBE-4AE7-B2C5-5CB89C25BA15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z21.Client.UnitTest", "Z21.Client.UnitTest\Z21.Client.UnitTest.csproj", "{A3246DA8-ACBE-435D-B050-CA7595512C1A}"
 EndProject

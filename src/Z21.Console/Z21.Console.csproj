@@ -21,7 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Z21.DependencyInjection\Z21.DependencyInjection.csproj" />
-      <ProjectReference Include="..\Z21Client\Z21.Client.csproj" />
+      <ProjectReference Include="..\Z21.Client\Z21.Client.csproj" />
     </ItemGroup>
 
 </Project>

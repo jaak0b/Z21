@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Z21Client\Z21.Client.csproj" />
+    <ProjectReference Include="..\Z21.Client\Z21.Client.csproj" />
   </ItemGroup>
 
 </Project>
