@@ -16,7 +16,9 @@ jobs:
       - name: Extract Version
         id: vars
         run: |
-          echo "##[set-output name=version;]$(echo ${GITHUB_REF#refs/heads/release/})"
+          VERSION=${GITHUB_REF#refs/heads/release/}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
