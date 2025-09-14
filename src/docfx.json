@@ -16,31 +16,12 @@
   "build": {
     "content": [
       {
-        "files": [
-          "**/*.{md,yml}"
-        ],
-        "exclude": [
-          "_site/**"
-        ]
-      }
-    ],
-    "resource": [
+        "files": ["api/**.yml", "toc.yml"]
+      },
       {
-        "files": [
-          "images/**"
-        ]
+        "files": ["articles/**.md"]
       }
     ],
-    "output": "_site",
-    "template": [
-      "default",
-      "modern"
-    ],
-    "globalMetadata": {
-      "_appName": "",
-      "_appTitle": "",
-      "_enableSearch": true,
-      "pdf": true
-    }
+    "dest": "_site"
   }
 }
