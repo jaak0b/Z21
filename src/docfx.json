@@ -5,8 +5,9 @@
       "src": [
         {
           "src": "../src",
-          "files": [
-            "**/*.csproj"
+       "files": [
+            "Z21.Client/Z21.Client.csproj",
+            "Z21.DependencyInjection/Z21.DependencyInjection.csproj"
           ]
         }
       ],
