@@ -27,17 +27,22 @@ The official documentation of the protocol can be downloaded from the ROCO homep
 ## Getting Started
 Get started by downloading the provided nuget Z21 package. To register the Z21 client use the Z21.DependencyInjection nuget package.
 
-### Dependency Injection
+### Commands
+All Commands can be found in the Z21.Core.Command namespace. 
+#### Sending Commands
+> [!WARNING]
+> When sending multiple commands at once take note of the maximum payload length. If the commands exceeds that length an exception will be thrown. 
 
-Z21.DependencyInjection provides extension methods to register all required classes directly in the container.
+Create a command instance and hand it to the Z21Client.SendCommandsAsync method. 
+Multiple commands can be send at the same time in the same UDP packet. 
+This is important if certain actions should happen at the same time (i.e. controlling locos in a double traction where it is critical that both locomotives change speed at the same time)
 
 ```csharp
-   services.ConfigureZ21Client(Z21Configuration.Defaults.IpEndPoint);
-   services.AddZ21Client();
-   services.AddZ21Transport();
-   services.AddZ21ResponseParser();
-   services.AddZ21ResponseHandler();
+    await Z21Client.SendCommandsAsync(new GetFirmwareVersionCommand()); // Sends a single command
+    await Z21Client.SendCommandsAsync(new GetFirmwareVersionCommand(), new GetLocoInfoCommand(locoAddress: 13); // Send multiple commands in a single UDP packet
 ```
+
+###
 
 ### Dependency Injection
 > [!IMPORTANT]
@@ -45,11 +50,11 @@ Z21.DependencyInjection provides extension methods to register all required clas
 Z21.DependencyInjection provides extension methods to register all required classes directly in the container.
 
 ```csharp
-   services.ConfigureZ21Client(Z21Configuration.Defaults.IpEndPoint);
-   services.AddZ21Client();
-   services.AddZ21Transport();
-   services.AddZ21ResponseParser();
-   services.AddZ21ResponseHandler();
+    services.ConfigureZ21Client(Z21Configuration.Defaults.IpEndPoint);
+    services.AddZ21Client();
+    services.AddZ21Transport();
+    services.AddZ21ResponseParser();
+    services.AddZ21ResponseHandler();
 ```
     
 ## Z21 Commands
