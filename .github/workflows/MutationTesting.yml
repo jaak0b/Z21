@@ -23,9 +23,9 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
-
-    - name: Warm up build with dotnet test
-      run: dotnet test src/Z21.Client.UnitTest/Z21.Client.UnitTest.csproj --no-run
+    
+    - name: Build solution
+      run: dotnet build Z21.sln --configuration Debug
   
     - name: Install Stryker.NET
       run: dotnet tool install -g dotnet-stryker
