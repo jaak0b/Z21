@@ -25,7 +25,7 @@ jobs:
 
     - name: Run mutation tests
       run: |
-        cd src/Z21.Tests
+        cd src/Z21.Client.UnitTest
         dotnet stryker --reporters "html" --output-path ../../stryker-report
 
     - name: Upload HTML report
