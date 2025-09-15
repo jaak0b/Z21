@@ -24,6 +24,9 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
+    - name: Build target project
+      run: dotnet build src/Z21.Client/Z21.Client.csproj -c Debug
+      
     - name: Install Stryker.NET
       run: dotnet tool install -g dotnet-stryker
 
