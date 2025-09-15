@@ -32,4 +32,6 @@ jobs:
       run: dotnet tool install -g dotnet-stryker
 
     - name: Run mutation tests
-      run: dotnet stryker --reporter dashboard --mutation-level Advanced
+      run: 
+       cd src/Z21.Client.UnitTest
+       dotnet stryker --reporter dashboard --mutation-level Advanced        
