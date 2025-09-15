@@ -9,21 +9,22 @@ on:
 
 jobs:
   mutation-test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     env:
       STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
+    - uses: actions/checkout@v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
-
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore src/Z21.sln
+    - name: Build
+      run: dotnet build src/Z21.sln --no-restore
     - name: Build target project
       run: dotnet build src/Z21.Client/Z21.Client.csproj -c Debug
       
@@ -31,6 +32,4 @@ jobs:
       run: dotnet tool install -g dotnet-stryker
 
     - name: Run mutation tests
-      run: |
-        cd src/Z21.Client.UnitTest
-        dotnet stryker --reporter dashboard --mutation-level Advanced
+      run: dotnet stryker --reporter dashboard --mutation-level Advanced
