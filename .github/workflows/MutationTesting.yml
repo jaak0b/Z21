@@ -1,0 +1,35 @@
+name: Mutation Testing
+
+on:
+  push:
+    branches: [ "Release/**" ]
+  pull_request:
+    branches: [ "Release/**" ]
+  workflow_dispatch:
+
+jobs:
+  mutation-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Install Stryker.NET
+      run: dotnet tool install -g dotnet-stryker
+
+    - name: Run mutation tests
+      run: |
+        cd src/Z21.Tests
+        dotnet stryker --reporters "html" --output-path ../../stryker-report
+
+    - name: Upload HTML report
+      uses: actions/upload-artifact@v3
+      with:
+        name: stryker-html-report
+        path: stryker-report/mutation-report.html
