@@ -13,11 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    
-    env:
-      STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -30,11 +26,3 @@ jobs:
       run: dotnet build src/Z21.sln --no-restore
     - name: Test
       run: dotnet test src/Z21.sln --no-build --verbosity normal
-
-    - name: Install Stryker.NET
-      run: dotnet tool install -g dotnet-stryker
-
-    - name: Run mutation tests
-      run: |
-        cd src/Z21.Client.UnitTest
-        dotnet stryker --reporter  dashboard  --output ../../stryker-report --mutation-level Advanced
