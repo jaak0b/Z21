@@ -32,4 +32,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: stryker-html-report
-        path: stryker-report/mutation-report.html
+        path: stryker-report/reports/mutation-report.html
