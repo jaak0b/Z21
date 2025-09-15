@@ -30,4 +30,10 @@ jobs:
     - name: Run mutation tests
       run: |
         cd src/Z21.Client.UnitTest
-        dotnet stryker --project "Z21.Client.csproj" --reporter dashboard  --mutation-level Advanced
+        dotnet stryker --reporter html  --output ../../stryker-report --mutation-level Advanced
+        
+    - name: Upload HTML report
+      uses: actions/upload-artifact@v4
+      with:
+        name: stryker-html-report
+        path: stryker-report/reports/mutation-report.html
