@@ -30,7 +30,7 @@ jobs:
     - name: Run mutation tests
       run: |
         cd src/Z21.Client.UnitTest
-        dotnet stryker --reporter html  --output ../../stryker-report --mutation-level Advanced --threshold-high 90 --threshold-low 80 --threshold-break 75
+        dotnet stryker --reporter html  --output ../../stryker-report --mutation-level Advanced --threshold-high 90 --threshold-low 80 --break-at 75
         
     - name: Upload HTML report
       uses: actions/upload-artifact@v4
