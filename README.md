@@ -18,7 +18,7 @@ The official documentation of the protocol can be downloaded from the ROCO homep
 - Platform-independent
 - Lightweight 
 - SOLID and event-driven architecture - Allowing you to expand the library to your liking.
-- Fully unit tested
+- Fully unit and mutation tested
 - Supports dependency injection out of the box via Z21.DependencyInjection.
 - Fine grained command/response handler interfaces allowing for simple use. See below for a full list of all supported commands/responses.
     - System ✅
