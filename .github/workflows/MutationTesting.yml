@@ -24,16 +24,13 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
+    - name: Build target project
+      run: dotnet build src/Z21/Z21.csproj --configuration Debug
+  
     - name: Install Stryker.NET
       run: dotnet tool install -g dotnet-stryker
 
     - name: Run mutation tests
       run: |
         cd src/Z21.Client.UnitTest
-        dotnet stryker --reporter html  --output ../../stryker-report --mutation-level Advanced
-        
-    - name: Upload HTML report
-      uses: actions/upload-artifact@v4
-      with:
-        name: stryker-html-report
-        path: stryker-report/reports/mutation-report.html
+        dotnet stryker --reporter  dashboard  --output ../../stryker-report --mutation-level Advanced
