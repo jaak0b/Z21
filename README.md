@@ -1,4 +1,4 @@
-# Z21 [![.NET](https://github.com/Jakob-Eichberger/Z21/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/dotnet.yml) [![Github Pages](https://github.com/Jakob-Eichberger/Z21/actions/workflows/BuildAndDeployDoc.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/BuildAndDeployDoc.yml)
+# Z21 [![.NET](https://github.com/Jakob-Eichberger/Z21/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/dotnet.yml) [![Github Pages](https://github.com/Jakob-Eichberger/Z21/actions/workflows/BuildAndDeployDoc.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/BuildAndDeployDoc.yml) [![Mutation Testing](https://github.com/Jakob-Eichberger/Z21/actions/workflows/MutationTesting.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/MutationTesting.yml)
 
 <img src="https://github.com/ZIMO-Elektronik/Z21/raw/master/data/images/logo.png" width="15%" align="right">
 
