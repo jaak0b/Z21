@@ -36,7 +36,7 @@ jobs:
       run: dotnet restore src/Z21.sln
     
     - name: Build
-      run: dotnet build src/Z21.sln --no-restore /p:Version=${{ steps.gitversion.outputs.semVer }}
+      run: dotnet build src/Z21.sln --no-restore --configuration Release /p:Version=${{ steps.gitversion.outputs.semVer }}
       
     - name: Test
       run: dotnet test src/Z21.sln --no-build --verbosity normal
