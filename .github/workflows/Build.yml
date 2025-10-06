@@ -34,11 +34,26 @@ jobs:
       
     - name: Restore dependencies
       run: dotnet restore src/Z21.sln
+    
     - name: Build
       run: dotnet build src/Z21.sln --no-restore /p:Version=${{ steps.gitversion.outputs.semVer }}
+      
     - name: Test
       run: dotnet test src/Z21.sln --no-build --verbosity normal
 
+    - name: Pack NuGet package
+      run: |
+        dotnet pack src/Z21.sln --no-build --configuration Release \
+          /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} \
+          /p:Version=${{ steps.gitversion.outputs.semVer }} \
+          --output ./nupkgs
+
+    - name: Upload NuGet package as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-package-${{ steps.gitversion.outputs.semVer }}
+        path: ./nupkgs/*.nupkg
+          
     - name: Tag commit with GitVersion
       if: github.event_name == 'push'
       run: |
