@@ -44,9 +44,16 @@ jobs:
     - name: Build for packaging (Release)
       run: dotnet build src/Z21.sln --no-restore --configuration Release /p:Version=${{ steps.gitversion.outputs.semVer }}
       
-    - name: Pack NuGet package
+    - name: Pack Z21.sln NuGet package
       run: |
         dotnet pack src/Z21.sln --no-build --configuration Release \
+          /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} \
+          /p:Version=${{ steps.gitversion.outputs.semVer }} \
+          --output ./nupkgs
+
+    - name: Pack Z21.DependencyInjection NuGet package
+      run: |
+        dotnet pack src/Z21.DependencyInjection/Z21.DependencyInjection.csproj --no-build --configuration Release \
           /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} \
           /p:Version=${{ steps.gitversion.outputs.semVer }} \
           --output ./nupkgs
