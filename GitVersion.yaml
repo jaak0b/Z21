@@ -54,7 +54,7 @@ branches:
     label: beta
     increment: Minor
     prevent-increment:
-      of-merged-branch: true
+      of-merged-branch: false
       when-current-commit-tagged: false
     track-merge-target: false
     regex: ^releases?[\/-](?<BranchName>.+)
