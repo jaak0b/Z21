@@ -35,12 +35,15 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/Z21.sln
     
-    - name: Build
-      run: dotnet build src/Z21.sln --no-restore --configuration Release /p:Version=${{ steps.gitversion.outputs.semVer }}
+    - name: Build for testing (Debug)
+      run: dotnet build src/Z21.sln --no-restore /p:Version=${{ steps.gitversion.outputs.semVer }}
       
     - name: Test
       run: dotnet test src/Z21.sln --no-build --verbosity normal
 
+    - name: Build for packaging (Release)
+      run: dotnet build src/Z21.sln --no-restore --configuration Release /p:Version=${{ steps.gitversion.outputs.semVer }}
+      
     - name: Pack NuGet package
       run: |
         dotnet pack src/Z21.sln --no-build --configuration Release \
