@@ -66,12 +66,6 @@ jobs:
           /p:Version=${{ steps.gitversion.outputs.semVer }} \
           --output ./nupkgs
 
-    - name: Upload NuGet package as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: nuget-packages
-        path: ./nupkgs/*.nupkg
-
     - name: Push packages to NuGet
       if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')
       run: |
