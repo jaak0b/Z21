@@ -20,9 +20,27 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+
+    - name: Setup GitVersion
+      uses: GitTools/actions/gitversion/setup@v0.9.10
+      with:
+        versionSpec: '5.x'
+
+    - name: Run GitVersion
+      id: gitversion
+      uses: GitTools/actions/gitversion/execute@v0.9.10
+      
     - name: Restore dependencies
       run: dotnet restore src/Z21.sln
     - name: Build
-      run: dotnet build src/Z21.sln --no-restore
+      run: dotnet build src/Z21.sln --no-restore /p:Version=${{ steps.gitversion.outputs.semVer }}
     - name: Test
       run: dotnet test src/Z21.sln --no-build --verbosity normal
+
+    - name: Tag commit with GitVersion
+      if: github.event_name == 'push'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git tag v${{ steps.gitversion.outputs.semVer }}
+        git push origin v${{ steps.gitversion.outputs.semVer }}
