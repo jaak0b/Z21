@@ -16,7 +16,7 @@ jobs:
     - name: Download NuGet packages from Build workflow
       uses: actions/download-artifact@v4
       with:
-        name: nuget-package-${{ github.event.workflow_run.head_commit.message }}
+        name: nuget-packages
         path: ./nupkgs
 
     - name: Setup .NET
