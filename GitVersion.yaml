@@ -18,6 +18,7 @@ strategies:
 - TaggedCommit
 - TrackReleaseBranches
 - VersionInBranchName
+
 branches:
   develop:
     mode: ContinuousDeployment
