@@ -1,0 +1,39 @@
+name: Mutation Testing
+
+on:
+  push:
+    branches: [ "Release/**" ]
+  pull_request:
+    branches: [ "Release/**" ]
+  workflow_dispatch:
+
+jobs:
+  mutation-test:
+    runs-on: ubuntu-latest
+
+    env:
+      STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Install Stryker.NET
+      run: dotnet tool install -g dotnet-stryker
+
+    - name: Run mutation tests
+      run: |
+        cd src/Z21.Client.UnitTest
+        dotnet stryker --reporter html  --output ../../stryker-report --mutation-level Advanced --threshold-high 90 --threshold-low 80 --break-at 75
+        
+    - name: Upload HTML report
+      uses: actions/upload-artifact@v4
+      with:
+        name: stryker-html-report
+        path: stryker-report/reports/mutation-report.html

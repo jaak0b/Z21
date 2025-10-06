@@ -1,4 +1,4 @@
-# Z21 [![.NET](https://github.com/Jakob-Eichberger/Z21/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/dotnet.yml)
+# Z21 [![Build](https://github.com/Jakob-Eichberger/Z21/actions/workflows/Build.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/Build.yml) [![Github Pages](https://github.com/Jakob-Eichberger/Z21/actions/workflows/BuildAndDeployDoc.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/BuildAndDeployDoc.yml) [![Mutation Testing](https://github.com/Jakob-Eichberger/Z21/actions/workflows/MutationTesting.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/MutationTesting.yml)
 
 <img src="https://github.com/ZIMO-Elektronik/Z21/raw/master/data/images/logo.png" width="15%" align="right">
 
@@ -18,9 +18,10 @@ The official documentation of the protocol can be downloaded from the ROCO homep
 - Platform-independent
 - Lightweight 
 - SOLID and event-driven architecture - Allowing you to expand the library to your liking.
-- Fully unit tested
+- Fully unit and mutation tested
 - Supports dependency injection out of the box via Z21.DependencyInjection.
-- Fine grained command/response handler interfaces allowing for simple use. See below for a full list of all supported commands/responses.
+- Fine grained command/response handler interfaces with great documentation. 
+- Right now the following features of the Z21 LAN protocoll are implemented. See below for a fully detailed list of all supported commands/responses.
     - System ✅
     - Driving ✅
     - Switching ✅
