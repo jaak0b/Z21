@@ -2,9 +2,9 @@ name: Github Pages
 
 on:
   push:
-    branches: [ "Release/**" ]
+    branches: [ "release/**", "main" ]
   pull_request:
-    branches: [ "Release/**" ]
+    branches: [ "release/**", "main" ]
   workflow_dispatch:
 
 jobs:
@@ -19,7 +19,8 @@ jobs:
         run: |
           RAW_REF="${GITHUB_REF#refs/heads/}"
           VERSION="${RAW_REF#Release/}"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          CLEAN_VERSION=$(echo "$VERSION" | cut -d'-' -f1)
+          echo "version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
