@@ -31,7 +31,7 @@ jobs:
     - name: Run GitVersion
       id: gitversion
       uses: GitTools/actions/gitversion/execute@v0.9.10
-      
+        
     - name: Restore dependencies
       run: dotnet restore src/Z21.sln
     
@@ -43,7 +43,15 @@ jobs:
 
     - name: Build for packaging (Release)
       run: dotnet build src/Z21.sln --no-restore --configuration Release /p:Version=${{ steps.gitversion.outputs.semVer }}
-      
+                      
+    - name: Tag commit with GitVersion
+      if: github.event_name == 'push'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git tag v${{ steps.gitversion.outputs.semVer }}
+        git push origin v${{ steps.gitversion.outputs.semVer }}
+        
     - name: Pack Z21.sln NuGet package
       run: |
         dotnet pack src/Z21.sln --no-build --configuration Release \
@@ -63,11 +71,12 @@ jobs:
       with:
         name: nuget-packages
         path: ./nupkgs/*.nupkg
-          
-    - name: Tag commit with GitVersion
-      if: github.event_name == 'push'
+
+    - name: Push packages to NuGet
+      if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')
       run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git tag v${{ steps.gitversion.outputs.semVer }}
-        git push origin v${{ steps.gitversion.outputs.semVer }}
+        for pkg in ./nupkgs/*.nupkg; do
+          dotnet nuget push "$pkg" \
+            --api-key ${{ secrets.NUGET_API_KEY }} \
+            --source https://api.nuget.org/v3/index.json
+        done
