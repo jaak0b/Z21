@@ -50,11 +50,11 @@ branches:
     is-main-branch: true
     pre-release-weight: 55000
   release:
-    mode: ManualDeployment
+    mode: ContinuousDeployment
     label: beta
     increment: Minor
     prevent-increment:
-      of-merged-branch: false
+      of-merged-branch: true
       when-current-commit-tagged: false
     track-merge-target: false
     regex: ^releases?[\/-](?<BranchName>.+)
@@ -67,7 +67,7 @@ branches:
     is-main-branch: false
     pre-release-weight: 30000
   feature:
-    mode: ManualDeployment
+    mode: ContinuousDeployment
     label: '{BranchName}'
     increment: Inherit
     prevent-increment:
