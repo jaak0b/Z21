@@ -39,7 +39,7 @@ namespace Z21.Core.ResponseHandler.Driving
 
     public void Handle(byte[] response)
     {
-      short address = (short)(((response[5] & 0x3F) << 8) + response[6]);
+      ushort address = (ushort)(((response[5] & 0x3F) << 8) + response[6]);
 
       byte db2 = response[7];
       DecoderMode decoderMode = (db2 & 0x10) == 0x10 ? DecoderMode.MM : DecoderMode.DCC;

@@ -4,7 +4,7 @@ namespace Z21.Core.Model
 {
   public class LocoInfoData
   {
-    public required short LocoAddress { get; init; }
+    public required ushort LocoAddress { get; init; }
     
     public required IReadOnlyCollection<LocoFunctionData> LocoFunctionsData { get; init; }
 
