@@ -1,0 +1,2026 @@
+{
+  "source_base_path": "/home/runner/work/Z21/Z21/src",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Driving.GetLocoInfoCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Driving.GetLocoInfoCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Driving.GetLocoInfoCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Driving.GetLocoInfoCommand.yml\" sourcestartlinenumber=\"1\">The following command can be used to poll the status of a locomotive. At the same time, the client also &quot;subscribes&quot; to the locomotive information for this locomotive address (only in combination with <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref>, Flag <xref href=\"Z21.Core.Model.Z21BroadcastFlags.DriveAndSwitchingMessages\" data-throw-if-not-resolved=\"false\"></xref>).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Driving.PurgeLocoCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Driving.PurgeLocoCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Driving.PurgeLocoCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Driving.PurgeLocoCommand.yml\" sourcestartlinenumber=\"1\">From Z21 FW version 1.43, a locomotive can be removed from the Z21 with the following command.\nThis also cancels the sending of the loco commands for this locomotive on the track.\nSending will start again as soon as a new drive or function command is sent to the same locomotive address.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Driving.SetLocoDriveCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Driving.SetLocoDriveCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Driving.SetLocoDriveCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Driving.SetLocoDriveCommand.yml\" sourcestartlinenumber=\"1\">Change the speed and direction of a locomotive.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Driving.SetLocoEStopCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Driving.SetLocoEStopCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Driving.SetLocoEStopCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Driving.SetLocoEStopCommand.yml\" sourcestartlinenumber=\"1\">From Z21 FW version 1.43, a locomotive can be stopped with the following command.\nIn the case of a DCC locomotive, the speed step &quot;E-STOP&quot; (&quot;emergency stop&quot; according to RCN-212) is then sent in the DCC speed command onto the track, i.e., the decoder should stop the engine as quickly as possible.\nIn the case of an MM locomotive, the speed step 0 (&quot;Stop&quot;) is sent onto the track.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Driving.SetLocoFunctionCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Driving.SetLocoFunctionCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Driving.SetLocoFunctionCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Driving.SetLocoFunctionCommand.yml\" sourcestartlinenumber=\"1\">Change a function of a locomotive.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Driving.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Driving.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Driving",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.IZ21Command.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.IZ21Command.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.IZ21Command",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Settings.GetAccessoryModeCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Settings.GetAccessoryModeCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Settings.GetAccessoryModeCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Settings.GetAccessoryModeCommand.yml\" sourcestartlinenumber=\"1\">Read the settings for a given accessory decoder address (&quot;Accessory Decoder&quot; RP-9.2.1).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Settings.GetLocoModeCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Settings.GetLocoModeCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Settings.GetLocoModeCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Settings.GetLocoModeCommand.yml\" sourcestartlinenumber=\"1\">Read the output format for a given locomotive address.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Settings.SetAccessoryModeCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Settings.SetAccessoryModeCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Settings.SetAccessoryModeCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Settings.SetAccessoryModeCommand.yml\" sourcestartlinenumber=\"1\">Set the output format for a given accessory decoder address. The format is stored in the Z21 persistently.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Settings.SetLocoModeCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Settings.SetLocoModeCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Settings.SetLocoModeCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Settings.SetLocoModeCommand.yml\" sourcestartlinenumber=\"1\">Set the output format for a given locomotive address. The format is stored in the Z21persistently.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Settings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Settings.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Settings",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Switching.GetExtAccessoryInfoCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Switching.GetExtAccessoryInfoCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Switching.GetExtAccessoryInfoCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Switching.GetExtAccessoryInfoCommand.yml\" sourcestartlinenumber=\"1\">From Z21 FW V1. 40, the following request can be used to poll the last command transferred to an extended accessory decoder.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Switching.GetTurnoutInfoCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Switching.GetTurnoutInfoCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Switching.GetTurnoutInfoCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Switching.GetTurnoutInfoCommand.yml\" sourcestartlinenumber=\"1\">The following command can be used to poll the status of a turnout (or any accessory function).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Switching.SetExtAccessoryCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Switching.SetExtAccessoryCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Switching.SetExtAccessoryCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Switching.SetExtAccessoryCommand.yml\" sourcestartlinenumber=\"1\">From Z21 FW V1. 40, a DCC command in the &quot;extended accessory decoder package format &quot;(DCCext) can be sent to an extended accessory decoder with the following request. It allows to send even switching times for turnouts or complex signal aspects with just one single command</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Switching.SetTurnoutCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Switching.SetTurnoutCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Switching.SetTurnoutCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.Switching.SetTurnoutCommand.yml\" sourcestartlinenumber=\"1\">A turnout (or any accessory function) can be switched with the following command.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.Switching.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.Switching.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.Switching",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.GetBroadcastFlagsCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.GetBroadcastFlagsCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.GetBroadcastFlagsCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.GetBroadcastFlagsCommand.yml\" sourcestartlinenumber=\"1\">Reading the broadcast flags in the Z21.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.GetFirmwareVersionCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.GetFirmwareVersionCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.GetFirmwareVersionCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.GetFirmwareVersionCommand.yml\" sourcestartlinenumber=\"1\">The firmware version of the Z21 can be read with this command.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.GetHardwareInfoCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.GetHardwareInfoCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.GetHardwareInfoCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.GetHardwareInfoCommand.yml\" sourcestartlinenumber=\"1\">Read the hardware type and the firmware version of the Z21.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.GetSerialNumberCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.GetSerialNumberCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.GetSerialNumberCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.GetSerialNumberCommand.yml\" sourcestartlinenumber=\"1\">Reading the serial number of the Z21.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.GetSoftwareLockCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.GetSoftwareLockCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.GetSoftwareLockCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.GetSoftwareLockCommand.yml\" sourcestartlinenumber=\"1\">Read the software feature scope of the Z21 (and z21 or z21start of course).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.GetStatusCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.GetStatusCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.GetStatusCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.GetStatusCommand.yml\" sourcestartlinenumber=\"1\">This command can be used to request the Z21 status.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.GetSystemStateDataCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.GetSystemStateDataCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.GetSystemStateDataCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.GetSystemStateDataCommand.yml\" sourcestartlinenumber=\"1\">Request the current system status.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.GetVersionCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.GetVersionCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.GetVersionCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.GetVersionCommand.yml\" sourcestartlinenumber=\"1\">The X-Bus version of the Z21 can be read out with the following command.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.LogOffCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.LogOffCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.LogOffCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.LogOffCommand.yml\" sourcestartlinenumber=\"1\">Logging off the client from the Z21.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.SetBroadcastFlagsCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.SetBroadcastFlagsCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.SetBroadcastFlagsCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.SetBroadcastFlagsCommand.yml\" sourcestartlinenumber=\"1\">Implements the LAN_SET_BROADCASTFLAGS command. See <xref href=\"Z21.Core.Model.Z21BroadcastFlags\" data-throw-if-not-resolved=\"false\"></xref> for some flags. See <code>LAN_SET_BROADCASTFLAGS</code> section of the Z21 lan protocol document for all possible flags.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.TrackPower.SetStopCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.TrackPower.SetStopCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.TrackPower.SetStopCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.TrackPower.SetStopCommand.yml\" sourcestartlinenumber=\"1\">With this command the emergency stop is activated, i.e. the locomotives are stopped but the track voltage remains switched on.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.TrackPower.SetTrackPowerOffCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.TrackPower.SetTrackPowerOffCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.TrackPower.SetTrackPowerOffCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.TrackPower.SetTrackPowerOffCommand.yml\" sourcestartlinenumber=\"1\">This command switches off the track voltage.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.TrackPower.SetTrackPowerOnCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.TrackPower.SetTrackPowerOnCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.TrackPower.SetTrackPowerOnCommand",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Command.SystemState.TrackPower.SetTrackPowerOnCommand.yml\" sourcestartlinenumber=\"1\">This command switches on the track voltage, or terminates either the emergency stop or the programming mode.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.TrackPower.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.TrackPower.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState.TrackPower",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.SystemState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.SystemState.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command.SystemState",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Command.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Command.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Command",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Exception.ClientNotConnectedException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Exception.ClientNotConnectedException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Exception.ClientNotConnectedException",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Exception.LocoSpeedOutOfRangeException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Exception.LocoSpeedOutOfRangeException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Exception.LocoSpeedOutOfRangeException",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Exception.MtuPayloadLengthExceededException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Exception.MtuPayloadLengthExceededException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Exception.MtuPayloadLengthExceededException",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Exception.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Exception.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Exception",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Helper.AddressHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Helper.AddressHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Helper.AddressHelper",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Helper.LocoSpeedHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Helper.LocoSpeedHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Helper.LocoSpeedHelper",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Helper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Helper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Helper",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.IZ21Client.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.IZ21Client.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.IZ21Client",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.AccessoryOutput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.AccessoryOutput.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.AccessoryOutput",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.AccessoryState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.AccessoryState.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.AccessoryState",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.Capabilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.Capabilities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.Capabilities",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Model.Capabilities.yml\" sourcestartlinenumber=\"1\">Represents the supported capabilities of a Z21 device.\nEach property corresponds to a specific protocol feature.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.CentralState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.CentralState.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.CentralState",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Model.CentralState.yml\" sourcestartlinenumber=\"1\">Represents the current operational state of the Z21 central unit.\nEach property reflects a specific system condition or mode.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.CentralStateEx.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.CentralStateEx.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.CentralStateEx",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Model.CentralStateEx.yml\" sourcestartlinenumber=\"1\">Represents extended diagnostic states reported by the Z21 central unit.\nThese flags provide additional system-level status information beyond the basic central state.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.DccSpeedMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.DccSpeedMode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.DccSpeedMode",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.DecoderMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.DecoderMode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.DecoderMode",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.DrivingDirection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.DrivingDirection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.DrivingDirection",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.BroadcastFlagsReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.BroadcastFlagsReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.BroadcastFlagsReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.ConnectionChangedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.ConnectionChangedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.ConnectionChangedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.DecoderModeReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.DecoderModeReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.DecoderModeReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.ExtAccessoryInfoReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.ExtAccessoryInfoReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.ExtAccessoryInfoReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.FirmwareVersionReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.FirmwareVersionReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.FirmwareVersionReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.HardwareInfoEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.HardwareInfoEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.HardwareInfoEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.LocoInfoReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.LocoInfoReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.LocoInfoReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.ResponseReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.ResponseReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.ResponseReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.SerialNumberReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.SerialNumberReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.SerialNumberReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.SoftwareLockReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.SoftwareLockReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.SoftwareLockReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.StatusChangedReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.StatusChangedReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.StatusChangedReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.SystemStatusChangedReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.SystemStatusChangedReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.SystemStatusChangedReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.TurnoutInfoReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.TurnoutInfoReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.TurnoutInfoReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.UnknownCommandReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.UnknownCommandReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.UnknownCommandReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs.VersionReceivedEventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.EventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.EventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.EventArgs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.ExcAccessoryPayload.IExcAccessoryPayload.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.ExcAccessoryPayload.IExcAccessoryPayload.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.ExcAccessoryPayload.IExcAccessoryPayload",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.ExcAccessoryPayload.SwitchDecoderPayload.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.ExcAccessoryPayload.SwitchDecoderPayload.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.ExcAccessoryPayload.SwitchDecoderPayload",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Model.ExcAccessoryPayload.SwitchDecoderPayload.yml\" sourcestartlinenumber=\"1\">The 10836 Z21 switch DECODER interprets the payload as &quot;switch decoder with reception of switching time&quot;</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.ExcAccessoryPayload.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.ExcAccessoryPayload.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.ExcAccessoryPayload",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.FirmwareVersion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.FirmwareVersion.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.FirmwareVersion",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.FunctionToggleType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.FunctionToggleType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.FunctionToggleType",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.LocoFunctionData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.LocoFunctionData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.LocoFunctionData",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.LocoInfoData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.LocoInfoData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.LocoInfoData",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.SystemState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.SystemState.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.SystemState",
+      "Summary": "<p sourcefile=\"api/Z21.Core.Model.SystemState.yml\" sourcestartlinenumber=\"1\">Represents the complete system status of the Z21 central unit,\nincluding electrical measurements, temperature, and operational flags.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.Z21BroadcastFlags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.Z21BroadcastFlags.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.Z21BroadcastFlags",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.Z21Configuration.Defaults.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.Z21Configuration.Defaults.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.Z21Configuration.Defaults",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.Z21Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.Z21Configuration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.Z21Configuration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.Z21HardwareType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.Z21HardwareType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.Z21HardwareType",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.Z21SoftwareLock.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.Z21SoftwareLock.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model.Z21SoftwareLock",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Model.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Model.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Model",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Driving.ILocoInfoResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Driving.ILocoInfoResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Driving.ILocoInfoResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Driving.LocoInfoResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Driving.LocoInfoResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Driving.LocoInfoResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.Driving.LocoInfoResponseHandler.yml\" sourcestartlinenumber=\"1\">This message is sent from the Z21 to the clients in response to the command <xref href=\"Z21.Core.Command.Driving.GetLocoInfoCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p></p>It is also unsolicitedly sent to an associated client if the locomotive status has been changed by one of the (other) clients or handset controls and the associated client has activated the corresponding broadcast <xref href=\"Z21.Core.Model.Z21BroadcastFlags.DriveAndSwitchingMessages\" data-throw-if-not-resolved=\"false\"></xref> or <xref href=\"Z21.Core.Model.Z21BroadcastFlags.LocoInfoChangedMessages\" data-throw-if-not-resolved=\"false\"></xref> via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Driving.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Driving.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Driving",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.IZ21ResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.IZ21ResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.IZ21ResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Settings.AccessoryModeResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Settings.AccessoryModeResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Settings.AccessoryModeResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.Settings.AccessoryModeResponseHandler.yml\" sourcestartlinenumber=\"1\">Read the settings for a given accessory decoder address (&quot;Accessory Decoder&quot; RP-9.2.1).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Settings.IAccessoryModeResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Settings.IAccessoryModeResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Settings.IAccessoryModeResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Settings.ILocoModeResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Settings.ILocoModeResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Settings.ILocoModeResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Settings.LocoModeResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Settings.LocoModeResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Settings.LocoModeResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.Settings.LocoModeResponseHandler.yml\" sourcestartlinenumber=\"1\">Read the output format for a given locomotive address.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Settings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Settings.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Settings",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Switching.ExtAccessoryInfoResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Switching.ExtAccessoryInfoResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Switching.ExtAccessoryInfoResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.Switching.ExtAccessoryInfoResponseHandler.yml\" sourcestartlinenumber=\"1\">Reads the encoded extended accessory decoder state either because it was requested via <xref href=\"Z21.Core.Command.Switching.GetExtAccessoryInfoCommand\" data-throw-if-not-resolved=\"false\"></xref> or the accessory status has been changed by other clients or a handset controller and the client has activated the corresponding broadcast <xref href=\"Z21.Core.Model.Z21BroadcastFlags.DriveAndSwitchingMessages\" data-throw-if-not-resolved=\"false\"></xref> via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref> .</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Switching.IExtAccessoryInfoResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Switching.IExtAccessoryInfoResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Switching.IExtAccessoryInfoResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Switching.ITurnoutInfoResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Switching.ITurnoutInfoResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Switching.ITurnoutInfoResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Switching.TurnoutInfoResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Switching.TurnoutInfoResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Switching.TurnoutInfoResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.Switching.TurnoutInfoResponseHandler.yml\" sourcestartlinenumber=\"1\">This message is sent from the Z21 to the clients in response to the command <xref href=\"Z21.Core.Command.Switching.GetTurnoutInfoCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p></p> It is also sent to an associated client unsolicitedly if the function status has been changed by one of the (other) clients or a handset controller and the associated client has activated the corresponding broadcast <xref href=\"Z21.Core.Model.Z21BroadcastFlags.LocoInfoChangedMessages\" data-throw-if-not-resolved=\"false\"></xref> via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.Switching.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.Switching.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.Switching",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.BroadcastFlagsResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.BroadcastFlagsResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.BroadcastFlagsResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.BroadcastFlagsResponseHandler.yml\" sourcestartlinenumber=\"1\">Reading the broadcast flags in the Z21.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.FirmwareVersionResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.FirmwareVersionResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.FirmwareVersionResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.FirmwareVersionResponseHandler.yml\" sourcestartlinenumber=\"1\">Reads the firmware version of the Z21 when requested with <xref href=\"Z21.Core.Command.SystemState.GetFirmwareVersionCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.HardwareInfoResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.HardwareInfoResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.HardwareInfoResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.HardwareInfoResponseHandler.yml\" sourcestartlinenumber=\"1\">Reads the hardware type and the firmware version of the Z21 when requested via <xref href=\"Z21.Core.Command.SystemState.GetHardwareInfoCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.IBroadcastFlagsResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.IBroadcastFlagsResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.IBroadcastFlagsResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.IFirmwareVersionResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.IFirmwareVersionResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.IFirmwareVersionResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.IHardwareInfoResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.IHardwareInfoResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.IHardwareInfoResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.ISerialNumberResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.ISerialNumberResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.ISerialNumberResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.ISoftwareLockResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.ISoftwareLockResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.ISoftwareLockResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.IStatusChangedResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.IStatusChangedResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.IStatusChangedResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.ISystemStateDataChangedResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.ISystemStateDataChangedResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.ISystemStateDataChangedResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.IUnknownCommandResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.IUnknownCommandResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.IUnknownCommandResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.IVersionResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.IVersionResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.IVersionResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.SerialNumberResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.SerialNumberResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.SerialNumberResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.SerialNumberResponseHandler.yml\" sourcestartlinenumber=\"1\">Reads the serial number of the Z21 when requested via <xref href=\"Z21.Core.Command.SystemState.GetSerialNumberCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.SoftwareLockResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.SoftwareLockResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.SoftwareLockResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.SoftwareLockResponseHandler.yml\" sourcestartlinenumber=\"1\">Reads the software feature scope of the Z21 when request via <xref href=\"Z21.Core.Command.SystemState.GetSoftwareLockCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.StatusChangedResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.StatusChangedResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.StatusChangedResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.StatusChangedResponseHandler.yml\" sourcestartlinenumber=\"1\">Reads the Z21 status when requested via <xref href=\"Z21.Core.Command.SystemState.GetStatusCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.SystemStateDataChangedResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.SystemStateDataChangedResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.SystemStateDataChangedResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.SystemStateDataChangedResponseHandler.yml\" sourcestartlinenumber=\"1\">Reports a change in the system status from the Z21 to the client either automatically when <xref href=\"Z21.Core.Model.Z21BroadcastFlags.SystemStateDataChangedMessages\" data-throw-if-not-resolved=\"false\"></xref> is set via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref> or when requested via <xref href=\"Z21.Core.Command.SystemState.GetSystemStateDataCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.IProgrammingModeResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.IProgrammingModeResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.TrackPower.IProgrammingModeResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.IStoppedResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.IStoppedResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.TrackPower.IStoppedResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.ITrackPowerOffResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.ITrackPowerOffResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.TrackPower.ITrackPowerOffResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.ITrackPowerOnResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.ITrackPowerOnResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.TrackPower.ITrackPowerOnResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.ITrackShortResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.ITrackShortResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.TrackPower.ITrackShortResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.ProgrammingModeResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.ProgrammingModeResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.TrackPower.ProgrammingModeResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.TrackPower.ProgrammingModeResponseHandler.yml\" sourcestartlinenumber=\"1\">The following packet is sent from the Z21 to the registered clients if the Z21 has been put into CV programming mode via LAN_X_CV_READ or LAN_X_CV_WRITE</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.StoppedResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.StoppedResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.TrackPower.StoppedResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.TrackPower.StoppedResponseHandler.yml\" sourcestartlinenumber=\"1\">The following packet is sent from the Z21 to the registered clients when a client has sent <xref href=\"Z21.Core.Command.SystemState.TrackPower.SetStopCommand\" data-throw-if-not-resolved=\"false\"></xref> or the emergency stop was triggered by some input device (multiMaus) and the relevant client has activated the corresponding broadcast the corresponding broadcast <xref href=\"Z21.Core.Model.Z21BroadcastFlags.LocoInfoChangedMessages\" data-throw-if-not-resolved=\"false\"></xref> via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.TrackPowerOffResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.TrackPowerOffResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.TrackPower.TrackPowerOffResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.TrackPower.TrackPowerOffResponseHandler.yml\" sourcestartlinenumber=\"1\">The following packet is sent from the Z21 to the registered clients when a client has sent command <xref href=\"Z21.Core.Command.SystemState.TrackPower.SetTrackPowerOffCommand\" data-throw-if-not-resolved=\"false\"></xref>&gt; or the track voltage has been switched off by some input device (multiMaus) and the relevant client has activated the corresponding broadcast <xref href=\"Z21.Core.Model.Z21BroadcastFlags.LocoInfoChangedMessages\" data-throw-if-not-resolved=\"false\"></xref> via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.TrackPowerOnResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.TrackPowerOnResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.TrackPower.TrackPowerOnResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.TrackPower.TrackPowerOnResponseHandler.yml\" sourcestartlinenumber=\"1\">The following packet is sent from the Z21 to the registered clients when a client has sent command <xref href=\"Z21.Core.Command.SystemState.TrackPower.SetTrackPowerOnCommand\" data-throw-if-not-resolved=\"false\"></xref>&gt; or the track voltage has been switched on by some input device (multiMaus) and the relevant client has activated the corresponding broadcast <xref href=\"Z21.Core.Model.Z21BroadcastFlags.LocoInfoChangedMessages\" data-throw-if-not-resolved=\"false\"></xref> via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.TrackShortResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.TrackShortResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.TrackPower.TrackShortResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.TrackPower.TrackShortResponseHandler.yml\" sourcestartlinenumber=\"1\">The following packet is sent from the Z21 to the registered clients if a short circuit has occurred and the relevant client has activated the corresponding broadcast <xref href=\"Z21.Core.Model.Z21BroadcastFlags.LocoInfoChangedMessages\" data-throw-if-not-resolved=\"false\"></xref> via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.TrackPower.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.TrackPower",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.UnknownCommandResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.UnknownCommandResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.UnknownCommandResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.UnknownCommandResponseHandler.yml\" sourcestartlinenumber=\"1\">The following packet is sent from the Z21 to the client in response to an invalid request.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.VersionResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.VersionResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState.VersionResponseHandler",
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.SystemState.VersionResponseHandler.yml\" sourcestartlinenumber=\"1\">Reads the X-Bus version of the Z21 when requested via <xref href=\"Z21.Core.Command.SystemState.GetVersionCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.SystemState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.SystemState.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler.SystemState",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseParser.CapabilitiesResponseParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseParser.CapabilitiesResponseParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseParser.CapabilitiesResponseParser",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseParser.CentralStateExResponseParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseParser.CentralStateExResponseParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseParser.CentralStateExResponseParser",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseParser.CentralStateResponseParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseParser.CentralStateResponseParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseParser.CentralStateResponseParser",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseParser.ICapabilitiesResponseParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseParser.ICapabilitiesResponseParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseParser.ICapabilitiesResponseParser",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseParser.ICentralStateExResponseParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseParser.ICentralStateExResponseParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseParser.ICentralStateExResponseParser",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseParser.ICentralStateResponseParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseParser.ICentralStateResponseParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseParser.ICentralStateResponseParser",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseParser.ISystemStateResponseParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseParser.ISystemStateResponseParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseParser.ISystemStateResponseParser",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseParser.IZ21ResponseParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseParser.IZ21ResponseParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseParser.IZ21ResponseParser",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseParser.SystemStateResponseParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseParser.SystemStateResponseParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseParser.SystemStateResponseParser",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.ResponseParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.ResponseParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.ResponseParser",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Z21Client.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Z21Client.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Z21Client",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.DependencyInjection.Z21DependencyInjectionExtension.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.DependencyInjection.Z21DependencyInjectionExtension",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.DependencyInjection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.DependencyInjection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.DependencyInjection",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Extension.StructExtension.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Extension.StructExtension.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Extension.StructExtension",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Extension.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Extension.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Extension",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Transport.IZ21Transport.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Transport.IZ21Transport.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Transport.IZ21Transport",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Transport.Z21Transport.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Transport.Z21Transport.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Transport.Z21Transport",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Transport.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Transport.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Transport",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
