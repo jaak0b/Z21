@@ -1,0 +1,33 @@
+name: Publish NuGet Packages
+
+on:
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
+
+jobs:
+  publish:
+    if: |
+      github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download NuGet packages from Build workflow
+      uses: actions/download-artifact@v4
+      with:
+        name: nuget-package-${{ github.event.workflow_run.head_commit.message }}
+        path: ./nupkgs
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Push packages to NuGet
+      run: |
+        for pkg in ./nupkgs/*.nupkg; do
+          dotnet nuget push "$pkg" \
+            --api-key ${{ secrets.NUGET_API_KEY }} \
+            --source https://api.nuget.org/v3/index.json
+        done
