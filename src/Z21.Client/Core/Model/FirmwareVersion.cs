@@ -35,7 +35,5 @@ namespace Z21.Core.Model
     public static bool operator ==(FirmwareVersion left, FirmwareVersion right) => left.Equals(right);
 
     public static bool operator !=(FirmwareVersion left, FirmwareVersion right) => !left.Equals(right);
-
-
   }
 }
