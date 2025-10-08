@@ -37,7 +37,7 @@ namespace Z21.Core.ResponseHandler.SystemState
     {
       byte xbusVer = response[6];
       byte cmdStationId = response[7];
-      OnVersionReceived?.Invoke(this, new(xbusVer, cmdStationId));
+      OnVersionReceived?.Invoke(this, new(new(xbusVer >> 4, xbusVer & 0x0F), cmdStationId));
     }
   }
 }

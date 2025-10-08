@@ -1,4 +1,5 @@
-﻿using Z21.Core.Model.EventArgs;
+﻿using Z21.Core.Model;
+using Z21.Core.Model.EventArgs;
 using Z21.Core.ResponseHandler;
 using Z21.Core.ResponseHandler.SystemState;
 
@@ -37,29 +38,28 @@ namespace Z21.UnitTest.Core.ResponseHandler.SystemState
     [Test]
     public void Handle_ValidResponse_RaisesEventWithCorrectArgs()
     {
-      byte[] response = [0x00, 0x00, 0x40, 0x00, 0x63, 0x21, 0xAA, 0xBB];
+      byte[] response = [0x00, 0x00, 0x40, 0x00, 0x63, 0x21, 0x43, 0xBB];
 
       VersionReceivedEventArgs? receivedArgs = null;
       VersionResponseHandler? handler = null;
       _handler.OnVersionReceived += (sender, args) =>
-                                         {
-                                           receivedArgs = args;
-                                           handler = sender as VersionResponseHandler;
-                                         };
+                                    {
+                                      receivedArgs = args;
+                                      handler = sender as VersionResponseHandler;
+                                    };
 
       _handler.Handle(response);
 
-      Assert.Multiple(
-                      () =>
+      Assert.Multiple(() =>
                       {
                         Assert.That(handler, Is.EqualTo(_handler));
                         Assert.That(receivedArgs, Is.Not.Null);
                       });
-      Assert.Multiple(
-                      () =>
+      Assert.Multiple(() =>
                       {
-                        Assert.That(receivedArgs!.XbusVer, Is.EqualTo(0xAA));
-                        Assert.That(receivedArgs.CmdstId, Is.EqualTo(0xBB));
+                        Assert.That(receivedArgs.FirmwareVersion, Is.Not.Null);
+                        Assert.That(receivedArgs.FirmwareVersion, Is.EqualTo(new FirmwareVersion(4, 3)));
+                        Assert.That(receivedArgs.CommandStationId, Is.EqualTo(0xBB));
                       });
     }
   }

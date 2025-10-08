@@ -1,9 +1,9 @@
 ﻿namespace Z21.Core.Model.EventArgs
 {
-  public class VersionReceivedEventArgs(int xbusVer, int cmdstId) : System.EventArgs
+  public class VersionReceivedEventArgs(FirmwareVersion firmwareVersion, int commandStationId) : System.EventArgs
   {
-    public int XbusVer { get; } = xbusVer;
+    public FirmwareVersion FirmwareVersion { get; } = firmwareVersion;
 
-    public int CmdstId { get; } = cmdstId;
+    public int CommandStationId { get; } = commandStationId;
   }
 }
