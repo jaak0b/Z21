@@ -1936,34 +1936,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Z21.Extension.StructExtension.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Z21.Extension.StructExtension.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Z21.Extension.StructExtension",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Z21.Extension.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Z21.Extension.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Z21.Extension",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Z21.Transport.IZ21Transport.yml",
       "output": {
         ".html": {

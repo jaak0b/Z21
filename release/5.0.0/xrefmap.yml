@@ -2358,15 +2358,15 @@ references:
   commentId: T:Z21.Core.Model.EventArgs.VersionReceivedEventArgs
   fullName: Z21.Core.Model.EventArgs.VersionReceivedEventArgs
   nameWithType: VersionReceivedEventArgs
-- uid: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.#ctor(System.Int32,System.Int32)
-  name: VersionReceivedEventArgs(int, int)
-  href: api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html#Z21_Core_Model_EventArgs_VersionReceivedEventArgs__ctor_System_Int32_System_Int32_
-  commentId: M:Z21.Core.Model.EventArgs.VersionReceivedEventArgs.#ctor(System.Int32,System.Int32)
-  name.vb: New(Integer, Integer)
-  fullName: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.VersionReceivedEventArgs(int, int)
-  fullName.vb: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.New(Integer, Integer)
-  nameWithType: VersionReceivedEventArgs.VersionReceivedEventArgs(int, int)
-  nameWithType.vb: VersionReceivedEventArgs.New(Integer, Integer)
+- uid: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.#ctor(Z21.Core.Model.FirmwareVersion,System.Int32)
+  name: VersionReceivedEventArgs(FirmwareVersion, int)
+  href: api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html#Z21_Core_Model_EventArgs_VersionReceivedEventArgs__ctor_Z21_Core_Model_FirmwareVersion_System_Int32_
+  commentId: M:Z21.Core.Model.EventArgs.VersionReceivedEventArgs.#ctor(Z21.Core.Model.FirmwareVersion,System.Int32)
+  name.vb: New(FirmwareVersion, Integer)
+  fullName: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.VersionReceivedEventArgs(Z21.Core.Model.FirmwareVersion, int)
+  fullName.vb: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.New(Z21.Core.Model.FirmwareVersion, Integer)
+  nameWithType: VersionReceivedEventArgs.VersionReceivedEventArgs(FirmwareVersion, int)
+  nameWithType.vb: VersionReceivedEventArgs.New(FirmwareVersion, Integer)
 - uid: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.#ctor*
   name: VersionReceivedEventArgs
   href: api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html#Z21_Core_Model_EventArgs_VersionReceivedEventArgs__ctor_
@@ -2377,32 +2377,32 @@ references:
   fullName.vb: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.New
   nameWithType: VersionReceivedEventArgs.VersionReceivedEventArgs
   nameWithType.vb: VersionReceivedEventArgs.New
-- uid: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CmdstId
-  name: CmdstId
-  href: api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html#Z21_Core_Model_EventArgs_VersionReceivedEventArgs_CmdstId
-  commentId: P:Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CmdstId
-  fullName: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CmdstId
-  nameWithType: VersionReceivedEventArgs.CmdstId
-- uid: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CmdstId*
-  name: CmdstId
-  href: api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html#Z21_Core_Model_EventArgs_VersionReceivedEventArgs_CmdstId_
-  commentId: Overload:Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CmdstId
+- uid: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CommandStationId
+  name: CommandStationId
+  href: api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html#Z21_Core_Model_EventArgs_VersionReceivedEventArgs_CommandStationId
+  commentId: P:Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CommandStationId
+  fullName: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CommandStationId
+  nameWithType: VersionReceivedEventArgs.CommandStationId
+- uid: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CommandStationId*
+  name: CommandStationId
+  href: api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html#Z21_Core_Model_EventArgs_VersionReceivedEventArgs_CommandStationId_
+  commentId: Overload:Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CommandStationId
   isSpec: "True"
-  fullName: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CmdstId
-  nameWithType: VersionReceivedEventArgs.CmdstId
-- uid: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.XbusVer
-  name: XbusVer
-  href: api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html#Z21_Core_Model_EventArgs_VersionReceivedEventArgs_XbusVer
-  commentId: P:Z21.Core.Model.EventArgs.VersionReceivedEventArgs.XbusVer
-  fullName: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.XbusVer
-  nameWithType: VersionReceivedEventArgs.XbusVer
-- uid: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.XbusVer*
-  name: XbusVer
-  href: api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html#Z21_Core_Model_EventArgs_VersionReceivedEventArgs_XbusVer_
-  commentId: Overload:Z21.Core.Model.EventArgs.VersionReceivedEventArgs.XbusVer
+  fullName: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.CommandStationId
+  nameWithType: VersionReceivedEventArgs.CommandStationId
+- uid: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.FirmwareVersion
+  name: FirmwareVersion
+  href: api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html#Z21_Core_Model_EventArgs_VersionReceivedEventArgs_FirmwareVersion
+  commentId: P:Z21.Core.Model.EventArgs.VersionReceivedEventArgs.FirmwareVersion
+  fullName: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.FirmwareVersion
+  nameWithType: VersionReceivedEventArgs.FirmwareVersion
+- uid: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.FirmwareVersion*
+  name: FirmwareVersion
+  href: api/Z21.Core.Model.EventArgs.VersionReceivedEventArgs.html#Z21_Core_Model_EventArgs_VersionReceivedEventArgs_FirmwareVersion_
+  commentId: Overload:Z21.Core.Model.EventArgs.VersionReceivedEventArgs.FirmwareVersion
   isSpec: "True"
-  fullName: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.XbusVer
-  nameWithType: VersionReceivedEventArgs.XbusVer
+  fullName: Z21.Core.Model.EventArgs.VersionReceivedEventArgs.FirmwareVersion
+  nameWithType: VersionReceivedEventArgs.FirmwareVersion
 - uid: Z21.Core.Model.ExcAccessoryPayload
   name: Z21.Core.Model.ExcAccessoryPayload
   href: api/Z21.Core.Model.ExcAccessoryPayload.html
@@ -2491,6 +2491,47 @@ references:
   fullName.vb: Z21.Core.Model.FirmwareVersion.New
   nameWithType: FirmwareVersion.FirmwareVersion
   nameWithType.vb: FirmwareVersion.New
+- uid: Z21.Core.Model.FirmwareVersion.CompareTo(Z21.Core.Model.FirmwareVersion)
+  name: CompareTo(FirmwareVersion?)
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_CompareTo_Z21_Core_Model_FirmwareVersion_
+  commentId: M:Z21.Core.Model.FirmwareVersion.CompareTo(Z21.Core.Model.FirmwareVersion)
+  name.vb: CompareTo(FirmwareVersion)
+  fullName: Z21.Core.Model.FirmwareVersion.CompareTo(Z21.Core.Model.FirmwareVersion?)
+  fullName.vb: Z21.Core.Model.FirmwareVersion.CompareTo(Z21.Core.Model.FirmwareVersion)
+  nameWithType: FirmwareVersion.CompareTo(FirmwareVersion?)
+  nameWithType.vb: FirmwareVersion.CompareTo(FirmwareVersion)
+- uid: Z21.Core.Model.FirmwareVersion.CompareTo*
+  name: CompareTo
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_CompareTo_
+  commentId: Overload:Z21.Core.Model.FirmwareVersion.CompareTo
+  isSpec: "True"
+  fullName: Z21.Core.Model.FirmwareVersion.CompareTo
+  nameWithType: FirmwareVersion.CompareTo
+- uid: Z21.Core.Model.FirmwareVersion.Equals(System.Object)
+  name: Equals(object?)
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_Equals_System_Object_
+  commentId: M:Z21.Core.Model.FirmwareVersion.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: Z21.Core.Model.FirmwareVersion.Equals(object?)
+  fullName.vb: Z21.Core.Model.FirmwareVersion.Equals(Object)
+  nameWithType: FirmwareVersion.Equals(object?)
+  nameWithType.vb: FirmwareVersion.Equals(Object)
+- uid: Z21.Core.Model.FirmwareVersion.Equals(Z21.Core.Model.FirmwareVersion)
+  name: Equals(FirmwareVersion?)
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_Equals_Z21_Core_Model_FirmwareVersion_
+  commentId: M:Z21.Core.Model.FirmwareVersion.Equals(Z21.Core.Model.FirmwareVersion)
+  name.vb: Equals(FirmwareVersion)
+  fullName: Z21.Core.Model.FirmwareVersion.Equals(Z21.Core.Model.FirmwareVersion?)
+  fullName.vb: Z21.Core.Model.FirmwareVersion.Equals(Z21.Core.Model.FirmwareVersion)
+  nameWithType: FirmwareVersion.Equals(FirmwareVersion?)
+  nameWithType.vb: FirmwareVersion.Equals(FirmwareVersion)
+- uid: Z21.Core.Model.FirmwareVersion.Equals*
+  name: Equals
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_Equals_
+  commentId: Overload:Z21.Core.Model.FirmwareVersion.Equals
+  isSpec: "True"
+  fullName: Z21.Core.Model.FirmwareVersion.Equals
+  nameWithType: FirmwareVersion.Equals
 - uid: Z21.Core.Model.FirmwareVersion.Firmware
   name: Firmware
   href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_Firmware
@@ -2504,6 +2545,19 @@ references:
   isSpec: "True"
   fullName: Z21.Core.Model.FirmwareVersion.Firmware
   nameWithType: FirmwareVersion.Firmware
+- uid: Z21.Core.Model.FirmwareVersion.GetHashCode
+  name: GetHashCode()
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_GetHashCode
+  commentId: M:Z21.Core.Model.FirmwareVersion.GetHashCode
+  fullName: Z21.Core.Model.FirmwareVersion.GetHashCode()
+  nameWithType: FirmwareVersion.GetHashCode()
+- uid: Z21.Core.Model.FirmwareVersion.GetHashCode*
+  name: GetHashCode
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_GetHashCode_
+  commentId: Overload:Z21.Core.Model.FirmwareVersion.GetHashCode
+  isSpec: "True"
+  fullName: Z21.Core.Model.FirmwareVersion.GetHashCode
+  nameWithType: FirmwareVersion.GetHashCode
 - uid: Z21.Core.Model.FirmwareVersion.Major
   name: Major
   href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_Major
@@ -2543,6 +2597,120 @@ references:
   isSpec: "True"
   fullName: Z21.Core.Model.FirmwareVersion.ToString
   nameWithType: FirmwareVersion.ToString
+- uid: Z21.Core.Model.FirmwareVersion.op_Equality(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name: operator ==(FirmwareVersion, FirmwareVersion)
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_Equality_Z21_Core_Model_FirmwareVersion_Z21_Core_Model_FirmwareVersion_
+  commentId: M:Z21.Core.Model.FirmwareVersion.op_Equality(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name.vb: =(FirmwareVersion, FirmwareVersion)
+  fullName: Z21.Core.Model.FirmwareVersion.operator ==(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  fullName.vb: Z21.Core.Model.FirmwareVersion.=(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  nameWithType: FirmwareVersion.operator ==(FirmwareVersion, FirmwareVersion)
+  nameWithType.vb: FirmwareVersion.=(FirmwareVersion, FirmwareVersion)
+- uid: Z21.Core.Model.FirmwareVersion.op_Equality*
+  name: operator ==
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_Equality_
+  commentId: Overload:Z21.Core.Model.FirmwareVersion.op_Equality
+  isSpec: "True"
+  name.vb: =
+  fullName: Z21.Core.Model.FirmwareVersion.operator ==
+  fullName.vb: Z21.Core.Model.FirmwareVersion.=
+  nameWithType: FirmwareVersion.operator ==
+  nameWithType.vb: FirmwareVersion.=
+- uid: Z21.Core.Model.FirmwareVersion.op_GreaterThan(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name: operator >(FirmwareVersion, FirmwareVersion)
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_GreaterThan_Z21_Core_Model_FirmwareVersion_Z21_Core_Model_FirmwareVersion_
+  commentId: M:Z21.Core.Model.FirmwareVersion.op_GreaterThan(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name.vb: '>(FirmwareVersion, FirmwareVersion)'
+  fullName: Z21.Core.Model.FirmwareVersion.operator >(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  fullName.vb: Z21.Core.Model.FirmwareVersion.>(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  nameWithType: FirmwareVersion.operator >(FirmwareVersion, FirmwareVersion)
+  nameWithType.vb: FirmwareVersion.>(FirmwareVersion, FirmwareVersion)
+- uid: Z21.Core.Model.FirmwareVersion.op_GreaterThan*
+  name: operator >
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_GreaterThan_
+  commentId: Overload:Z21.Core.Model.FirmwareVersion.op_GreaterThan
+  isSpec: "True"
+  name.vb: '>'
+  fullName: Z21.Core.Model.FirmwareVersion.operator >
+  fullName.vb: Z21.Core.Model.FirmwareVersion.>
+  nameWithType: FirmwareVersion.operator >
+  nameWithType.vb: FirmwareVersion.>
+- uid: Z21.Core.Model.FirmwareVersion.op_GreaterThanOrEqual(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name: operator >=(FirmwareVersion, FirmwareVersion)
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_GreaterThanOrEqual_Z21_Core_Model_FirmwareVersion_Z21_Core_Model_FirmwareVersion_
+  commentId: M:Z21.Core.Model.FirmwareVersion.op_GreaterThanOrEqual(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name.vb: '>=(FirmwareVersion, FirmwareVersion)'
+  fullName: Z21.Core.Model.FirmwareVersion.operator >=(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  fullName.vb: Z21.Core.Model.FirmwareVersion.>=(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  nameWithType: FirmwareVersion.operator >=(FirmwareVersion, FirmwareVersion)
+  nameWithType.vb: FirmwareVersion.>=(FirmwareVersion, FirmwareVersion)
+- uid: Z21.Core.Model.FirmwareVersion.op_GreaterThanOrEqual*
+  name: operator >=
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_GreaterThanOrEqual_
+  commentId: Overload:Z21.Core.Model.FirmwareVersion.op_GreaterThanOrEqual
+  isSpec: "True"
+  name.vb: '>='
+  fullName: Z21.Core.Model.FirmwareVersion.operator >=
+  fullName.vb: Z21.Core.Model.FirmwareVersion.>=
+  nameWithType: FirmwareVersion.operator >=
+  nameWithType.vb: FirmwareVersion.>=
+- uid: Z21.Core.Model.FirmwareVersion.op_Inequality(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name: operator !=(FirmwareVersion, FirmwareVersion)
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_Inequality_Z21_Core_Model_FirmwareVersion_Z21_Core_Model_FirmwareVersion_
+  commentId: M:Z21.Core.Model.FirmwareVersion.op_Inequality(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name.vb: <>(FirmwareVersion, FirmwareVersion)
+  fullName: Z21.Core.Model.FirmwareVersion.operator !=(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  fullName.vb: Z21.Core.Model.FirmwareVersion.<>(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  nameWithType: FirmwareVersion.operator !=(FirmwareVersion, FirmwareVersion)
+  nameWithType.vb: FirmwareVersion.<>(FirmwareVersion, FirmwareVersion)
+- uid: Z21.Core.Model.FirmwareVersion.op_Inequality*
+  name: operator !=
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_Inequality_
+  commentId: Overload:Z21.Core.Model.FirmwareVersion.op_Inequality
+  isSpec: "True"
+  name.vb: <>
+  fullName: Z21.Core.Model.FirmwareVersion.operator !=
+  fullName.vb: Z21.Core.Model.FirmwareVersion.<>
+  nameWithType: FirmwareVersion.operator !=
+  nameWithType.vb: FirmwareVersion.<>
+- uid: Z21.Core.Model.FirmwareVersion.op_LessThan(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name: operator <(FirmwareVersion, FirmwareVersion)
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_LessThan_Z21_Core_Model_FirmwareVersion_Z21_Core_Model_FirmwareVersion_
+  commentId: M:Z21.Core.Model.FirmwareVersion.op_LessThan(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name.vb: <(FirmwareVersion, FirmwareVersion)
+  fullName: Z21.Core.Model.FirmwareVersion.operator <(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  fullName.vb: Z21.Core.Model.FirmwareVersion.<(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  nameWithType: FirmwareVersion.operator <(FirmwareVersion, FirmwareVersion)
+  nameWithType.vb: FirmwareVersion.<(FirmwareVersion, FirmwareVersion)
+- uid: Z21.Core.Model.FirmwareVersion.op_LessThan*
+  name: operator <
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_LessThan_
+  commentId: Overload:Z21.Core.Model.FirmwareVersion.op_LessThan
+  isSpec: "True"
+  name.vb: <
+  fullName: Z21.Core.Model.FirmwareVersion.operator <
+  fullName.vb: Z21.Core.Model.FirmwareVersion.<
+  nameWithType: FirmwareVersion.operator <
+  nameWithType.vb: FirmwareVersion.<
+- uid: Z21.Core.Model.FirmwareVersion.op_LessThanOrEqual(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name: operator <=(FirmwareVersion, FirmwareVersion)
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_LessThanOrEqual_Z21_Core_Model_FirmwareVersion_Z21_Core_Model_FirmwareVersion_
+  commentId: M:Z21.Core.Model.FirmwareVersion.op_LessThanOrEqual(Z21.Core.Model.FirmwareVersion,Z21.Core.Model.FirmwareVersion)
+  name.vb: <=(FirmwareVersion, FirmwareVersion)
+  fullName: Z21.Core.Model.FirmwareVersion.operator <=(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  fullName.vb: Z21.Core.Model.FirmwareVersion.<=(Z21.Core.Model.FirmwareVersion, Z21.Core.Model.FirmwareVersion)
+  nameWithType: FirmwareVersion.operator <=(FirmwareVersion, FirmwareVersion)
+  nameWithType.vb: FirmwareVersion.<=(FirmwareVersion, FirmwareVersion)
+- uid: Z21.Core.Model.FirmwareVersion.op_LessThanOrEqual*
+  name: operator <=
+  href: api/Z21.Core.Model.FirmwareVersion.html#Z21_Core_Model_FirmwareVersion_op_LessThanOrEqual_
+  commentId: Overload:Z21.Core.Model.FirmwareVersion.op_LessThanOrEqual
+  isSpec: "True"
+  name.vb: <=
+  fullName: Z21.Core.Model.FirmwareVersion.operator <=
+  fullName.vb: Z21.Core.Model.FirmwareVersion.<=
+  nameWithType: FirmwareVersion.operator <=
+  nameWithType.vb: FirmwareVersion.<=
 - uid: Z21.Core.Model.FunctionToggleType
   name: FunctionToggleType
   href: api/Z21.Core.Model.FunctionToggleType.html
@@ -4999,34 +5167,6 @@ references:
   isSpec: "True"
   fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.ConfigureZ21Client
   nameWithType: Z21DependencyInjectionExtension.ConfigureZ21Client
-- uid: Z21.Extension
-  name: Z21.Extension
-  href: api/Z21.Extension.html
-  commentId: N:Z21.Extension
-  fullName: Z21.Extension
-  nameWithType: Z21.Extension
-- uid: Z21.Extension.StructExtension
-  name: StructExtension
-  href: api/Z21.Extension.StructExtension.html
-  commentId: T:Z21.Extension.StructExtension
-  fullName: Z21.Extension.StructExtension
-  nameWithType: StructExtension
-- uid: Z21.Extension.StructExtension.IsSet(System.UInt32,System.UInt32)
-  name: IsSet(uint, uint)
-  href: api/Z21.Extension.StructExtension.html#Z21_Extension_StructExtension_IsSet_System_UInt32_System_UInt32_
-  commentId: M:Z21.Extension.StructExtension.IsSet(System.UInt32,System.UInt32)
-  name.vb: IsSet(UInteger, UInteger)
-  fullName: Z21.Extension.StructExtension.IsSet(uint, uint)
-  fullName.vb: Z21.Extension.StructExtension.IsSet(UInteger, UInteger)
-  nameWithType: StructExtension.IsSet(uint, uint)
-  nameWithType.vb: StructExtension.IsSet(UInteger, UInteger)
-- uid: Z21.Extension.StructExtension.IsSet*
-  name: IsSet
-  href: api/Z21.Extension.StructExtension.html#Z21_Extension_StructExtension_IsSet_
-  commentId: Overload:Z21.Extension.StructExtension.IsSet
-  isSpec: "True"
-  fullName: Z21.Extension.StructExtension.IsSet
-  nameWithType: StructExtension.IsSet
 - uid: Z21.Transport
   name: Z21.Transport
   href: api/Z21.Transport.html
