@@ -27,7 +27,7 @@ The official documentation of the protocol can be downloaded from the ROCO homep
     - Switching ✅
  
 ## Getting Started
-Get started by downloading the provided nuget [Z21](https://www.nuget.org/packages/Z21/) package. To register the Z21 client use the [Z21.DependencyInjection](https://www.nuget.org/packages/Z21.DependencyInjection/) nuget package.
+Get started by downloading the provided [Z21](https://www.nuget.org/packages/Z21/) nuget package. Dependency injection is nativly supported with the provided [Z21.DependencyInjection](https://www.nuget.org/packages/Z21.DependencyInjection/) nuget package.
 
 ### Commands
 All Commands can be found in the Z21.Core.Command namespace. 
