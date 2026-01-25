@@ -5,7 +5,7 @@
       "src": [
         {
           "src": "../src",
-       "files": [
+          "files": [
             "Z21.Client/Z21.Client.csproj",
             "Z21.DependencyInjection/Z21.DependencyInjection.csproj"
           ]
@@ -14,13 +14,23 @@
       "dest": "api"
     }
   ],
+  "globalMetadata": {
+    "_appTitle": "Z21 API Documentation",
+    "_enableSearch": true
+  },
   "build": {
     "content": [
       {
-        "files": ["api/**.yml", "toc.yml"]
+        "files": [
+          "index.md",
+          "api/**.yml",
+          "toc.yml"
+        ]
       },
       {
-        "files": ["articles/**.md"]
+        "files": [
+          "articles/**.md"
+        ]
       }
     ],
     "dest": "_site"
