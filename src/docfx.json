@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../src",
+       "files": [
+            "Z21.Client/Z21.Client.csproj",
+            "Z21.DependencyInjection/Z21.DependencyInjection.csproj"
+          ]
+        }
+      ],
+      "dest": "api"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": ["api/**.yml", "toc.yml"]
+      },
+      {
+        "files": ["articles/**.md"]
+      }
+    ],
+    "dest": "_site"
+  }
+}

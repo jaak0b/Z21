@@ -1,0 +1,84 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Required for GitVersion to access full commit history
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Setup GitVersion
+      uses: GitTools/actions/gitversion/setup@v0.9.10
+      with:
+        versionSpec: '5.x'
+
+    - name: Run GitVersion
+      id: gitversion
+      uses: GitTools/actions/gitversion/execute@v0.9.10
+        
+    - name: Restore dependencies
+      run: dotnet restore src/Z21.sln
+    
+    - name: Build for testing (Debug)
+      run: dotnet build src/Z21.sln --no-restore /p:Version=${{ steps.gitversion.outputs.semVer }}
+      
+    - name: Test
+      run: dotnet test src/Z21.sln --no-build --verbosity normal
+
+    - name: Build for packaging (Release)
+      run: dotnet build src/Z21.sln --no-restore --configuration Release /p:Version=${{ steps.gitversion.outputs.semVer }}
+                      
+    - name: Tag commit with GitVersion
+      if: github.event_name == 'push'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git tag v${{ steps.gitversion.outputs.semVer }}
+        git push origin v${{ steps.gitversion.outputs.semVer }}
+        
+    - name: Pack Z21.sln NuGet package
+      run: |
+        dotnet pack src/Z21.sln --no-build --configuration Release \
+          /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} \
+          /p:Version=${{ steps.gitversion.outputs.semVer }} \
+          --output ./nupkgs
+
+    - name: Pack Z21.DependencyInjection NuGet package
+      run: |
+        dotnet pack src/Z21.DependencyInjection/Z21.DependencyInjection.csproj --no-build --configuration Release \
+          /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} \
+          /p:Version=${{ steps.gitversion.outputs.semVer }} \
+          --output ./nupkgs
+
+    - name: Check commit message
+      id: commitcheck
+      run: |
+        echo "commit_message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+
+    - name: Push packages to NuGet
+      if: |
+        github.ref == 'refs/heads/main' ||
+        (startsWith(github.ref, 'refs/heads/release/') &&
+         contains(steps.commitcheck.outputs.commit_message, '[publishnuget]'))
+      run: |
+        for pkg in ./nupkgs/*.nupkg; do
+          dotnet nuget push "$pkg" \
+            --api-key ${{ secrets.NUGET_API_KEY }} \
+            --source https://api.nuget.org/v3/index.json
+        done
