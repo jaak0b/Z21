@@ -49,7 +49,7 @@ This is important if certain actions should happen at the same time (i.e. contro
 ### Dependency Injection
 > [!IMPORTANT]
 > While this library works without dependency injection, DI is still recommend as it makes usage of this library much easier.
-Z21.DependencyInjection provides extension methods to register all required classes directly in the container.
+[Z21.DependencyInjection](https://www.nuget.org/packages/Z21.DependencyInjection/) provides extension methods to register all required classes directly in the container.
 
 ```csharp
     services.ConfigureZ21Client(Z21Configuration.Defaults.IpEndPoint);
