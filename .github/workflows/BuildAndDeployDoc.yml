@@ -2,30 +2,17 @@ name: Github Pages
 
 on:
   push:
-    branches: [ "release/**", "main" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "release/**", "main" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Extract Version
-        id: vars
-        run: |
-          RAW_REF="${GITHUB_REF#refs/heads/}"
-          if [[ "$RAW_REF" == "main" ]]; then
-            echo "version=" >> $GITHUB_OUTPUT
-          else
-            VERSION="${RAW_REF#release/}"
-            CLEAN_VERSION=$(echo "$VERSION" | cut -d'-' -f1)
-            echo "version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
-          fi
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
@@ -38,17 +25,9 @@ jobs:
       - name: Build Docs
         run: docfx src/docfx.json
 
-      - name: Deploy to GitHub Pages (main)
-        if: github.ref == 'refs/heads/main'
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./src/_site
-
-      - name: Deploy to GitHub Pages (release)
-        if: startsWith(github.ref, 'refs/heads/release/')
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./src/_site
-          destination_dir: ${{ steps.vars.outputs.version }}
+          destination_dir: .
