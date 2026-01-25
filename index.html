@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Z21    </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Z21    ">
+    
+    
+      <link rel="shortcut icon" href="favicon.ico">
+      <link rel="stylesheet" href="styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="styles/docfx.css">
+      <link rel="stylesheet" href="styles/main.css">
+      <meta property="docfx:navrel" content="">
+      <meta property="docfx:tocrel" content="">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="z21-build-github-pages-mutation-testing">Z21 <a href="https://github.com/Jakob-Eichberger/Z21/actions/workflows/Build.yml"><img src="https://github.com/Jakob-Eichberger/Z21/actions/workflows/Build.yml/badge.svg" alt="Build"></a> <a href="https://github.com/Jakob-Eichberger/Z21/actions/workflows/BuildAndDeployDoc.yml"><img src="https://github.com/Jakob-Eichberger/Z21/actions/workflows/BuildAndDeployDoc.yml/badge.svg" alt="Github Pages"></a> <a href="https://github.com/Jakob-Eichberger/Z21/actions/workflows/MutationTesting.yml"><img src="https://github.com/Jakob-Eichberger/Z21/actions/workflows/MutationTesting.yml/badge.svg" alt="Mutation Testing"></a></h1>
+
+<img src="https://github.com/ZIMO-Elektronik/Z21/raw/master/data/images/logo.png" width="15%" align="right">
+<p>The ROCO Z21 is a command station with support for LocoNet, R-Bus and XpressNet devices. It has an open LAN interface with a well-documented protocol that has been continuously developed since then. This C# library of the same name contains platform-independent code for the client-side (i.e. the part that runs on a computer/smart phone) implementation of the protocol.</p>
+<h2 id="protocol">Protocol</h2>
+<p>The official documentation of the protocol can be downloaded from the ROCO homepage in English and German.</p>
+<table>
+<thead>
+<tr>
+<th>English</th>
+<th>German</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.z21.eu/media/Kwc_Basic_DownloadTag_Component/root-en-main_47-1652-959-downloadTag-download/default/d559b9cf/1628743384/z21-lan-protokoll-en.pdf">Z21 LAN protocol V1.13</a></td>
+<td><a href="https://www.z21.eu/media/Kwc_Basic_DownloadTag_Component/47-1652-959-downloadTag/default/69bad87e/1699290251/z21-lan-protokoll.pdf">Z21 LAN Protokoll V1.13</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="features">Features</h2>
+<ul>
+<li>Platform-independent</li>
+<li>Lightweight</li>
+<li>SOLID and event-driven architecture - Allowing you to expand the library to your liking.</li>
+<li>Fully unit and mutation tested</li>
+<li>Supports dependency injection out of the box via Z21.DependencyInjection.</li>
+<li>Fine grained command/response handler interfaces with great documentation.</li>
+<li>Right now the following features of the Z21 LAN protocoll are implemented. See below for a fully detailed list of all supported commands/responses.
+<ul>
+<li>System ✅</li>
+<li>Driving ✅</li>
+<li>Switching ✅</li>
+</ul>
+</li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<p>Get started by downloading the provided <a href="https://www.nuget.org/packages/Z21/">Z21</a> nuget package. Dependency injection is nativly supported with the provided <a href="https://www.nuget.org/packages/Z21.DependencyInjection/">Z21.DependencyInjection</a> nuget package.</p>
+<h3 id="commands">Commands</h3>
+<p>All Commands can be found in the Z21.Core.Command namespace.</p>
+<h4 id="sending-commands">Sending Commands</h4>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>When sending multiple commands at once take note of the maximum payload length. If the commands exceeds that length an exception will be thrown.</p>
+</div>
+<p>Create a command instance and hand it to the Z21Client.SendCommandsAsync method.
+Multiple commands can be send at the same time in the same UDP packet.
+This is important if certain actions should happen at the same time (i.e. controlling locos in a double traction where it is critical that both locomotives change speed at the same time)</p>
+<pre><code class="lang-csharp">    await Z21Client.SendCommandsAsync(new GetFirmwareVersionCommand()); // Sends a single command
+    await Z21Client.SendCommandsAsync(new GetFirmwareVersionCommand(), new GetLocoInfoCommand(locoAddress: 13); // Send multiple commands in a single UDP packet
+</code></pre>
+<h3 id="section"></h3>
+<h3 id="dependency-injection">Dependency Injection</h3>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>While this library works without dependency injection, DI is still recommend as it makes usage of this library much easier.
+<a href="https://www.nuget.org/packages/Z21.DependencyInjection/">Z21.DependencyInjection</a> provides extension methods to register all required classes directly in the container.</p>
+</div>
+<pre><code class="lang-csharp">    services.ConfigureZ21Client(Z21Configuration.Defaults.IpEndPoint);
+    services.AddZ21Client();
+    services.AddZ21Transport();
+    services.AddZ21ResponseParser();
+    services.AddZ21ResponseHandler();
+</code></pre>
+<h2 id="z21-commands">Z21 Commands</h2>
+<div class="NOTE">
+<h5>Note</h5>
+<p>✅ - Implemented and ready to use. ❌ - Not yet implemented.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Status</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LAN_GET_SERIAL_NUMBER</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_GET_CODE</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_GET_HWINFO</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_LOGOFF</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_GET_VERSION</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_GET_STATUS</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_SET_TRACK_POWER_OFF</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_SET_TRACK_POWER_ON</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_DCC_READ_REGISTER</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_CV_READ</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_DCC_WRITE_REGISTER</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_CV_WRITE</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_MM_WRITE_BYTE</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_GET_TURNOUT_INFO</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_GET_EXT_ACCESSORY_INFO</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_SET_TURNOUT</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_SET_EXT_ACCESSORY</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_SET_STOP</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_SET_LOCO_E_STOP</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_PURGE_LOCO</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_GET_LOCO_INFO</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_SET_LOCO_DRIVE</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_SET_LOCO_FUNCTION</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_SET_LOCO_FUNCTION_GROUP</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_SET_LOCO_BINARY_STATE</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_CV_POM_WRITE_BYTE</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_CV_POM_WRITE_BIT</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_CV_POM_READ_BYTE</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_CV_POM_ACCESSORY_WRITE_BYTE</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_CV_POM_ACCESSORY_WRITE_BIT</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_CV_POM_ACCESSORY_READ_BYTE</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_GET_FIRMWARE_VERSION</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_SET_BROADCASTFLAGS</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_GET_BROADCASTFLAGS</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_GET_LOCOMODE</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_SET_LOCOMODE</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_GET_TURNOUTMODE</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_SET_TURNOUTMODE</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_RMBUS_GETDATA</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_RMBUS_PROGRAMMODULE</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_SYSTEMSTATE_GETDATA</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_RAILCOM_GETDATA</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_LOCONET_FROM_LAN</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_LOCONET_DISPATCH_ADDR</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_LOCONET_DETECTOR</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_CAN_DETECTOR</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_CAN_DEVICE_GET_DESCRIPTION</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_CAN_DEVICE_SET_DESCRIPTION</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_CAN_BOOSTER_SET_TRACKPOWER</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_FAST_CLOCK_CONTROL</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_FAST_CLOCK_SETTINGS_GET</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_FAST_CLOCK_SETTINGS_SET</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_BOOSTER_SET_POWER</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_BOOSTER_GET_DESCRIPTION</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_BOOSTER_SET_DESCRIPTION</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_BOOSTER_SYSTEMSTATE_GETDATA</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_DECODER_GET_DESCRIPTION</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_DECODER_SET_DESCRIPTION</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_DECODER_SYSTEMSTATE_GETDATA</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_ZLINK_GET_HWINFO</td>
+<td>❌</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="z21-responses">Z21 Responses</h2>
+<div class="NOTE">
+<h5>Note</h5>
+<p>✅ - Implemented and ready to use. ❌ - Not yet implemented.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Response</th>
+<th>Status</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LAN_GET_SERIAL_NUMBER</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_GET_CODE</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_GET_HWINFO</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_TURNOUT_INFO</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_EXT_ACCESSORY_INFO</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_BC_TRACK_POWER_OFF</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_BC_TRACK_POWER_ON</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_BC_PROGRAMMING_MODE</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_BC_TRACK_SHORT_CIRCUIT</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_CV_NACK_SC</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_CV_NACK</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_UNKNOWN_COMMAND</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_STATUS_CHANGED</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_GET_VERSION</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_CV_RESULT</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_BC_STOPPED</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_LOCO_INFO</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_X_GET_FIRMWARE_VERSION</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_GET_BROADCASTFLAGS</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_GET_LOCOMODE</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_GET_TURNOUTMODE</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_RMBUS_DATACHANGED</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_SYSTEMSTATE_DATACHANGED</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_RAILCOM_DATACHANGED</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_LOCONET_Z21_RX</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_LOCONET_Z21_TX</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_LOCONET_FROM_LAN</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_LOCONET_DISPATCH_ADDR</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_LOCONET_DETECTOR</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_CAN_DETECTOR</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_CAN_DEVICE_GET_DESCRIPTION</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_CAN_BOOSTER_SYSTEMSTATE_CHGD</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_FAST_CLOCK_DATA</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_FAST_CLOCK_SETTINGS_GET</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_BOOSTER_GET_DESCRIPTION</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_BOOSTER_SYSTEMSTATE_DATACHANGED</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_DECODER_GET_DESCRIPTION</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_DECODER_SYSTEMSTATE_DATACHANGED</td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>LAN_ZLINK_GET_HWINFO</td>
+<td>❌</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="contributing">Contributing</h2>
+<p>Contributions are welcome! If you encounter any issues or have suggestions, please open an issue or submit a pull request.</p>
+<h2 id="license">License</h2>
+<p>This project is licensed under the GPL-3.0 license - see the LICENSE file for details.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Jakob-Eichberger/Z21/blob/main/src/index.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>
