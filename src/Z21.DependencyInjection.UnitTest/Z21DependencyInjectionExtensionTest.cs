@@ -7,13 +7,11 @@ namespace Z21.DependencyInjection.UnitTest
   public class Z21DependencyInjectionExtensionTest
   {
     [Test]
-    public void AddZ21ResponseHandler_SameInstanceIsRegisteredForAllInterfaces()
+    public void AddZ21_WithZ21ResponseHandlers_SameInstanceIsRegisteredForAllInterfaces()
     {
       ServiceCollection services = new();
-      services.AddZ21ResponseParser();
-      services.AddZ21ResponseHandler();
+      services.AddZ21();
       ServiceProvider serviceProvider = services.BuildServiceProvider();
-
 
       ISerialNumberResponseHandler implementation =
         serviceProvider.GetRequiredService<SerialNumberResponseHandler>();

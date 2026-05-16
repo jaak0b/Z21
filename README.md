@@ -46,18 +46,33 @@ This is important if certain actions should happen at the same time (i.e. contro
 
 ###
 
-### Dependency Injection
+### Autofac
 > [!IMPORTANT]
-> While this library works without dependency injection, DI is still recommend as it makes usage of this library much easier.
-[Z21.DependencyInjection](https://www.nuget.org/packages/Z21.DependencyInjection/) provides extension methods to register all required classes directly in the container.
+> While this library works without Autofac, Autofac is still recommend as it makes usage of this library much easier.
+[Z21.Autofac](https://www.nuget.org/packages/Z21.Autofac/) provides extension methods to register all required classes directly in the container.
 
 ```csharp
-    services.ConfigureZ21Client(Z21Configuration.Defaults.IpEndPoint);
-    services.AddZ21Client();
-    services.AddZ21Transport();
-    services.AddZ21ResponseParser();
-    services.AddZ21ResponseHandler();
+    var builder = new ContainerBuilder();
+    builder.AddZ21();
+    var container = builder.Build();     
 ```
+
+### Dependency Injection
+Dependency Injection is supported natively via [Z21.DependencyInjection](https://www.nuget.org/packages/Z21.DependencyInjection/) and requires the use of hosted services.
+Z21 registers background components that must run inside the .NET Generic Host lifecycle.
+
+A minimal setup looks like this: 
+```csharp
+    var host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices(services =>
+    {
+        services.AddZ21();
+    })
+    .Build();
+
+    await host.RunAsync();
+```
+The host is responsible for starting all Z21‑related hosted services and managing their lifetime.
     
 ## Z21 Commands
 
