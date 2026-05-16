@@ -73,16 +73,9 @@ jobs:
           /p:Version=${{ steps.gitversion.outputs.semVer }} \
           --output ./nupkgs
 
-    - name: Check commit message
-      id: commitcheck
-      run: |
-        echo "commit_message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
-
     - name: Push packages to NuGet
       if: |
-        github.ref == 'refs/heads/main' ||
-        (startsWith(github.ref, 'refs/heads/release/') &&
-         contains(steps.commitcheck.outputs.commit_message, '[publishnuget]'))
+        github.ref == 'refs/heads/main'
       run: |
         for pkg in ./nupkgs/*.nupkg; do
           dotnet nuget push "$pkg" \
