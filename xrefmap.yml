@@ -4970,13 +4970,13 @@ references:
   fullName: Z21.Core.Z21Client
   nameWithType: Z21Client
 - uid: Z21.Core.Z21Client.#ctor(Z21.Core.Model.Z21Configuration,Z21.Transport.IZ21Transport,System.Collections.Generic.IEnumerable{Z21.Core.ResponseHandler.IZ21ResponseHandler},Microsoft.Extensions.Logging.ILogger{Z21.Core.Z21Client})
-  name: Z21Client(Z21Configuration, IZ21Transport, IEnumerable<IZ21ResponseHandler>, ILogger<Z21Client>)
+  name: Z21Client(Z21Configuration, IZ21Transport, IEnumerable<IZ21ResponseHandler>, ILogger<Z21Client>?)
   href: api/Z21.Core.Z21Client.html#Z21_Core_Z21Client__ctor_Z21_Core_Model_Z21Configuration_Z21_Transport_IZ21Transport_System_Collections_Generic_IEnumerable_Z21_Core_ResponseHandler_IZ21ResponseHandler__Microsoft_Extensions_Logging_ILogger_Z21_Core_Z21Client__
   commentId: M:Z21.Core.Z21Client.#ctor(Z21.Core.Model.Z21Configuration,Z21.Transport.IZ21Transport,System.Collections.Generic.IEnumerable{Z21.Core.ResponseHandler.IZ21ResponseHandler},Microsoft.Extensions.Logging.ILogger{Z21.Core.Z21Client})
   name.vb: New(Z21Configuration, IZ21Transport, IEnumerable(Of IZ21ResponseHandler), ILogger(Of Z21Client))
-  fullName: Z21.Core.Z21Client.Z21Client(Z21.Core.Model.Z21Configuration, Z21.Transport.IZ21Transport, System.Collections.Generic.IEnumerable<Z21.Core.ResponseHandler.IZ21ResponseHandler>, Microsoft.Extensions.Logging.ILogger<Z21.Core.Z21Client>)
+  fullName: Z21.Core.Z21Client.Z21Client(Z21.Core.Model.Z21Configuration, Z21.Transport.IZ21Transport, System.Collections.Generic.IEnumerable<Z21.Core.ResponseHandler.IZ21ResponseHandler>, Microsoft.Extensions.Logging.ILogger<Z21.Core.Z21Client>?)
   fullName.vb: Z21.Core.Z21Client.New(Z21.Core.Model.Z21Configuration, Z21.Transport.IZ21Transport, System.Collections.Generic.IEnumerable(Of Z21.Core.ResponseHandler.IZ21ResponseHandler), Microsoft.Extensions.Logging.ILogger(Of Z21.Core.Z21Client))
-  nameWithType: Z21Client.Z21Client(Z21Configuration, IZ21Transport, IEnumerable<IZ21ResponseHandler>, ILogger<Z21Client>)
+  nameWithType: Z21Client.Z21Client(Z21Configuration, IZ21Transport, IEnumerable<IZ21ResponseHandler>, ILogger<Z21Client>?)
   nameWithType.vb: Z21Client.New(Z21Configuration, IZ21Transport, IEnumerable(Of IZ21ResponseHandler), ILogger(Of Z21Client))
 - uid: Z21.Core.Z21Client.#ctor*
   name: Z21Client
@@ -5099,6 +5099,22 @@ references:
   commentId: T:Z21.DependencyInjection.Z21DependencyInjectionExtension
   fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension
   nameWithType: Z21DependencyInjectionExtension
+- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.ServiceCollection,System.Net.IPEndPoint,System.Action{Z21.Core.Model.Z21Configuration})
+  name: AddZ21(ServiceCollection, IPEndPoint, Action<Z21Configuration>?)
+  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21_Microsoft_Extensions_DependencyInjection_ServiceCollection_System_Net_IPEndPoint_System_Action_Z21_Core_Model_Z21Configuration__
+  commentId: M:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.ServiceCollection,System.Net.IPEndPoint,System.Action{Z21.Core.Model.Z21Configuration})
+  name.vb: AddZ21(ServiceCollection, IPEndPoint, Action(Of Z21Configuration))
+  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.ServiceCollection, System.Net.IPEndPoint, System.Action<Z21.Core.Model.Z21Configuration>?)
+  fullName.vb: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.ServiceCollection, System.Net.IPEndPoint, System.Action(Of Z21.Core.Model.Z21Configuration))
+  nameWithType: Z21DependencyInjectionExtension.AddZ21(ServiceCollection, IPEndPoint, Action<Z21Configuration>?)
+  nameWithType.vb: Z21DependencyInjectionExtension.AddZ21(ServiceCollection, IPEndPoint, Action(Of Z21Configuration))
+- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21*
+  name: AddZ21
+  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21_
+  commentId: Overload:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21
+  isSpec: "True"
+  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21
+  nameWithType: Z21DependencyInjectionExtension.AddZ21
 - uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Client(Microsoft.Extensions.DependencyInjection.ServiceCollection)
   name: AddZ21Client(ServiceCollection)
   href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21Client_Microsoft_Extensions_DependencyInjection_ServiceCollection_
