@@ -125,7 +125,6 @@ This is important if certain actions should happen at the same time (i.e. contro
 <h3 id="dependency-injection">Dependency Injection</h3>
 <p>Dependency Injection is supported natively via <a href="https://www.nuget.org/packages/Z21.DependencyInjection/">Z21.DependencyInjection</a> and requires the use of hosted services.
 Z21 registers background components that must run inside the .NET Generic Host lifecycle.</p>
-<p>A minimal setup looks like this:</p>
 <pre><code class="lang-csharp">    var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =&gt;
     {
