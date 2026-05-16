@@ -20,7 +20,7 @@ namespace Z21.Core
     private bool _previousIsConnected;
     private DateTime _lastCommunication = DateTime.MinValue;
     private readonly Timer _connectionKeepAlive;
-    private readonly ILogger<Z21Client> _logger;
+    private readonly ILogger<Z21Client>? _logger;
     private readonly Z21Configuration _z21Configuration;
     private readonly IZ21Transport _transport;
     private readonly List<IZ21ResponseHandler> _handlers;
@@ -31,12 +31,11 @@ namespace Z21.Core
     public const int MaxUdpPayload = 1472;
 
     /// <exception cref="PlatformNotSupportedException">Thrown when system architecture is not little-endian.</exception>
-    public Z21Client(Z21Configuration z21Configuration, IZ21Transport z21Transport, IEnumerable<IZ21ResponseHandler> z21ResponseHandlers, ILogger<Z21Client> logger)
+    public Z21Client(Z21Configuration z21Configuration, IZ21Transport z21Transport, IEnumerable<IZ21ResponseHandler> z21ResponseHandlers, ILogger<Z21Client>? logger = null)
     {
-      ArgumentNullException.ThrowIfNull(z21Configuration, nameof(z21Configuration));
-      ArgumentNullException.ThrowIfNull(z21Transport, nameof(z21Transport));
-      ArgumentNullException.ThrowIfNull(z21ResponseHandlers, nameof(z21ResponseHandlers));
-      ArgumentNullException.ThrowIfNull(logger, nameof(logger));
+      ArgumentNullException.ThrowIfNull(z21Configuration);
+      ArgumentNullException.ThrowIfNull(z21Transport);
+      ArgumentNullException.ThrowIfNull(z21ResponseHandlers);
 
       if (!BitConverter.IsLittleEndian)
         throw new PlatformNotSupportedException("Z21Client requires little-endian architecture.");
@@ -61,7 +60,7 @@ namespace Z21.Core
 
     public async Task ConnectAsync()
     {
-      _logger.LogInformation("Z21Client trying to connect with {ClientIPEndPoint}.", _transport.Z21Configuration.ClientIPEndPoint);
+      _logger?.LogInformation("Z21Client trying to connect with {ClientIPEndPoint}.", _transport.Z21Configuration.ClientIPEndPoint);
       _transport.Connect();
       _connectionKeepAlive.Enabled = true;
       await SendCommandsAsync(new GetFirmwareVersionCommand());
@@ -75,7 +74,7 @@ namespace Z21.Core
         throw new ClientNotConnectedException();
 
       foreach (IZ21Command z21Command in z21Commands)
-        _logger.LogDebug("{commandName} sending {datagram} to Z21.", z21Command.Name, BitConverter.ToString(z21Command.Data));
+        _logger?.LogDebug("{commandName} sending {datagram} to Z21.", z21Command.Name, BitConverter.ToString(z21Command.Data));
 
       byte[] combinedPayload = z21Commands.SelectMany(z21Command => z21Command.Data).ToArray();
 
@@ -98,7 +97,7 @@ namespace Z21.Core
         {
           if (offset + 2 > datagram.Length)
           {
-            _logger.LogError("Incomplete DataLen field — discarding remainder. Data: {datagram}", BitConverter.ToString(datagram));
+            _logger?.LogError("Incomplete DataLen field — discarding remainder. Data: {datagram}", BitConverter.ToString(datagram));
             return cutDatagrams;
           }
 
@@ -106,19 +105,19 @@ namespace Z21.Core
 
           if (offset + dataLen > datagram.Length)
           {
-            _logger.LogError("Incomplete packet — discarding remainder. Data: {datagram}", BitConverter.ToString(datagram));
+            _logger?.LogError("Incomplete packet — discarding remainder. Data: {datagram}", BitConverter.ToString(datagram));
             return cutDatagrams;
           }
 
           byte[] cutDatagram = new byte[dataLen];
           Buffer.BlockCopy(datagram, offset, cutDatagram, 0, dataLen);
-          _logger.LogDebug("Received cut datagram: {cutDatagram}", BitConverter.ToString(cutDatagram));
+          _logger?.LogDebug("Received cut datagram: {cutDatagram}", BitConverter.ToString(cutDatagram));
           offset += dataLen;
           cutDatagrams.Add(cutDatagram);
         }
         catch (System.Exception exception)
         {
-          _logger.LogError(exception, "Failed to cut datagram — discarding remainder. Data: {datagram}", BitConverter.ToString(datagram));
+          _logger?.LogError(exception, "Failed to cut datagram — discarding remainder. Data: {datagram}", BitConverter.ToString(datagram));
           return cutDatagrams;
         }
       }
@@ -132,12 +131,12 @@ namespace Z21.Core
       {
         try
         {
-          _logger.LogDebug("{handlerName} handling datagram {cutDatagram}.", handler.Name, BitConverter.ToString(data));
+          _logger?.LogDebug("{handlerName} handling datagram {cutDatagram}.", handler.Name, BitConverter.ToString(data));
           handler.Handle(data);
         }
         catch (System.Exception exception)
         {
-          _logger.LogError(exception, "{handlerName} failed to handle datagram {cutDatagram}.", handler.Name, BitConverter.ToString(data));
+          _logger?.LogError(exception, "{handlerName} failed to handle datagram {cutDatagram}.", handler.Name, BitConverter.ToString(data));
         }
       }
     }
@@ -151,12 +150,12 @@ namespace Z21.Core
       {
         if (IsConnected)
         {
-          _logger.LogInformation("Z21Client connecting with {ClientIPEndPoint}.", _transport.Z21Configuration.ClientIPEndPoint);
+          _logger?.LogInformation("Z21Client connecting with {ClientIPEndPoint}.", _transport.Z21Configuration.ClientIPEndPoint);
           await LogOnAsync();
         }
         else
         {
-          _logger.LogInformation("Z21Client lost connection with {ClientIPEndPoint}.", _transport.Z21Configuration.ClientIPEndPoint);
+          _logger?.LogInformation("Z21Client lost connection with {ClientIPEndPoint}.", _transport.Z21Configuration.ClientIPEndPoint);
         }
         OnConnectionChanged?.Invoke(this, new(IsConnected));
       }

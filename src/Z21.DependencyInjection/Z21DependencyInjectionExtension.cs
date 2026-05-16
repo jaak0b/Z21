@@ -10,6 +10,16 @@ namespace Z21.DependencyInjection
 {
   public static class Z21DependencyInjectionExtension
   {
+    public static ServiceCollection AddZ21(this ServiceCollection services, IPEndPoint z21EndPoint, Action<Z21Configuration>? configurationAction = null)
+    {
+      services.ConfigureZ21Client(z21EndPoint, configurationAction);
+      services.AddZ21ResponseParser();
+      services.AddZ21ResponseHandler();
+      services.AddZ21Transport();
+      services.AddZ21Client();
+      return services;
+    }
+
     /// <summary>
     /// Discovers all Z21 response handlers and registers them in the <paramref name="services"/> collection.
     /// </summary>
@@ -24,7 +34,7 @@ namespace Z21.DependencyInjection
       foreach (Type handlerType in handlerTypes)
       {
         // Get all interfaces this class implements that are in the chain to IZ21ResponseHandler
-        List<Type> interfacesToRegister = handlerType.GetInterfaces().Where(type => baseInterface.IsAssignableFrom(type)).ToList();
+        List<Type> interfacesToRegister = handlerType.GetInterfaces().Where(baseInterface.IsAssignableFrom).ToList();
         services.AddSingleton(handlerType);
         foreach (Type serviceType in interfacesToRegister)
         {
