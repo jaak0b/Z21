@@ -61,7 +61,6 @@ This is important if certain actions should happen at the same time (i.e. contro
 Dependency Injection is supported natively via [Z21.DependencyInjection](https://www.nuget.org/packages/Z21.DependencyInjection/) and requires the use of hosted services.
 Z21 registers background components that must run inside the .NET Generic Host lifecycle.
 
-A minimal setup looks like this: 
 ```csharp
     var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
