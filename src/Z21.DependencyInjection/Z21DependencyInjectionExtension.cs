@@ -1,5 +1,4 @@
-﻿using System.Net;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Z21.Core;
 using Z21.Core.Model;
 using Z21.Core.ResponseHandler;
@@ -8,24 +7,27 @@ using Z21.Transport;
 
 namespace Z21.DependencyInjection
 {
+  
   public static class Z21DependencyInjectionExtension
   {
-    public static ServiceCollection AddZ21(this ServiceCollection services, IPEndPoint z21EndPoint, Action<Z21Configuration>? configurationAction = null)
+    public static IServiceCollection AddZ21(this IServiceCollection services, Action<Z21Configuration>? configurationAction = null)
     {
-      services.ConfigureZ21Client(z21EndPoint, configurationAction);
+      services.AddSingleton<IZ21Transport, Z21Transport>();
+      services.AddSingleton<IZ21Client, Z21Client>();
+      services.AddActivatedSingleton<Z21ResponseHandler>();
+      
+      services.ConfigureZ21Client(configurationAction);
       services.AddZ21ResponseParser();
       services.AddZ21ResponseHandler();
-      services.AddZ21Transport();
-      services.AddZ21Client();
       return services;
     }
 
     /// <summary>
     /// Discovers all Z21 response handlers and registers them in the <paramref name="services"/> collection.
     /// </summary>
-    public static ServiceCollection AddZ21ResponseHandler(this ServiceCollection services)
+    private static IServiceCollection AddZ21ResponseHandler(this IServiceCollection services)
     {
-      ArgumentNullException.ThrowIfNull(services, nameof(services));
+      ArgumentNullException.ThrowIfNull(services);
 
       Type baseInterface = typeof(IZ21ResponseHandler);
 
@@ -45,9 +47,9 @@ namespace Z21.DependencyInjection
       return services;
     }
 
-    public static ServiceCollection AddZ21ResponseParser(this ServiceCollection services)
+    private static IServiceCollection AddZ21ResponseParser(this IServiceCollection services)
     {
-      ArgumentNullException.ThrowIfNull(services, nameof(services));
+      ArgumentNullException.ThrowIfNull(services);
 
       Type baseInterface = typeof(IZ21ResponseParser);
 
@@ -67,26 +69,11 @@ namespace Z21.DependencyInjection
       return services;
     }
 
-    public static ServiceCollection AddZ21Transport(this ServiceCollection services) // TODO: Test
+    private static IServiceCollection ConfigureZ21Client(this IServiceCollection services, Action<Z21Configuration>? configurationAction = null) // TODO: Test
     {
-      ArgumentNullException.ThrowIfNull(services, nameof(services));
-      services.AddSingleton<IZ21Transport, Z21Transport>();
-      return services;
-    }
+      ArgumentNullException.ThrowIfNull(services);
 
-    public static ServiceCollection AddZ21Client(this ServiceCollection services) // TODO: Test
-    {
-      ArgumentNullException.ThrowIfNull(services, nameof(services));
-      services.AddSingleton<IZ21Client, Z21Client>();
-      return services;
-    }
-
-    public static ServiceCollection ConfigureZ21Client(this ServiceCollection services, IPEndPoint z21EndPoint, Action<Z21Configuration>? configurationAction = null) // TODO: Test
-    {
-      ArgumentNullException.ThrowIfNull(services, nameof(services));
-      ArgumentNullException.ThrowIfNull(z21EndPoint, nameof(z21EndPoint));
-
-      Z21Configuration configuration = new(z21EndPoint);
+      Z21Configuration configuration = new();
       configurationAction?.Invoke(configuration);
       services.AddSingleton(configuration);
 
