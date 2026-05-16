@@ -5294,6 +5294,19 @@ references:
   isSpec: "True"
   fullName: Z21.Transport.Z21Transport.Connect
   nameWithType: Z21Transport.Connect
+- uid: Z21.Transport.Z21Transport.Dispose
+  name: Dispose()
+  href: api/Z21.Transport.Z21Transport.html#Z21_Transport_Z21Transport_Dispose
+  commentId: M:Z21.Transport.Z21Transport.Dispose
+  fullName: Z21.Transport.Z21Transport.Dispose()
+  nameWithType: Z21Transport.Dispose()
+- uid: Z21.Transport.Z21Transport.Dispose*
+  name: Dispose
+  href: api/Z21.Transport.Z21Transport.html#Z21_Transport_Z21Transport_Dispose_
+  commentId: Overload:Z21.Transport.Z21Transport.Dispose
+  isSpec: "True"
+  fullName: Z21.Transport.Z21Transport.Dispose
+  nameWithType: Z21Transport.Dispose
 - uid: Z21.Transport.Z21Transport.IsConnected
   name: IsConnected
   href: api/Z21.Transport.Z21Transport.html#Z21_Transport_Z21Transport_IsConnected
