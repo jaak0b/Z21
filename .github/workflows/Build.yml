@@ -66,6 +66,13 @@ jobs:
           /p:Version=${{ steps.gitversion.outputs.semVer }} \
           --output ./nupkgs
 
+    - name: Pack Z21.Autofac NuGet package
+      run: |
+        dotnet pack src/Z21.Autofac/Z21.Autofac.csproj --no-build --configuration Release \
+          /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} \
+          /p:Version=${{ steps.gitversion.outputs.semVer }} \
+          --output ./nupkgs
+
     - name: Check commit message
       id: commitcheck
       run: |
