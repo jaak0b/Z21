@@ -107,19 +107,25 @@
     <pre><code class="lang-csharp hljs">public class SetTurnoutCommand : IZ21Command</code></pre>
   </div>
   <h5 id="Z21_Core_Command_Switching_SetTurnoutCommand_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>The <a class="xref" href="Z21.Core.Model.AccessoryState.html#Z21_Core_Model_AccessoryState_Activate">Activate</a> signal is output on the track until the LAN client sends the corresponding <a class="xref" href="Z21.Core.Model.AccessoryState.html#Z21_Core_Model_AccessoryState_Deactivate">Deactivate</a>&gt; signale.<p></p>Only one switching command may be active at the same time.
+  <div class="markdown level0 remarks"><pre><code>The &lt;xref href=&quot;Z21.Core.Model.AccessoryState.Activate&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt; signal is output on the track until the LAN client sends the corresponding &lt;xref href=&quot;Z21.Core.Model.AccessoryState.Deactivate&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt;&gt; signale.
+</code></pre>
+<p></p>
+Only one switching command may be active at the same time.
 </div>
   <h5 id="Z21_Core_Command_Switching_SetTurnoutCommand_examples"><strong>Examples</strong></h5>
-  <p>Wrong: Activate 1 -&gt; Active 2 -&gt; Deactivate 1 -&gt; Deactivate 2 <p></p>Correct: Activate 1 -&gt; Deactivate 1 -&gt; Activate 2 -&gt; Deactivate 2
+  <pre><code>Wrong: Activate 1 -&gt; Active 2 -&gt; Deactivate 1 -&gt; Deactivate 2 
+</code></pre>
+<p></p>
+Correct: Activate 1 -&gt; Deactivate 1 -&gt; Activate 2 -&gt; Deactivate 2
 
   <h3 id="constructors">Constructors
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Jakob-Eichberger/Z21/new/main/apiSpec/new?filename=Z21_Core_Command_Switching_SetTurnoutCommand__ctor_System_UInt16_Z21_Core_Model_AccessoryOutput_Z21_Core_Model_AccessoryState_System_Boolean_.md&amp;value=---%0Auid%3A%20Z21.Core.Command.Switching.SetTurnoutCommand.%23ctor(System.UInt16%2CZ21.Core.Model.AccessoryOutput%2CZ21.Core.Model.AccessoryState%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/jaak0b/Z21/new/main/apiSpec/new?filename=Z21_Core_Command_Switching_SetTurnoutCommand__ctor_System_UInt16_Z21_Core_Model_AccessoryOutput_Z21_Core_Model_AccessoryState_System_Boolean_.md&amp;value=---%0Auid%3A%20Z21.Core.Command.Switching.SetTurnoutCommand.%23ctor(System.UInt16%2CZ21.Core.Model.AccessoryOutput%2CZ21.Core.Model.AccessoryState%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Jakob-Eichberger/Z21/blob/main/src/Z21.Client/Core/Command/Switching/SetTurnoutCommand.cs/#L19">View Source</a>
+    <a href="https://github.com/jaak0b/Z21/blob/main/src/Z21.Client/Core/Command/Switching/SetTurnoutCommand.cs/#L19">View Source</a>
   </span>
   <a id="Z21_Core_Command_Switching_SetTurnoutCommand__ctor_" data-uid="Z21.Core.Command.Switching.SetTurnoutCommand.#ctor*"></a>
   <h4 id="Z21_Core_Command_Switching_SetTurnoutCommand__ctor_System_UInt16_Z21_Core_Model_AccessoryOutput_Z21_Core_Model_AccessoryState_System_Boolean_" data-uid="Z21.Core.Command.Switching.SetTurnoutCommand.#ctor(System.UInt16,Z21.Core.Model.AccessoryOutput,Z21.Core.Model.AccessoryState,System.Boolean)">SetTurnoutCommand(ushort, AccessoryOutput, AccessoryState, bool)</h4>
@@ -181,10 +187,10 @@
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Jakob-Eichberger/Z21/new/main/apiSpec/new?filename=Z21_Core_Command_Switching_SetTurnoutCommand_Data.md&amp;value=---%0Auid%3A%20Z21.Core.Command.Switching.SetTurnoutCommand.Data%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/jaak0b/Z21/new/main/apiSpec/new?filename=Z21_Core_Command_Switching_SetTurnoutCommand_Data.md&amp;value=---%0Auid%3A%20Z21.Core.Command.Switching.SetTurnoutCommand.Data%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Jakob-Eichberger/Z21/blob/main/src/Z21.Client/Core/Command/Switching/SetTurnoutCommand.cs/#L38">View Source</a>
+    <a href="https://github.com/jaak0b/Z21/blob/main/src/Z21.Client/Core/Command/Switching/SetTurnoutCommand.cs/#L38">View Source</a>
   </span>
   <a id="Z21_Core_Command_Switching_SetTurnoutCommand_Data_" data-uid="Z21.Core.Command.Switching.SetTurnoutCommand.Data*"></a>
   <h4 id="Z21_Core_Command_Switching_SetTurnoutCommand_Data" data-uid="Z21.Core.Command.Switching.SetTurnoutCommand.Data">Data</h4>
@@ -211,10 +217,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Jakob-Eichberger/Z21/new/main/apiSpec/new?filename=Z21_Core_Command_Switching_SetTurnoutCommand_Name.md&amp;value=---%0Auid%3A%20Z21.Core.Command.Switching.SetTurnoutCommand.Name%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/jaak0b/Z21/new/main/apiSpec/new?filename=Z21_Core_Command_Switching_SetTurnoutCommand_Name.md&amp;value=---%0Auid%3A%20Z21.Core.Command.Switching.SetTurnoutCommand.Name%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Jakob-Eichberger/Z21/blob/main/src/Z21.Client/Core/Command/Switching/SetTurnoutCommand.cs/#L36">View Source</a>
+    <a href="https://github.com/jaak0b/Z21/blob/main/src/Z21.Client/Core/Command/Switching/SetTurnoutCommand.cs/#L36">View Source</a>
   </span>
   <a id="Z21_Core_Command_Switching_SetTurnoutCommand_Name_" data-uid="Z21.Core.Command.Switching.SetTurnoutCommand.Name*"></a>
   <h4 id="Z21_Core_Command_Switching_SetTurnoutCommand_Name" data-uid="Z21.Core.Command.Switching.SetTurnoutCommand.Name">Name</h4>
@@ -253,10 +259,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Jakob-Eichberger/Z21/new/main/apiSpec/new?filename=Z21_Core_Command_Switching_SetTurnoutCommand.md&amp;value=---%0Auid%3A%20Z21.Core.Command.Switching.SetTurnoutCommand%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                    <a href="https://github.com/jaak0b/Z21/new/main/apiSpec/new?filename=Z21_Core_Command_Switching_SetTurnoutCommand.md&amp;value=---%0Auid%3A%20Z21.Core.Command.Switching.SetTurnoutCommand%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Jakob-Eichberger/Z21/blob/main/src/Z21.Client/Core/Command/Switching/SetTurnoutCommand.cs/#L16" class="contribution-link">View Source</a>
+                    <a href="https://github.com/jaak0b/Z21/blob/main/src/Z21.Client/Core/Command/Switching/SetTurnoutCommand.cs/#L16" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

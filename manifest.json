@@ -1134,7 +1134,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Z21.Core.ResponseHandler.Driving.LocoInfoResponseHandler",
-      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.Driving.LocoInfoResponseHandler.yml\" sourcestartlinenumber=\"1\">This message is sent from the Z21 to the clients in response to the command <xref href=\"Z21.Core.Command.Driving.GetLocoInfoCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p></p>It is also unsolicitedly sent to an associated client if the locomotive status has been changed by one of the (other) clients or handset controls and the associated client has activated the corresponding broadcast <xref href=\"Z21.Core.Model.Z21BroadcastFlags.DriveAndSwitchingMessages\" data-throw-if-not-resolved=\"false\"></xref> or <xref href=\"Z21.Core.Model.Z21BroadcastFlags.LocoInfoChangedMessages\" data-throw-if-not-resolved=\"false\"></xref> via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+      "Summary": "<pre><code sourcefile=\"api/Z21.Core.ResponseHandler.Driving.LocoInfoResponseHandler.yml\" sourcestartlinenumber=\"1\">This message is sent from the Z21 to the clients in response to the command &lt;xref href=&quot;Z21.Core.Command.Driving.GetLocoInfoCommand&quot; data-throw-if-not-resolved=&quot;false&quot;&gt;&lt;/xref&gt;.\n\n&lt;p&gt;&lt;/p&gt;\n</code></pre>\n<p sourcefile=\"api/Z21.Core.ResponseHandler.Driving.LocoInfoResponseHandler.yml\" sourcestartlinenumber=\"4\">It is also unsolicitedly sent to an associated client if the locomotive status has been changed by one of the (other) clients or handset controls and the associated client has activated the corresponding broadcast <xref href=\"Z21.Core.Model.Z21BroadcastFlags.DriveAndSwitchingMessages\" data-throw-if-not-resolved=\"false\"></xref> or <xref href=\"Z21.Core.Model.Z21BroadcastFlags.LocoInfoChangedMessages\" data-throw-if-not-resolved=\"false\"></xref> via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1288,7 +1288,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Z21.Core.ResponseHandler.Switching.TurnoutInfoResponseHandler",
-      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.Switching.TurnoutInfoResponseHandler.yml\" sourcestartlinenumber=\"1\">This message is sent from the Z21 to the clients in response to the command <xref href=\"Z21.Core.Command.Switching.GetTurnoutInfoCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n<p></p> It is also sent to an associated client unsolicitedly if the function status has been changed by one of the (other) clients or a handset controller and the associated client has activated the corresponding broadcast <xref href=\"Z21.Core.Model.Z21BroadcastFlags.LocoInfoChangedMessages\" data-throw-if-not-resolved=\"false\"></xref> via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref>\n"
+      "Summary": "<p sourcefile=\"api/Z21.Core.ResponseHandler.Switching.TurnoutInfoResponseHandler.yml\" sourcestartlinenumber=\"1\">This message is sent from the Z21 to the clients in response to the command <xref href=\"Z21.Core.Command.Switching.GetTurnoutInfoCommand\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n   <p></p>\nIt is also sent to an associated client unsolicitedly if the function status has been changed by one of the (other) clients or a handset controller and the associated client has activated the corresponding broadcast <xref href=\"Z21.Core.Model.Z21BroadcastFlags.LocoInfoChangedMessages\" data-throw-if-not-resolved=\"false\"></xref> via <xref href=\"Z21.Core.Command.SystemState.SetBroadcastFlagsCommand\" data-throw-if-not-resolved=\"false\"></xref>\n"
     },
     {
       "type": "ManagedReference",
@@ -1980,11 +1980,11 @@
       "type": "Toc",
       "source_relative_path": "api/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/toc.html"
-        },
         ".json": {
           "relative_path": "api/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/toc.html"
         }
       },
       "version": ""
@@ -2003,11 +2003,11 @@
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "toc.html"
-        },
         ".json": {
           "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
         }
       },
       "version": ""
