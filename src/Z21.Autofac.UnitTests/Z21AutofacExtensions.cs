@@ -22,7 +22,7 @@ namespace Z21.Autofac.UnitTests
     public void AddZ21ResponseHandler_RegistersTypesCorrectly()
     {
       var endpoint = new IPEndPoint(IPAddress.Loopback, 21105);
-      var container = BuildContainer(containerBuilder => containerBuilder.AddZ21(endpoint));
+      using var container = BuildContainer(containerBuilder => containerBuilder.AddZ21(endpoint));
 
       var handler = container.Resolve<IHardwareInfoResponseHandler>();
       Assert.That(handler, Is.InstanceOf<HardwareInfoResponseHandler>());
@@ -36,7 +36,7 @@ namespace Z21.Autofac.UnitTests
     public void AddZ21ResponseParser_Registers_All_Parser_Types()
     {
       var endpoint = new IPEndPoint(IPAddress.Loopback, 21105);
-      var container = BuildContainer(containerBuilder => containerBuilder.AddZ21(endpoint));
+      using var container = BuildContainer(containerBuilder => containerBuilder.AddZ21(endpoint));
       
       var baseInterface = typeof(IZ21ResponseParser);
       var parserTypes = baseInterface.Assembly
@@ -65,13 +65,13 @@ namespace Z21.Autofac.UnitTests
     public void AddZ21Transport_Registers_Transport_As_Singleton()
     {
       var endpoint = new IPEndPoint(IPAddress.Loopback, 21105);
-      var container = BuildContainer(containerBuilder => containerBuilder.AddZ21(endpoint));
+      using var container = BuildContainer(containerBuilder => containerBuilder.AddZ21(endpoint));
       
       var t1 = container.Resolve<IZ21Transport>();
       var t2 = container.Resolve<IZ21Transport>();
 
-      Assert.NotNull(t1);
-      Assert.NotNull(t2);
+      Assert.That(t1, Is.Not.Null);
+      Assert.That(t2, Is.Not.Null);
       Assert.That(t2, Is.SameAs(t1), "Transport should be singleton");
     }
 
@@ -79,7 +79,7 @@ namespace Z21.Autofac.UnitTests
     public void AddZ21Client_Registers_Client_As_Singleton()
     {
       var endpoint = new IPEndPoint(IPAddress.Loopback, 21105);
-      var container = BuildContainer(containerBuilder => containerBuilder.AddZ21(endpoint));
+      using var container = BuildContainer(containerBuilder => containerBuilder.AddZ21(endpoint));
 
       var c1 = container.Resolve<IZ21Client>();
       var c2 = container.Resolve<IZ21Client>();
@@ -93,7 +93,7 @@ namespace Z21.Autofac.UnitTests
     public void ConfigureZ21Client_Registers_Configuration_Instance()
     {
       var endpoint = new IPEndPoint(IPAddress.Loopback, 21105);
-      var container = BuildContainer(containerBuilder => containerBuilder.ConfigureZ21Client(endpoint, cfg => cfg.ResponseTime = TimeSpan.FromSeconds(5)));
+      using var container = BuildContainer(containerBuilder => containerBuilder.ConfigureZ21Client(endpoint, cfg => cfg.ResponseTime = TimeSpan.FromSeconds(5)));
 
       var config = container.Resolve<Z21Configuration>();
 

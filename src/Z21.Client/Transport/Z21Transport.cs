@@ -7,7 +7,7 @@ using Z21.Core.Model.EventArgs;
 
 namespace Z21.Transport
 {
-  public class Z21Transport : IZ21Transport
+  public class Z21Transport : IZ21Transport, IDisposable
   {
     public Z21Transport(Z21Configuration z21Configuration)
     {
@@ -50,6 +50,11 @@ namespace Z21.Transport
     {
       ArgumentNullException.ThrowIfNull(datagram, nameof(datagram));
       await UdpClient.SendAsync(datagram, datagram.GetLength(0));
+    }
+
+    public void Dispose()
+    {
+      UdpClient.Dispose();
     }
   }
 }
