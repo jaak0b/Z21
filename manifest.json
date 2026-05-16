@@ -536,6 +536,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Helper.DelayedAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Helper.DelayedAction.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Helper.DelayedAction",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Z21.Core.Helper.LocoSpeedHelper.yml",
       "output": {
         ".html": {
@@ -1890,6 +1904,34 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Z21.Core.Z21Client",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Z21ResponseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Z21ResponseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Z21ResponseHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Z21.Core.Z21Watchdog.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Z21.Core.Z21Watchdog.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Z21.Core.Z21Watchdog",
       "Summary": null
     },
     {

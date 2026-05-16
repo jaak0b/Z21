@@ -1336,6 +1336,44 @@ references:
   isSpec: "True"
   fullName: Z21.Core.Helper.AddressHelper.SplitLocoAddress
   nameWithType: AddressHelper.SplitLocoAddress
+- uid: Z21.Core.Helper.DelayedAction
+  name: DelayedAction
+  href: api/Z21.Core.Helper.DelayedAction.html
+  commentId: T:Z21.Core.Helper.DelayedAction
+  fullName: Z21.Core.Helper.DelayedAction
+  nameWithType: DelayedAction
+- uid: Z21.Core.Helper.DelayedAction.#ctor(System.TimeSpan,System.Func{System.Threading.Tasks.Task})
+  name: DelayedAction(TimeSpan, Func<Task>)
+  href: api/Z21.Core.Helper.DelayedAction.html#Z21_Core_Helper_DelayedAction__ctor_System_TimeSpan_System_Func_System_Threading_Tasks_Task__
+  commentId: M:Z21.Core.Helper.DelayedAction.#ctor(System.TimeSpan,System.Func{System.Threading.Tasks.Task})
+  name.vb: New(TimeSpan, Func(Of Task))
+  fullName: Z21.Core.Helper.DelayedAction.DelayedAction(System.TimeSpan, System.Func<System.Threading.Tasks.Task>)
+  fullName.vb: Z21.Core.Helper.DelayedAction.New(System.TimeSpan, System.Func(Of System.Threading.Tasks.Task))
+  nameWithType: DelayedAction.DelayedAction(TimeSpan, Func<Task>)
+  nameWithType.vb: DelayedAction.New(TimeSpan, Func(Of Task))
+- uid: Z21.Core.Helper.DelayedAction.#ctor*
+  name: DelayedAction
+  href: api/Z21.Core.Helper.DelayedAction.html#Z21_Core_Helper_DelayedAction__ctor_
+  commentId: Overload:Z21.Core.Helper.DelayedAction.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Z21.Core.Helper.DelayedAction.DelayedAction
+  fullName.vb: Z21.Core.Helper.DelayedAction.New
+  nameWithType: DelayedAction.DelayedAction
+  nameWithType.vb: DelayedAction.New
+- uid: Z21.Core.Helper.DelayedAction.Delay
+  name: Delay()
+  href: api/Z21.Core.Helper.DelayedAction.html#Z21_Core_Helper_DelayedAction_Delay
+  commentId: M:Z21.Core.Helper.DelayedAction.Delay
+  fullName: Z21.Core.Helper.DelayedAction.Delay()
+  nameWithType: DelayedAction.Delay()
+- uid: Z21.Core.Helper.DelayedAction.Delay*
+  name: Delay
+  href: api/Z21.Core.Helper.DelayedAction.html#Z21_Core_Helper_DelayedAction_Delay_
+  commentId: Overload:Z21.Core.Helper.DelayedAction.Delay
+  isSpec: "True"
+  fullName: Z21.Core.Helper.DelayedAction.Delay
+  nameWithType: DelayedAction.Delay
 - uid: Z21.Core.Helper.LocoSpeedHelper
   name: LocoSpeedHelper
   href: api/Z21.Core.Helper.LocoSpeedHelper.html
@@ -3112,25 +3150,6 @@ references:
   commentId: T:Z21.Core.Model.Z21Configuration
   fullName: Z21.Core.Model.Z21Configuration
   nameWithType: Z21Configuration
-- uid: Z21.Core.Model.Z21Configuration.#ctor(System.Net.IPEndPoint)
-  name: Z21Configuration(IPEndPoint)
-  href: api/Z21.Core.Model.Z21Configuration.html#Z21_Core_Model_Z21Configuration__ctor_System_Net_IPEndPoint_
-  commentId: M:Z21.Core.Model.Z21Configuration.#ctor(System.Net.IPEndPoint)
-  name.vb: New(IPEndPoint)
-  fullName: Z21.Core.Model.Z21Configuration.Z21Configuration(System.Net.IPEndPoint)
-  fullName.vb: Z21.Core.Model.Z21Configuration.New(System.Net.IPEndPoint)
-  nameWithType: Z21Configuration.Z21Configuration(IPEndPoint)
-  nameWithType.vb: Z21Configuration.New(IPEndPoint)
-- uid: Z21.Core.Model.Z21Configuration.#ctor*
-  name: Z21Configuration
-  href: api/Z21.Core.Model.Z21Configuration.html#Z21_Core_Model_Z21Configuration__ctor_
-  commentId: Overload:Z21.Core.Model.Z21Configuration.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Z21.Core.Model.Z21Configuration.Z21Configuration
-  fullName.vb: Z21.Core.Model.Z21Configuration.New
-  nameWithType: Z21Configuration.Z21Configuration
-  nameWithType.vb: Z21Configuration.New
 - uid: Z21.Core.Model.Z21Configuration.AllowNatTraversal
   name: AllowNatTraversal
   href: api/Z21.Core.Model.Z21Configuration.html#Z21_Core_Model_Z21Configuration_AllowNatTraversal
@@ -3170,25 +3189,24 @@ references:
   isSpec: "True"
   fullName: Z21.Core.Model.Z21Configuration.ClientIPEndPoint
   nameWithType: Z21Configuration.ClientIPEndPoint
-- uid: Z21.Core.Model.Z21Configuration.ConnectionKeepAliveCommandInterval
-  name: ConnectionKeepAliveCommandInterval
-  href: api/Z21.Core.Model.Z21Configuration.html#Z21_Core_Model_Z21Configuration_ConnectionKeepAliveCommandInterval
-  commentId: P:Z21.Core.Model.Z21Configuration.ConnectionKeepAliveCommandInterval
-  fullName: Z21.Core.Model.Z21Configuration.ConnectionKeepAliveCommandInterval
-  nameWithType: Z21Configuration.ConnectionKeepAliveCommandInterval
-- uid: Z21.Core.Model.Z21Configuration.ConnectionKeepAliveCommandInterval*
-  name: ConnectionKeepAliveCommandInterval
-  href: api/Z21.Core.Model.Z21Configuration.html#Z21_Core_Model_Z21Configuration_ConnectionKeepAliveCommandInterval_
-  commentId: Overload:Z21.Core.Model.Z21Configuration.ConnectionKeepAliveCommandInterval
-  isSpec: "True"
-  fullName: Z21.Core.Model.Z21Configuration.ConnectionKeepAliveCommandInterval
-  nameWithType: Z21Configuration.ConnectionKeepAliveCommandInterval
+- uid: Z21.Core.Model.Z21Configuration.ConfigurationUpdated
+  name: ConfigurationUpdated
+  href: api/Z21.Core.Model.Z21Configuration.html#Z21_Core_Model_Z21Configuration_ConfigurationUpdated
+  commentId: E:Z21.Core.Model.Z21Configuration.ConfigurationUpdated
+  fullName: Z21.Core.Model.Z21Configuration.ConfigurationUpdated
+  nameWithType: Z21Configuration.ConfigurationUpdated
 - uid: Z21.Core.Model.Z21Configuration.Defaults
   name: Z21Configuration.Defaults
   href: api/Z21.Core.Model.Z21Configuration.Defaults.html
   commentId: T:Z21.Core.Model.Z21Configuration.Defaults
   fullName: Z21.Core.Model.Z21Configuration.Defaults
   nameWithType: Z21Configuration.Defaults
+- uid: Z21.Core.Model.Z21Configuration.Defaults.BroadcastFlags
+  name: BroadcastFlags
+  href: api/Z21.Core.Model.Z21Configuration.Defaults.html#Z21_Core_Model_Z21Configuration_Defaults_BroadcastFlags
+  commentId: F:Z21.Core.Model.Z21Configuration.Defaults.BroadcastFlags
+  fullName: Z21.Core.Model.Z21Configuration.Defaults.BroadcastFlags
+  nameWithType: Z21Configuration.Defaults.BroadcastFlags
 - uid: Z21.Core.Model.Z21Configuration.Defaults.IpEndPoint
   name: IpEndPoint
   href: api/Z21.Core.Model.Z21Configuration.Defaults.html#Z21_Core_Model_Z21Configuration_Defaults_IpEndPoint
@@ -4969,15 +4987,15 @@ references:
   commentId: T:Z21.Core.Z21Client
   fullName: Z21.Core.Z21Client
   nameWithType: Z21Client
-- uid: Z21.Core.Z21Client.#ctor(Z21.Core.Model.Z21Configuration,Z21.Transport.IZ21Transport,System.Collections.Generic.IEnumerable{Z21.Core.ResponseHandler.IZ21ResponseHandler},Microsoft.Extensions.Logging.ILogger{Z21.Core.Z21Client})
-  name: Z21Client(Z21Configuration, IZ21Transport, IEnumerable<IZ21ResponseHandler>, ILogger<Z21Client>?)
-  href: api/Z21.Core.Z21Client.html#Z21_Core_Z21Client__ctor_Z21_Core_Model_Z21Configuration_Z21_Transport_IZ21Transport_System_Collections_Generic_IEnumerable_Z21_Core_ResponseHandler_IZ21ResponseHandler__Microsoft_Extensions_Logging_ILogger_Z21_Core_Z21Client__
-  commentId: M:Z21.Core.Z21Client.#ctor(Z21.Core.Model.Z21Configuration,Z21.Transport.IZ21Transport,System.Collections.Generic.IEnumerable{Z21.Core.ResponseHandler.IZ21ResponseHandler},Microsoft.Extensions.Logging.ILogger{Z21.Core.Z21Client})
-  name.vb: New(Z21Configuration, IZ21Transport, IEnumerable(Of IZ21ResponseHandler), ILogger(Of Z21Client))
-  fullName: Z21.Core.Z21Client.Z21Client(Z21.Core.Model.Z21Configuration, Z21.Transport.IZ21Transport, System.Collections.Generic.IEnumerable<Z21.Core.ResponseHandler.IZ21ResponseHandler>, Microsoft.Extensions.Logging.ILogger<Z21.Core.Z21Client>?)
-  fullName.vb: Z21.Core.Z21Client.New(Z21.Core.Model.Z21Configuration, Z21.Transport.IZ21Transport, System.Collections.Generic.IEnumerable(Of Z21.Core.ResponseHandler.IZ21ResponseHandler), Microsoft.Extensions.Logging.ILogger(Of Z21.Core.Z21Client))
-  nameWithType: Z21Client.Z21Client(Z21Configuration, IZ21Transport, IEnumerable<IZ21ResponseHandler>, ILogger<Z21Client>?)
-  nameWithType.vb: Z21Client.New(Z21Configuration, IZ21Transport, IEnumerable(Of IZ21ResponseHandler), ILogger(Of Z21Client))
+- uid: Z21.Core.Z21Client.#ctor(Z21.Core.Model.Z21Configuration,Z21.Transport.IZ21Transport,Microsoft.Extensions.Logging.ILogger{Z21.Core.Z21Client})
+  name: Z21Client(Z21Configuration, IZ21Transport, ILogger<Z21Client>?)
+  href: api/Z21.Core.Z21Client.html#Z21_Core_Z21Client__ctor_Z21_Core_Model_Z21Configuration_Z21_Transport_IZ21Transport_Microsoft_Extensions_Logging_ILogger_Z21_Core_Z21Client__
+  commentId: M:Z21.Core.Z21Client.#ctor(Z21.Core.Model.Z21Configuration,Z21.Transport.IZ21Transport,Microsoft.Extensions.Logging.ILogger{Z21.Core.Z21Client})
+  name.vb: New(Z21Configuration, IZ21Transport, ILogger(Of Z21Client))
+  fullName: Z21.Core.Z21Client.Z21Client(Z21.Core.Model.Z21Configuration, Z21.Transport.IZ21Transport, Microsoft.Extensions.Logging.ILogger<Z21.Core.Z21Client>?)
+  fullName.vb: Z21.Core.Z21Client.New(Z21.Core.Model.Z21Configuration, Z21.Transport.IZ21Transport, Microsoft.Extensions.Logging.ILogger(Of Z21.Core.Z21Client))
+  nameWithType: Z21Client.Z21Client(Z21Configuration, IZ21Transport, ILogger<Z21Client>?)
+  nameWithType.vb: Z21Client.New(Z21Configuration, IZ21Transport, ILogger(Of Z21Client))
 - uid: Z21.Core.Z21Client.#ctor*
   name: Z21Client
   href: api/Z21.Core.Z21Client.html#Z21_Core_Z21Client__ctor_
@@ -5001,38 +5019,6 @@ references:
   isSpec: "True"
   fullName: Z21.Core.Z21Client.ConnectAsync
   nameWithType: Z21Client.ConnectAsync
-- uid: Z21.Core.Z21Client.CutDatagram(System.Byte[])
-  name: CutDatagram(byte[])
-  href: api/Z21.Core.Z21Client.html#Z21_Core_Z21Client_CutDatagram_System_Byte___
-  commentId: M:Z21.Core.Z21Client.CutDatagram(System.Byte[])
-  name.vb: CutDatagram(Byte())
-  fullName: Z21.Core.Z21Client.CutDatagram(byte[])
-  fullName.vb: Z21.Core.Z21Client.CutDatagram(Byte())
-  nameWithType: Z21Client.CutDatagram(byte[])
-  nameWithType.vb: Z21Client.CutDatagram(Byte())
-- uid: Z21.Core.Z21Client.CutDatagram*
-  name: CutDatagram
-  href: api/Z21.Core.Z21Client.html#Z21_Core_Z21Client_CutDatagram_
-  commentId: Overload:Z21.Core.Z21Client.CutDatagram
-  isSpec: "True"
-  fullName: Z21.Core.Z21Client.CutDatagram
-  nameWithType: Z21Client.CutDatagram
-- uid: Z21.Core.Z21Client.HandleDatagram(System.Byte[])
-  name: HandleDatagram(byte[])
-  href: api/Z21.Core.Z21Client.html#Z21_Core_Z21Client_HandleDatagram_System_Byte___
-  commentId: M:Z21.Core.Z21Client.HandleDatagram(System.Byte[])
-  name.vb: HandleDatagram(Byte())
-  fullName: Z21.Core.Z21Client.HandleDatagram(byte[])
-  fullName.vb: Z21.Core.Z21Client.HandleDatagram(Byte())
-  nameWithType: Z21Client.HandleDatagram(byte[])
-  nameWithType.vb: Z21Client.HandleDatagram(Byte())
-- uid: Z21.Core.Z21Client.HandleDatagram*
-  name: HandleDatagram
-  href: api/Z21.Core.Z21Client.html#Z21_Core_Z21Client_HandleDatagram_
-  commentId: Overload:Z21.Core.Z21Client.HandleDatagram
-  isSpec: "True"
-  fullName: Z21.Core.Z21Client.HandleDatagram
-  nameWithType: Z21Client.HandleDatagram
 - uid: Z21.Core.Z21Client.IsConnected
   name: IsConnected
   href: api/Z21.Core.Z21Client.html#Z21_Core_Z21Client_IsConnected
@@ -5087,6 +5073,110 @@ references:
   isSpec: "True"
   fullName: Z21.Core.Z21Client.SendCommandsAsync
   nameWithType: Z21Client.SendCommandsAsync
+- uid: Z21.Core.Z21ResponseHandler
+  name: Z21ResponseHandler
+  href: api/Z21.Core.Z21ResponseHandler.html
+  commentId: T:Z21.Core.Z21ResponseHandler
+  fullName: Z21.Core.Z21ResponseHandler
+  nameWithType: Z21ResponseHandler
+- uid: Z21.Core.Z21ResponseHandler.#ctor(Z21.Transport.IZ21Transport,System.Collections.Generic.IEnumerable{Z21.Core.ResponseHandler.IZ21ResponseHandler},Microsoft.Extensions.Logging.ILogger{Z21.Core.Z21ResponseHandler})
+  name: Z21ResponseHandler(IZ21Transport, IEnumerable<IZ21ResponseHandler>, ILogger<Z21ResponseHandler>?)
+  href: api/Z21.Core.Z21ResponseHandler.html#Z21_Core_Z21ResponseHandler__ctor_Z21_Transport_IZ21Transport_System_Collections_Generic_IEnumerable_Z21_Core_ResponseHandler_IZ21ResponseHandler__Microsoft_Extensions_Logging_ILogger_Z21_Core_Z21ResponseHandler__
+  commentId: M:Z21.Core.Z21ResponseHandler.#ctor(Z21.Transport.IZ21Transport,System.Collections.Generic.IEnumerable{Z21.Core.ResponseHandler.IZ21ResponseHandler},Microsoft.Extensions.Logging.ILogger{Z21.Core.Z21ResponseHandler})
+  name.vb: New(IZ21Transport, IEnumerable(Of IZ21ResponseHandler), ILogger(Of Z21ResponseHandler))
+  fullName: Z21.Core.Z21ResponseHandler.Z21ResponseHandler(Z21.Transport.IZ21Transport, System.Collections.Generic.IEnumerable<Z21.Core.ResponseHandler.IZ21ResponseHandler>, Microsoft.Extensions.Logging.ILogger<Z21.Core.Z21ResponseHandler>?)
+  fullName.vb: Z21.Core.Z21ResponseHandler.New(Z21.Transport.IZ21Transport, System.Collections.Generic.IEnumerable(Of Z21.Core.ResponseHandler.IZ21ResponseHandler), Microsoft.Extensions.Logging.ILogger(Of Z21.Core.Z21ResponseHandler))
+  nameWithType: Z21ResponseHandler.Z21ResponseHandler(IZ21Transport, IEnumerable<IZ21ResponseHandler>, ILogger<Z21ResponseHandler>?)
+  nameWithType.vb: Z21ResponseHandler.New(IZ21Transport, IEnumerable(Of IZ21ResponseHandler), ILogger(Of Z21ResponseHandler))
+- uid: Z21.Core.Z21ResponseHandler.#ctor*
+  name: Z21ResponseHandler
+  href: api/Z21.Core.Z21ResponseHandler.html#Z21_Core_Z21ResponseHandler__ctor_
+  commentId: Overload:Z21.Core.Z21ResponseHandler.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Z21.Core.Z21ResponseHandler.Z21ResponseHandler
+  fullName.vb: Z21.Core.Z21ResponseHandler.New
+  nameWithType: Z21ResponseHandler.Z21ResponseHandler
+  nameWithType.vb: Z21ResponseHandler.New
+- uid: Z21.Core.Z21ResponseHandler.CutDatagram(System.Byte[])
+  name: CutDatagram(byte[])
+  href: api/Z21.Core.Z21ResponseHandler.html#Z21_Core_Z21ResponseHandler_CutDatagram_System_Byte___
+  commentId: M:Z21.Core.Z21ResponseHandler.CutDatagram(System.Byte[])
+  name.vb: CutDatagram(Byte())
+  fullName: Z21.Core.Z21ResponseHandler.CutDatagram(byte[])
+  fullName.vb: Z21.Core.Z21ResponseHandler.CutDatagram(Byte())
+  nameWithType: Z21ResponseHandler.CutDatagram(byte[])
+  nameWithType.vb: Z21ResponseHandler.CutDatagram(Byte())
+- uid: Z21.Core.Z21ResponseHandler.CutDatagram*
+  name: CutDatagram
+  href: api/Z21.Core.Z21ResponseHandler.html#Z21_Core_Z21ResponseHandler_CutDatagram_
+  commentId: Overload:Z21.Core.Z21ResponseHandler.CutDatagram
+  isSpec: "True"
+  fullName: Z21.Core.Z21ResponseHandler.CutDatagram
+  nameWithType: Z21ResponseHandler.CutDatagram
+- uid: Z21.Core.Z21ResponseHandler.HandleDatagram(System.Byte[])
+  name: HandleDatagram(byte[])
+  href: api/Z21.Core.Z21ResponseHandler.html#Z21_Core_Z21ResponseHandler_HandleDatagram_System_Byte___
+  commentId: M:Z21.Core.Z21ResponseHandler.HandleDatagram(System.Byte[])
+  name.vb: HandleDatagram(Byte())
+  fullName: Z21.Core.Z21ResponseHandler.HandleDatagram(byte[])
+  fullName.vb: Z21.Core.Z21ResponseHandler.HandleDatagram(Byte())
+  nameWithType: Z21ResponseHandler.HandleDatagram(byte[])
+  nameWithType.vb: Z21ResponseHandler.HandleDatagram(Byte())
+- uid: Z21.Core.Z21ResponseHandler.HandleDatagram*
+  name: HandleDatagram
+  href: api/Z21.Core.Z21ResponseHandler.html#Z21_Core_Z21ResponseHandler_HandleDatagram_
+  commentId: Overload:Z21.Core.Z21ResponseHandler.HandleDatagram
+  isSpec: "True"
+  fullName: Z21.Core.Z21ResponseHandler.HandleDatagram
+  nameWithType: Z21ResponseHandler.HandleDatagram
+- uid: Z21.Core.Z21ResponseHandler.Transport_OnResponseReceived(System.Object,Z21.Core.Model.EventArgs.ResponseReceivedEventArgs)
+  name: Transport_OnResponseReceived(object?, ResponseReceivedEventArgs)
+  href: api/Z21.Core.Z21ResponseHandler.html#Z21_Core_Z21ResponseHandler_Transport_OnResponseReceived_System_Object_Z21_Core_Model_EventArgs_ResponseReceivedEventArgs_
+  commentId: M:Z21.Core.Z21ResponseHandler.Transport_OnResponseReceived(System.Object,Z21.Core.Model.EventArgs.ResponseReceivedEventArgs)
+  name.vb: Transport_OnResponseReceived(Object, ResponseReceivedEventArgs)
+  fullName: Z21.Core.Z21ResponseHandler.Transport_OnResponseReceived(object?, Z21.Core.Model.EventArgs.ResponseReceivedEventArgs)
+  fullName.vb: Z21.Core.Z21ResponseHandler.Transport_OnResponseReceived(Object, Z21.Core.Model.EventArgs.ResponseReceivedEventArgs)
+  nameWithType: Z21ResponseHandler.Transport_OnResponseReceived(object?, ResponseReceivedEventArgs)
+  nameWithType.vb: Z21ResponseHandler.Transport_OnResponseReceived(Object, ResponseReceivedEventArgs)
+- uid: Z21.Core.Z21ResponseHandler.Transport_OnResponseReceived*
+  name: Transport_OnResponseReceived
+  href: api/Z21.Core.Z21ResponseHandler.html#Z21_Core_Z21ResponseHandler_Transport_OnResponseReceived_
+  commentId: Overload:Z21.Core.Z21ResponseHandler.Transport_OnResponseReceived
+  isSpec: "True"
+  fullName: Z21.Core.Z21ResponseHandler.Transport_OnResponseReceived
+  nameWithType: Z21ResponseHandler.Transport_OnResponseReceived
+- uid: Z21.Core.Z21Watchdog
+  name: Z21Watchdog
+  href: api/Z21.Core.Z21Watchdog.html
+  commentId: T:Z21.Core.Z21Watchdog
+  fullName: Z21.Core.Z21Watchdog
+  nameWithType: Z21Watchdog
+- uid: Z21.Core.Z21Watchdog.#ctor(Z21.Core.Model.Z21Configuration)
+  name: Z21Watchdog(Z21Configuration)
+  href: api/Z21.Core.Z21Watchdog.html#Z21_Core_Z21Watchdog__ctor_Z21_Core_Model_Z21Configuration_
+  commentId: M:Z21.Core.Z21Watchdog.#ctor(Z21.Core.Model.Z21Configuration)
+  name.vb: New(Z21Configuration)
+  fullName: Z21.Core.Z21Watchdog.Z21Watchdog(Z21.Core.Model.Z21Configuration)
+  fullName.vb: Z21.Core.Z21Watchdog.New(Z21.Core.Model.Z21Configuration)
+  nameWithType: Z21Watchdog.Z21Watchdog(Z21Configuration)
+  nameWithType.vb: Z21Watchdog.New(Z21Configuration)
+- uid: Z21.Core.Z21Watchdog.#ctor*
+  name: Z21Watchdog
+  href: api/Z21.Core.Z21Watchdog.html#Z21_Core_Z21Watchdog__ctor_
+  commentId: Overload:Z21.Core.Z21Watchdog.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Z21.Core.Z21Watchdog.Z21Watchdog
+  fullName.vb: Z21.Core.Z21Watchdog.New
+  nameWithType: Z21Watchdog.Z21Watchdog
+  nameWithType.vb: Z21Watchdog.New
+- uid: Z21.Core.Z21Watchdog.OnReachabilityChanged
+  name: OnReachabilityChanged
+  href: api/Z21.Core.Z21Watchdog.html#Z21_Core_Z21Watchdog_OnReachabilityChanged
+  commentId: E:Z21.Core.Z21Watchdog.OnReachabilityChanged
+  fullName: Z21.Core.Z21Watchdog.OnReachabilityChanged
+  nameWithType: Z21Watchdog.OnReachabilityChanged
 - uid: Z21.DependencyInjection
   name: Z21.DependencyInjection
   href: api/Z21.DependencyInjection.html
@@ -5099,15 +5189,15 @@ references:
   commentId: T:Z21.DependencyInjection.Z21DependencyInjectionExtension
   fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension
   nameWithType: Z21DependencyInjectionExtension
-- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.ServiceCollection,System.Net.IPEndPoint,System.Action{Z21.Core.Model.Z21Configuration})
-  name: AddZ21(ServiceCollection, IPEndPoint, Action<Z21Configuration>?)
-  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21_Microsoft_Extensions_DependencyInjection_ServiceCollection_System_Net_IPEndPoint_System_Action_Z21_Core_Model_Z21Configuration__
-  commentId: M:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.ServiceCollection,System.Net.IPEndPoint,System.Action{Z21.Core.Model.Z21Configuration})
-  name.vb: AddZ21(ServiceCollection, IPEndPoint, Action(Of Z21Configuration))
-  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.ServiceCollection, System.Net.IPEndPoint, System.Action<Z21.Core.Model.Z21Configuration>?)
-  fullName.vb: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.ServiceCollection, System.Net.IPEndPoint, System.Action(Of Z21.Core.Model.Z21Configuration))
-  nameWithType: Z21DependencyInjectionExtension.AddZ21(ServiceCollection, IPEndPoint, Action<Z21Configuration>?)
-  nameWithType.vb: Z21DependencyInjectionExtension.AddZ21(ServiceCollection, IPEndPoint, Action(Of Z21Configuration))
+- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Z21.Core.Model.Z21Configuration})
+  name: AddZ21(IServiceCollection, Action<Z21Configuration>?)
+  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Z21_Core_Model_Z21Configuration__
+  commentId: M:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Z21.Core.Model.Z21Configuration})
+  name.vb: AddZ21(IServiceCollection, Action(Of Z21Configuration))
+  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Action<Z21.Core.Model.Z21Configuration>?)
+  fullName.vb: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Action(Of Z21.Core.Model.Z21Configuration))
+  nameWithType: Z21DependencyInjectionExtension.AddZ21(IServiceCollection, Action<Z21Configuration>?)
+  nameWithType.vb: Z21DependencyInjectionExtension.AddZ21(IServiceCollection, Action(Of Z21Configuration))
 - uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21*
   name: AddZ21
   href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21_
@@ -5115,74 +5205,6 @@ references:
   isSpec: "True"
   fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21
   nameWithType: Z21DependencyInjectionExtension.AddZ21
-- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Client(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  name: AddZ21Client(ServiceCollection)
-  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21Client_Microsoft_Extensions_DependencyInjection_ServiceCollection_
-  commentId: M:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Client(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Client(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  nameWithType: Z21DependencyInjectionExtension.AddZ21Client(ServiceCollection)
-- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Client*
-  name: AddZ21Client
-  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21Client_
-  commentId: Overload:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Client
-  isSpec: "True"
-  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Client
-  nameWithType: Z21DependencyInjectionExtension.AddZ21Client
-- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseHandler(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  name: AddZ21ResponseHandler(ServiceCollection)
-  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21ResponseHandler_Microsoft_Extensions_DependencyInjection_ServiceCollection_
-  commentId: M:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseHandler(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseHandler(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  nameWithType: Z21DependencyInjectionExtension.AddZ21ResponseHandler(ServiceCollection)
-- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseHandler*
-  name: AddZ21ResponseHandler
-  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21ResponseHandler_
-  commentId: Overload:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseHandler
-  isSpec: "True"
-  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseHandler
-  nameWithType: Z21DependencyInjectionExtension.AddZ21ResponseHandler
-- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseParser(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  name: AddZ21ResponseParser(ServiceCollection)
-  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21ResponseParser_Microsoft_Extensions_DependencyInjection_ServiceCollection_
-  commentId: M:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseParser(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseParser(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  nameWithType: Z21DependencyInjectionExtension.AddZ21ResponseParser(ServiceCollection)
-- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseParser*
-  name: AddZ21ResponseParser
-  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21ResponseParser_
-  commentId: Overload:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseParser
-  isSpec: "True"
-  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21ResponseParser
-  nameWithType: Z21DependencyInjectionExtension.AddZ21ResponseParser
-- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Transport(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  name: AddZ21Transport(ServiceCollection)
-  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21Transport_Microsoft_Extensions_DependencyInjection_ServiceCollection_
-  commentId: M:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Transport(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Transport(Microsoft.Extensions.DependencyInjection.ServiceCollection)
-  nameWithType: Z21DependencyInjectionExtension.AddZ21Transport(ServiceCollection)
-- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Transport*
-  name: AddZ21Transport
-  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_AddZ21Transport_
-  commentId: Overload:Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Transport
-  isSpec: "True"
-  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.AddZ21Transport
-  nameWithType: Z21DependencyInjectionExtension.AddZ21Transport
-- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.ConfigureZ21Client(Microsoft.Extensions.DependencyInjection.ServiceCollection,System.Net.IPEndPoint,System.Action{Z21.Core.Model.Z21Configuration})
-  name: ConfigureZ21Client(ServiceCollection, IPEndPoint, Action<Z21Configuration>?)
-  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_ConfigureZ21Client_Microsoft_Extensions_DependencyInjection_ServiceCollection_System_Net_IPEndPoint_System_Action_Z21_Core_Model_Z21Configuration__
-  commentId: M:Z21.DependencyInjection.Z21DependencyInjectionExtension.ConfigureZ21Client(Microsoft.Extensions.DependencyInjection.ServiceCollection,System.Net.IPEndPoint,System.Action{Z21.Core.Model.Z21Configuration})
-  name.vb: ConfigureZ21Client(ServiceCollection, IPEndPoint, Action(Of Z21Configuration))
-  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.ConfigureZ21Client(Microsoft.Extensions.DependencyInjection.ServiceCollection, System.Net.IPEndPoint, System.Action<Z21.Core.Model.Z21Configuration>?)
-  fullName.vb: Z21.DependencyInjection.Z21DependencyInjectionExtension.ConfigureZ21Client(Microsoft.Extensions.DependencyInjection.ServiceCollection, System.Net.IPEndPoint, System.Action(Of Z21.Core.Model.Z21Configuration))
-  nameWithType: Z21DependencyInjectionExtension.ConfigureZ21Client(ServiceCollection, IPEndPoint, Action<Z21Configuration>?)
-  nameWithType.vb: Z21DependencyInjectionExtension.ConfigureZ21Client(ServiceCollection, IPEndPoint, Action(Of Z21Configuration))
-- uid: Z21.DependencyInjection.Z21DependencyInjectionExtension.ConfigureZ21Client*
-  name: ConfigureZ21Client
-  href: api/Z21.DependencyInjection.Z21DependencyInjectionExtension.html#Z21_DependencyInjection_Z21DependencyInjectionExtension_ConfigureZ21Client_
-  commentId: Overload:Z21.DependencyInjection.Z21DependencyInjectionExtension.ConfigureZ21Client
-  isSpec: "True"
-  fullName: Z21.DependencyInjection.Z21DependencyInjectionExtension.ConfigureZ21Client
-  nameWithType: Z21DependencyInjectionExtension.ConfigureZ21Client
 - uid: Z21.Transport
   name: Z21.Transport
   href: api/Z21.Transport.html
@@ -5342,19 +5364,6 @@ references:
   isSpec: "True"
   fullName: Z21.Transport.Z21Transport.SendAsync
   nameWithType: Z21Transport.SendAsync
-- uid: Z21.Transport.Z21Transport.UdpClient
-  name: UdpClient
-  href: api/Z21.Transport.Z21Transport.html#Z21_Transport_Z21Transport_UdpClient
-  commentId: P:Z21.Transport.Z21Transport.UdpClient
-  fullName: Z21.Transport.Z21Transport.UdpClient
-  nameWithType: Z21Transport.UdpClient
-- uid: Z21.Transport.Z21Transport.UdpClient*
-  name: UdpClient
-  href: api/Z21.Transport.Z21Transport.html#Z21_Transport_Z21Transport_UdpClient_
-  commentId: Overload:Z21.Transport.Z21Transport.UdpClient
-  isSpec: "True"
-  fullName: Z21.Transport.Z21Transport.UdpClient
-  nameWithType: Z21Transport.UdpClient
 - uid: Z21.Transport.Z21Transport.Z21Configuration
   name: Z21Configuration
   href: api/Z21.Transport.Z21Transport.html#Z21_Transport_Z21Transport_Z21Configuration

@@ -112,18 +112,30 @@ This is important if certain actions should happen at the same time (i.e. contro
     await Z21Client.SendCommandsAsync(new GetFirmwareVersionCommand(), new GetLocoInfoCommand(locoAddress: 13); // Send multiple commands in a single UDP packet
 </code></pre>
 <h3 id="section"></h3>
-<h3 id="dependency-injection">Dependency Injection</h3>
+<h3 id="autofac">Autofac</h3>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>While this library works without dependency injection, DI is still recommend as it makes usage of this library much easier.
-<a href="https://www.nuget.org/packages/Z21.DependencyInjection/">Z21.DependencyInjection</a> provides extension methods to register all required classes directly in the container.</p>
+<p>While this library works without Autofac, Autofac is still recommend as it makes usage of this library much easier.
+<a href="https://www.nuget.org/packages/Z21.Autofac/">Z21.Autofac</a> provides extension methods to register all required classes directly in the container.</p>
 </div>
-<pre><code class="lang-csharp">    services.ConfigureZ21Client(Z21Configuration.Defaults.IpEndPoint);
-    services.AddZ21Client();
-    services.AddZ21Transport();
-    services.AddZ21ResponseParser();
-    services.AddZ21ResponseHandler();
+<pre><code class="lang-csharp">    var builder = new ContainerBuilder();
+    builder.AddZ21();
+    var container = builder.Build();     
 </code></pre>
+<h3 id="dependency-injection">Dependency Injection</h3>
+<p>Dependency Injection is supported natively via <a href="https://www.nuget.org/packages/Z21.DependencyInjection/">Z21.DependencyInjection</a> and requires the use of hosted services.
+Z21 registers background components that must run inside the .NET Generic Host lifecycle.</p>
+<p>A minimal setup looks like this:</p>
+<pre><code class="lang-csharp">    var host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices(services =&gt;
+    {
+        services.AddZ21();
+    })
+    .Build();
+
+    await host.RunAsync();
+</code></pre>
+<p>The host is responsible for starting all Z21‑related hosted services and managing their lifetime.</p>
 <h2 id="z21-commands">Z21 Commands</h2>
 <div class="NOTE">
 <h5>Note</h5>
@@ -664,7 +676,7 @@ This is important if certain actions should happen at the same time (i.e. contro
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/jaak0b/Z21/blob/main/src/index.md/#L1" class="contribution-link">Edit this page</a>
+                    <a href="https://github.com/jaak0b/Z21/blob/2/merge/src/index.md/#L1" class="contribution-link">Edit this page</a>
                   </li>
                 </ul>
               </div>
