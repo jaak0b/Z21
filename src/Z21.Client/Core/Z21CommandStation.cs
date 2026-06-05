@@ -33,8 +33,9 @@ namespace Z21.Core
     private readonly Z21Options _options;
     private readonly DelayedAction _delayedKeepAliveAction;
     private readonly SemaphoreSlim _cvLock = new(1, 1);
+    private readonly CancellationTokenSource _disposeCts = new();
+    private volatile bool _disposed;
     private readonly ILogger<Z21CommandStation>? _logger;
-    private bool _disposed;
 
     /// <summary>
     /// IPv4 safe MTU for payload according to specification.
@@ -179,101 +180,90 @@ namespace Z21.Core
 
     public Task RequestStatusAsync() => SendCommandsAsync(Commands.Create<GetStatusCommand>());
 
-    public Task ReadCvAsync(ushort cvAddress) => SendCommandsAsync(Commands.Create<CvReadCommand>(cvAddress));
-
-    public Task WriteCvAsync(ushort cvAddress, byte value) => SendCommandsAsync(Commands.Create<CvWriteCommand>(cvAddress, value));
-
-    public async Task<byte> ReadCvAsync(ushort cvAddress, TimeSpan timeout)
+    public Task ReadCvAsync(ushort cvAddress)
     {
-      using CancellationTokenSource deadline = new(timeout);
-      await AcquireCvLockAsync(cvAddress, timeout, deadline.Token);
-      try
-      {
-        return await AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvReadCommand>(cvAddress)), deadline.Token, timeout);
-      }
-      finally
-      {
-        _cvLock.Release();
-      }
+      ThrowIfSafeCvOperationActive();
+      return SendCommandsAsync(Commands.Create<CvReadCommand>(cvAddress));
     }
 
-    public async Task WriteCvAsync(ushort cvAddress, byte value, TimeSpan timeout)
+    public Task WriteCvAsync(ushort cvAddress, byte value)
     {
-      using CancellationTokenSource deadline = new(timeout);
-      await AcquireCvLockAsync(cvAddress, timeout, deadline.Token);
-      try
-      {
-        await AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvWriteCommand>(cvAddress, value)), deadline.Token, timeout);
-      }
-      finally
-      {
-        _cvLock.Release();
-      }
+      ThrowIfSafeCvOperationActive();
+      return SendCommandsAsync(Commands.Create<CvWriteCommand>(cvAddress, value));
     }
 
-    public async Task<byte> ReadPomCvAsync(ushort locoAddress, ushort cvAddress, TimeSpan timeout)
-    {
-      using CancellationTokenSource deadline = new(timeout);
-      await AcquireCvLockAsync(cvAddress, timeout, deadline.Token);
-      try
-      {
-        return await AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvPomReadByteCommand>(locoAddress, cvAddress)), deadline.Token, timeout);
-      }
-      finally
-      {
-        _cvLock.Release();
-      }
-    }
+    public Task<byte> ReadCvAsync(ushort cvAddress, TimeSpan timeout) =>
+      RunUnderCvLockAsync(cvAddress, timeout,
+                          token => AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvReadCommand>(cvAddress)), token, timeout));
 
-    public async Task WritePomCvAsync(ushort locoAddress, ushort cvAddress, byte value, TimeSpan timeout)
-    {
-      using CancellationTokenSource deadline = new(timeout);
-      await AcquireCvLockAsync(cvAddress, timeout, deadline.Token);
-      try
-      {
-        while (true)
-        {
-          await SendCommandsAsync(Commands.Create<CvPomWriteByteCommand>(locoAddress, cvAddress, value));
-          byte readBack = await AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvPomReadByteCommand>(locoAddress, cvAddress)), deadline.Token, timeout);
-          if (readBack == value)
-            return;
-          if (deadline.IsCancellationRequested)
-            throw new CvOperationTimeoutException(cvAddress, timeout);
-        }
-      }
-      finally
-      {
-        _cvLock.Release();
-      }
-    }
+    public async Task WriteCvAsync(ushort cvAddress, byte value, TimeSpan timeout) =>
+      await RunUnderCvLockAsync(cvAddress, timeout,
+                                token => AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvWriteCommand>(cvAddress, value)), token, timeout));
 
-    private async Task AcquireCvLockAsync(ushort cvAddress, TimeSpan timeout, CancellationToken deadline)
-    {
-      try
-      {
-        await _cvLock.WaitAsync(deadline);
-      }
-      catch (OperationCanceledException)
-      {
-        throw new CvOperationTimeoutException(cvAddress, timeout);
-      }
-    }
+    public Task<byte> ReadPomCvAsync(ushort locoAddress, ushort cvAddress, TimeSpan timeout) =>
+      RunUnderCvLockAsync(cvAddress, timeout,
+                          token => AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvPomReadByteCommand>(locoAddress, cvAddress)), token, timeout));
 
-    private async Task<byte> AwaitResultLoopAsync(ushort cvAddress, Func<Task> send, CancellationToken deadline, TimeSpan timeout)
+    public async Task WritePomCvAsync(ushort locoAddress, ushort cvAddress, byte value, TimeSpan timeout) =>
+      await RunUnderCvLockAsync(cvAddress, timeout,
+                                token => WritePomCvCoreAsync(locoAddress, cvAddress, value, token, timeout));
+
+    private async Task<byte> WritePomCvCoreAsync(ushort locoAddress, ushort cvAddress, byte value, CancellationToken token, TimeSpan timeout)
     {
       while (true)
       {
-        if (deadline.IsCancellationRequested)
-          throw new CvOperationTimeoutException(cvAddress, timeout);
+        await SendCommandsAsync(Commands.Create<CvPomWriteByteCommand>(locoAddress, cvAddress, value)).WaitAsync(token);
+        byte readBack = await AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvPomReadByteCommand>(locoAddress, cvAddress)), token, timeout);
+        if (readBack == value)
+          return value;
 
+        await DelayBeforeRetryAsync(cvAddress, token, timeout); // read-back mismatch -> wait, then re-write
+      }
+    }
+
+    private async Task<byte> RunUnderCvLockAsync(ushort cvAddress, TimeSpan timeout, Func<CancellationToken, Task<byte>> operation)
+    {
+      ObjectDisposedException.ThrowIf(_disposed, this);
+      ValidateTimeout(timeout);
+
+      using CancellationTokenSource deadline = new(timeout);
+      using CancellationTokenSource linked = CancellationTokenSource.CreateLinkedTokenSource(deadline.Token, _disposeCts.Token);
+
+      await AcquireCvLockAsync(cvAddress, timeout, linked.Token);
+      try
+      {
+        return await operation(linked.Token);
+      }
+      finally
+      {
+        ReleaseCvLock();
+      }
+    }
+
+    private async Task AcquireCvLockAsync(ushort cvAddress, TimeSpan timeout, CancellationToken token)
+    {
+      try
+      {
+        await _cvLock.WaitAsync(token);
+      }
+      catch (OperationCanceledException) when (token.IsCancellationRequested)
+      {
+        throw MapCancellation(cvAddress, timeout);
+      }
+    }
+
+    private async Task<byte> AwaitResultLoopAsync(ushort cvAddress, Func<Task> send, CancellationToken token, TimeSpan timeout)
+    {
+      while (true)
+      {
         CvAttempt attempt;
         try
         {
-          attempt = await AwaitNextCvAsync(cvAddress, send, deadline);
+          attempt = await AwaitNextCvAsync(cvAddress, send, token);
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
         {
-          throw new CvOperationTimeoutException(cvAddress, timeout);
+          throw MapCancellation(cvAddress, timeout);
         }
 
         switch (attempt.Kind)
@@ -283,12 +273,13 @@ namespace Z21.Core
           case CvAttemptKind.ShortCircuit:
             throw new CvShortCircuitException(cvAddress);
           default:
-            break; // missing acknowledgement -> retry until the deadline
+            await DelayBeforeRetryAsync(cvAddress, token, timeout); // missing acknowledgement -> back off, then retry until the deadline
+            break;
         }
       }
     }
 
-    private async Task<CvAttempt> AwaitNextCvAsync(ushort cvAddress, Func<Task> send, CancellationToken deadline)
+    private async Task<CvAttempt> AwaitNextCvAsync(ushort cvAddress, Func<Task> send, CancellationToken token)
     {
       TaskCompletionSource<CvAttempt> completion = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
@@ -305,14 +296,60 @@ namespace Z21.Core
       CvProgrammingFailed += OnFailed;
       try
       {
-        await send();
-        using (deadline.Register(() => completion.TrySetCanceled(deadline)))
-          return await completion.Task;
+        // WaitAsync bounds both the send and the wait by the deadline, so a stalled transport cannot
+        // outlive the caller's timeout.
+        await send().WaitAsync(token);
+        return await completion.Task.WaitAsync(token);
       }
       finally
       {
         CvReadCompleted -= OnResult;
         CvProgrammingFailed -= OnFailed;
+      }
+    }
+
+    private async Task DelayBeforeRetryAsync(ushort cvAddress, CancellationToken token, TimeSpan timeout)
+    {
+      try
+      {
+        await Task.Delay(_options.CvRetryDelay, token);
+      }
+      catch (OperationCanceledException) when (token.IsCancellationRequested)
+      {
+        throw MapCancellation(cvAddress, timeout);
+      }
+    }
+
+    private void ThrowIfSafeCvOperationActive()
+    {
+      if (_cvLock.CurrentCount == 0)
+        throw new InvalidOperationException(
+          "A safe (timeout-bounded) CV operation is in progress. Fire-and-forget CV commands cannot run "
+          + "concurrently with a safe CV operation, because CV NACKs carry no address and would be misattributed.");
+    }
+
+    private void ValidateTimeout(TimeSpan timeout)
+    {
+      if (timeout <= TimeSpan.Zero)
+        throw new ArgumentOutOfRangeException(nameof(timeout), timeout, "The CV operation timeout must be greater than zero.");
+      if (timeout.TotalMilliseconds > int.MaxValue)
+        throw new ArgumentOutOfRangeException(nameof(timeout), timeout, $"The CV operation timeout must not exceed {int.MaxValue} milliseconds.");
+    }
+
+    private System.Exception MapCancellation(ushort cvAddress, TimeSpan timeout) =>
+      _disposeCts.IsCancellationRequested
+        ? new ObjectDisposedException(GetType().FullName)
+        : new CvOperationTimeoutException(cvAddress, timeout);
+
+    private void ReleaseCvLock()
+    {
+      try
+      {
+        _cvLock.Release();
+      }
+      catch (ObjectDisposedException exception)
+      {
+        _logger?.LogDebug(exception, "CV lock released after the station was disposed.");
       }
     }
 
@@ -365,9 +402,11 @@ namespace Z21.Core
     {
       if (_disposed)
         return;
-
       _disposed = true;
+
+      _disposeCts.Cancel(); // unblock any in-flight safe CV operation; it surfaces as ObjectDisposedException
       _delayedKeepAliveAction.Dispose();
+      _disposeCts.Dispose();
       _cvLock.Dispose();
       GC.SuppressFinalize(this);
     }
