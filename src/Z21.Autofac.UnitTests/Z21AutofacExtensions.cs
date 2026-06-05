@@ -1,5 +1,6 @@
 using Autofac;
 using CommandStation;
+using CommandStation.Model;
 using CommandStation.Transport;
 using Z21.Core;
 using Z21.Core.ResponseHandler.Settings;
@@ -90,6 +91,42 @@ namespace Z21.Autofac.UnitTests
 
       Assert.That(s1, Is.Not.Null);
       Assert.That(s2, Is.SameAs(s1), "ICommandStation and IZ21CommandStation should resolve to the same singleton");
+    }
+
+    [Test]
+    public void AddZ21_ResolvingCommandStation_WiresInboundHandling()
+    {
+      SpyTransport transport = new();
+      using var container = BuildContainer(containerBuilder =>
+      {
+        containerBuilder.AddZ21();
+        containerBuilder.RegisterInstance(transport).As<ITransport>().SingleInstance();
+      });
+
+      ILocoControl station = container.Resolve<ICommandStation>() as ILocoControl
+                             ?? throw new InvalidOperationException("Station does not support loco control.");
+      LocoInfoData? received = null;
+      station.LocoInfoReceived += (_, data) => received = data;
+
+      transport.RaiseBytes([0x0F, 0x00, 0x40, 0x00, 0xEF, 0x00, 0x03, 0x02, 0x87, 0x00, 0x00, 0x00, 0x00, 0x00, 0x69]);
+
+      Assert.That(received, Is.Not.Null);
+      Assert.That(received!.LocoAddress, Is.EqualTo(3));
+    }
+
+    [Test]
+    public void AddZ21_CommandStation_ExposesProgrammingFeedbackAndFastClockCapabilities()
+    {
+      using var container = BuildContainer(containerBuilder => containerBuilder.AddZ21());
+
+      IZ21CommandStation station = container.Resolve<IZ21CommandStation>();
+
+      Assert.Multiple(() =>
+      {
+        Assert.That(station, Is.InstanceOf<IProgrammingControl>());
+        Assert.That(station, Is.InstanceOf<IFeedbackControl>());
+        Assert.That(station, Is.InstanceOf<IFastClockControl>());
+      });
     }
 
     [Test]

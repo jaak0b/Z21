@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFrameworks>net8.0;net8.0-windows</TargetFrameworks>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -10,6 +9,7 @@
         <Authors>Jakob Eichberger</Authors>
         <RepositoryUrl>https://github.com/jaak0b/Z21</RepositoryUrl>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     </PropertyGroup>
 
@@ -24,6 +24,7 @@
 
     <ItemGroup>
         <None Include="LICENSE" Pack="true" PackagePath="" />
+        <None Include="README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
 </Project>
