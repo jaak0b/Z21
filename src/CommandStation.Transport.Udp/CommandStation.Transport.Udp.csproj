@@ -6,7 +6,6 @@
     <LangVersion>12</LangVersion>
     <ImplicitUsings>disable</ImplicitUsings>
     <RootNamespace>CommandStation.Transport.Udp</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
     <PackageId>CommandStation.Transport.Udp</PackageId>

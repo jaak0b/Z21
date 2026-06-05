@@ -3,7 +3,6 @@
   <PropertyGroup>
     <Nullable>enable</Nullable>
     <LangVersion>12</LangVersion>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
     <Title>Z21</Title>

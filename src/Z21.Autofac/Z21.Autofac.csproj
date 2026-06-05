@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFrameworks>net8.0;net8.0-windows</TargetFrameworks>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
         <ImplicitUsings>enable</ImplicitUsings>
