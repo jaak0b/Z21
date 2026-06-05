@@ -121,7 +121,8 @@ behavior-equivalent.
   descriptions, issue/PR comments, tags, or release notes. Concretely: no `Co-Authored-By`
   trailer, no "Generated with Claude Code" (or any similar "made/assisted by AI") line, and no
   AI tool name anywhere in the history or on GitHub. This applies to every `git` and `gh`/GitHub
-  API action without exception.
+  API action without exception. Keep commit messages to a single short sentence (a concise
+  subject line, no body).
 - The library assumes a **little-endian** host (`Z21CommandStation` throws
   `PlatformNotSupportedException` otherwise); protocol multi-byte fields are little-endian.
 - Command construction goes through `IZ21CommandFactory` (the station exposes it as `Commands`); a new
