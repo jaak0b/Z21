@@ -29,7 +29,7 @@ namespace Z21.UnitTest.Core.ResponseHandler
     {
       TestCaseData Case(string name, IZ21ResponseHandler handler, byte[] valid) => new TestCaseData(handler, valid).SetName(name);
 
-      yield return Case("CvResult", new CvResultResponseHandler(new AddressCodec()), Set(Frame(6, 0x40), (4, 0x64), (5, 0x14)));
+      yield return Case("CvResult", new CvResultResponseHandler(new AddressCodec()), Set(Frame(9, 0x40), (4, 0x64), (5, 0x14)));
       yield return Case("CvNack", new CvNackResponseHandler(), Set(Frame(6, 0x40), (4, 0x61), (5, 0x13)));
       yield return Case("CvNackSc", new CvNackShortCircuitResponseHandler(), Set(Frame(6, 0x40), (4, 0x61), (5, 0x12)));
       yield return Case("RmBus", new RmBusDataChangedResponseHandler(), Frame(15, 0x80));

@@ -20,7 +20,7 @@ namespace Z21.Core.ResponseHandler.Programming
     public string Name => "LAN_X_CV_RESULT";
 
     public bool CanHandle(byte[] response) =>
-      ((IZ21ResponseHandler)this).MatchesFrame(response, 6, (2, 0x40), (3, 0x00), (4, 0x64), (5, 0x14));
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 9, (2, 0x40), (3, 0x00), (4, 0x64), (5, 0x14));
 
     public void Handle(byte[] response)
     {

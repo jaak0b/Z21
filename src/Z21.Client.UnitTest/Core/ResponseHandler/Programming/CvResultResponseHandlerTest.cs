@@ -21,6 +21,8 @@ namespace Z21.UnitTest.Core.ResponseHandler.Programming
     [Test]
     [TestCase(new byte[] { 0x0A, 0x00, 0x40, 0x00, 0x64, 0x13, 0x00, 0x1C, 0x05, 0x00 }, TestName = "Wrong DB0")]
     [TestCase(new byte[] { 0x00 }, TestName = "Response too small")]
+    [TestCase(new byte[] { 0x07, 0x00, 0x40, 0x00, 0x64, 0x14, 0x00 }, TestName = "Signature matches but value byte truncated (length 7)")]
+    [TestCase(new byte[] { 0x08, 0x00, 0x40, 0x00, 0x64, 0x14, 0x00, 0x1C }, TestName = "Signature matches but value byte missing (length 8)")]
     public void CanHandle_InvalidResponse_ReturnsFalse(byte[] response)
     {
       Assert.That(_handler.CanHandle(response), Is.False);
