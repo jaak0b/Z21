@@ -173,6 +173,33 @@ namespace Z21.UnitTest.Core.Codecs
     }
 
     [Test]
+    [TestCase((ushort)0, 0x00, 0x00)]
+    [TestCase((ushort)1, 0x00, 0x01)]
+    [TestCase((ushort)255, 0x00, 0xFF)]
+    [TestCase((ushort)256, 0x01, 0x00)]
+    [TestCase((ushort)768, 0x03, 0x00)]
+    [TestCase((ushort)1023, 0x03, 0xFF)]
+    public void SplitPomCvAddress_ReturnsCvHighBitsAndLsb(ushort cvAddress, byte expectedHighBits, byte expectedLsb)
+    {
+      (byte cvHighBits, byte cvLsb) = _codec.SplitPomCvAddress(cvAddress);
+      Assert.Multiple(() =>
+                      {
+                        Assert.That(cvHighBits, Is.EqualTo(expectedHighBits), "CV high bits are incorrect");
+                        Assert.That(cvLsb, Is.EqualTo(expectedLsb), "CV LSB is incorrect");
+                      });
+    }
+
+    [Test]
+    [TestCase((ushort)1024)]
+    [TestCase((ushort)1025)]
+    [TestCase((ushort)65535)]
+    public void SplitPomCvAddress_AboveTenBitRange_ThrowsWithMessage(ushort cvAddress)
+    {
+      ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(() => _codec.SplitPomCvAddress(cvAddress))!;
+      Assert.That(exception.Message, Does.Contain("0 and 1023"));
+    }
+
+    [Test]
     public void EncodeAccessoryPomAddress_WholeDecoder_SetsCddNibbleToZero()
     {
       (byte db1, byte db2) = _codec.EncodeAccessoryPomAddress(1, wholeDecoder: true, output: 0);

@@ -66,6 +66,16 @@ namespace Z21.Core.Codecs
       return (ushort)((msb << 8) + lsb);
     }
 
+    public (byte cvHighBits, byte cvLsb) SplitPomCvAddress(ushort cvAddress)
+    {
+      if (cvAddress > 0x3FF)
+        throw new ArgumentOutOfRangeException(nameof(cvAddress), cvAddress, "POM CV address must be between 0 and 1023 (CV1..CV1024); higher CVs are not addressable on the main track.");
+
+      byte cvHighBits = (byte)((cvAddress >> 8) & 0x03);
+      byte cvLsb = (byte)(cvAddress & 0xFF);
+      return (cvHighBits, cvLsb);
+    }
+
     public (byte db1, byte db2) EncodeAccessoryPomAddress(ushort decoderAddress, bool wholeDecoder, byte output)
     {
       int cddd = wholeDecoder ? 0x00 : (0x08 | (output & 0x07));

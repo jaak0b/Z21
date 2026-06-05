@@ -42,6 +42,14 @@ namespace Z21.Core.Codecs
     ushort CombineCvAddress(byte msb, byte lsb);
 
     /// <summary>
+    /// Splits a CV address (0 = CV1) for a POM (main-track) command into the two high <c>MM</c> option
+    /// bits (folded into the <c>DB3</c> option byte) and the <c>CVAdr_LSB</c> wire byte. POM addresses
+    /// CVs through a 10-bit field, so only CV addresses 0..1023 (CV1..CV1024) are representable.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="cvAddress"/> exceeds 1023.</exception>
+    (byte cvHighBits, byte cvLsb) SplitPomCvAddress(ushort cvAddress);
+
+    /// <summary>
     /// Encodes an accessory decoder address for POM commands into the two wire bytes
     /// <c>aaaaa</c> / <c>AAAACDDD</c>. When <paramref name="wholeDecoder"/> is true the CV refers to the
     /// whole decoder (<c>CDDD = 0000</c>); otherwise <c>C = 1</c> and <c>DDD = <paramref name="output"/></c>.

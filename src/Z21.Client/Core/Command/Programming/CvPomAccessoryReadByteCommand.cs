@@ -12,8 +12,8 @@ namespace Z21.Core.Command.Programming
     public CvPomAccessoryReadByteCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, ushort decoderAddress, bool wholeDecoder, byte output, ushort cvAddress)
     {
       (byte db1, byte db2) = addressCodec.EncodeAccessoryPomAddress(decoderAddress, wholeDecoder, output);
-      byte db3 = (byte)(0xE4 | ((cvAddress >> 8) & 0x03));
-      byte cvLsb = (byte)(cvAddress & 0xFF);
+      (byte cvHighBits, byte cvLsb) = addressCodec.SplitPomCvAddress(cvAddress);
+      byte db3 = (byte)(0xE4 | cvHighBits);
       Data = frameBuilder.BuildXBus(0xE6, 0x31, db1, db2, db3, cvLsb, 0x00);
     }
 

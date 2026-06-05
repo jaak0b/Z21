@@ -11,8 +11,8 @@ namespace Z21.Core.Command.Programming
     public CvPomWriteByteCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, ushort locoAddress, ushort cvAddress, byte value)
     {
       (byte lsb, byte msb) = addressCodec.SplitLocoAddress(locoAddress);
-      byte db3 = (byte)(0xEC | ((cvAddress >> 8) & 0x03));
-      byte cvLsb = (byte)(cvAddress & 0xFF);
+      (byte cvHighBits, byte cvLsb) = addressCodec.SplitPomCvAddress(cvAddress);
+      byte db3 = (byte)(0xEC | cvHighBits);
       Data = frameBuilder.BuildXBus(0xE6, 0x30, msb, lsb, db3, cvLsb, value);
     }
 
