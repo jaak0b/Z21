@@ -51,7 +51,7 @@ namespace Z21.UnitTest.Core.ResponseHandler.SystemState
                                                      handler = sender as SystemStateDataChangedResponseHandler;
                                                    };
 
-      Z21.Core.Model.SystemState systemState = new() { CentralState = null!, CentralStateEx = null! };
+      CommandStation.Model.SystemState systemState = new() { CentralState = null!, CentralStateEx = null! };
 
       _systemStateResponseParserMock.Setup(parser => parser.Parse(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x00, 0x83, 0x45, 0x83, 0x45, 0x00, 0x00, 0x00, 0x7B }))
                                     .Returns(systemState)

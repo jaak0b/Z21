@@ -5,9 +5,10 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
         <Authors>Jakob Eichberger</Authors>
-        <RepositoryUrl>https://github.com/Jakob-Eichberger/z21Client</RepositoryUrl>
-        <Version>6.0.0</Version>
+        <RepositoryUrl>https://github.com/jaak0b/Z21</RepositoryUrl>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     </PropertyGroup>
@@ -15,8 +16,6 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="10.6.0" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.6" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,6 +24,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Z21.Client\Z21.Client.csproj" />
+      <ProjectReference Include="..\CommandStation.Transport.Udp\CommandStation.Transport.Udp.csproj" />
     </ItemGroup>
 
 </Project>

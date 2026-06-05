@@ -1,14 +1,15 @@
 using Z21.Core.Command.Settings;
 using Z21.Core.Model;
+using Z21.UnitTest.Core.Command;
 
 namespace Z21.UnitTest.Core.Command.Settings
 {
-  public class SetAccessoryModeCommandTest
+  public class SetAccessoryModeCommandTest : CommandTestFixture
   {
     [Test]
     public void Ctor_SetsCorrectDataBits([Values(DecoderMode.DCC, DecoderMode.MM)] DecoderMode decoderMode)
     {
-      SetAccessoryModeCommand command = new(12, decoderMode);
+      SetAccessoryModeCommand command = Factory.Create<SetAccessoryModeCommand>((short)12, decoderMode);
       Assert.That(command.Data,
                   Is.EqualTo(new byte[]
                              {
@@ -25,7 +26,7 @@ namespace Z21.UnitTest.Core.Command.Settings
     [Test]
     public void Ctor_LocoModeUnknown_ThrowsArgumentException()
     {
-      ArgumentException? exception = Assert.Throws<ArgumentException>(() => _ = new SetAccessoryModeCommand(12, DecoderMode.Unknown));
+      ArgumentException? exception = Assert.Throws<ArgumentException>(() => _ = Factory.Create<SetAccessoryModeCommand>((short)12, DecoderMode.Unknown));
       Assert.That(exception, Is.Not.Null);
       Assert.That(exception.Message, Is.EqualTo($"{DecoderMode.Unknown} is not a valid DecoderMode. (Parameter 'decoderMode')"));
     }

@@ -1,4 +1,5 @@
-using System;
+using Z21.Core.Codecs;
+using Z21.Core.Framing;
 
 namespace Z21.Core.Command.Settings
 {
@@ -10,21 +11,10 @@ namespace Z21.Core.Command.Settings
   /// </remarks>
   public class GetLocoModeCommand : IZ21Command
   {
-
-    public GetLocoModeCommand(short locoAddress)
+    public GetLocoModeCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, short locoAddress)
     {
-      byte[] addressBytes = BitConverter.GetBytes(locoAddress);
-      Array.Reverse(addressBytes);
-
-      Data =
-      [
-        0x06,
-        0x00,
-        0x60,
-        0x00,
-        addressBytes[0],
-        addressBytes[1]
-      ];
+      (byte msb, byte lsb) = addressCodec.SplitAddressBigEndian((ushort)locoAddress);
+      Data = frameBuilder.BuildLan(0x0060, msb, lsb);
     }
 
     public string Name => "LAN_GET_LOCOMODE";

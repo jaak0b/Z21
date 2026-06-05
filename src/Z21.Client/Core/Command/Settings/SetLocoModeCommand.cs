@@ -1,4 +1,6 @@
 using System;
+using Z21.Core.Codecs;
+using Z21.Core.Framing;
 using Z21.Core.Model;
 
 namespace Z21.Core.Command.Settings
@@ -9,24 +11,13 @@ namespace Z21.Core.Command.Settings
   public class SetLocoModeCommand : IZ21Command
   {
     /// <exception cref="ArgumentException">Is thrown when <param name="decoderMode"></param> is <see cref="DecoderMode.Unknown"/></exception>
-    public SetLocoModeCommand(short locoAddress, DecoderMode decoderMode)
+    public SetLocoModeCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, short locoAddress, DecoderMode decoderMode)
     {
       if (decoderMode is DecoderMode.Unknown)
         throw new ArgumentException($"{DecoderMode.Unknown} is not a valid DecoderMode.", nameof(decoderMode));
 
-      byte[] addressBytes = BitConverter.GetBytes(locoAddress);
-      Array.Reverse(addressBytes);
-
-      Data =
-      [
-        0x07,
-        0x00,
-        0x61,
-        0x00,
-        addressBytes[0],
-        addressBytes[1],
-        (byte)decoderMode
-      ];
+      (byte msb, byte lsb) = addressCodec.SplitAddressBigEndian((ushort)locoAddress);
+      Data = frameBuilder.BuildLan(0x0061, msb, lsb, (byte)decoderMode);
     }
 
     public string Name => "LAN_SET_LOCOMODE";

@@ -1,13 +1,14 @@
 using Z21.Core.Command.Switching;
+using Z21.UnitTest.Core.Command;
 
 namespace Z21.UnitTest.Core.Command.Switching
 {
-  public class GetTurnoutInfoCommandTest
+  public class GetTurnoutInfoCommandTest : CommandTestFixture
   {
     [Test]
     public void Ctor_SetsCorrectDataBits()
     {
-      GetTurnoutInfoCommand command = new(15);
+      GetTurnoutInfoCommand command = Factory.Create<GetTurnoutInfoCommand>((ushort)15);
       Assert.That(command.Data,
                   Is.EqualTo(new byte[]
                              {
@@ -18,7 +19,7 @@ namespace Z21.UnitTest.Core.Command.Switching
     [Test]
     public void Ctor_AccessoryAddressIs0_ThrowsArgumentOutOfRangeException()
     {
-      Assert.Throws<ArgumentOutOfRangeException>(() => _ = new GetTurnoutInfoCommand(0));
+      Assert.Throws<ArgumentOutOfRangeException>(() => _ = Factory.Create<GetTurnoutInfoCommand>((ushort)0));
     }
   }
 }

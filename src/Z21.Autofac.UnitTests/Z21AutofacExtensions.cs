@@ -1,10 +1,10 @@
-using System.Net;
 using Autofac;
+using CommandStation;
+using CommandStation.Transport;
 using Z21.Core;
-using Z21.Core.Model;
+using Z21.Core.ResponseHandler.Settings;
 using Z21.Core.ResponseHandler.SystemState;
 using Z21.Core.ResponseParser;
-using Z21.Transport;
 
 namespace Z21.Autofac.UnitTests
 {
@@ -25,17 +25,26 @@ namespace Z21.Autofac.UnitTests
 
       var handler = container.Resolve<IHardwareInfoResponseHandler>();
       Assert.That(handler, Is.InstanceOf<HardwareInfoResponseHandler>());
-      
+
       var handlerType = container.Resolve<HardwareInfoResponseHandler>();
       Assert.That(handlerType, Is.InstanceOf<HardwareInfoResponseHandler>());
       Assert.That(handlerType, Is.EqualTo(handler));
     }
 
     [Test]
+    public void AddZ21ResponseHandler_DiscoversAccessoryModeHandler()
+    {
+      using var container = BuildContainer(containerBuilder => containerBuilder.AddZ21());
+
+      var handler = container.Resolve<IAccessoryModeResponseHandler>();
+      Assert.That(handler, Is.InstanceOf<AccessoryModeResponseHandler>());
+    }
+
+    [Test]
     public void AddZ21ResponseParser_Registers_All_Parser_Types()
     {
       using var container = BuildContainer(containerBuilder => containerBuilder.AddZ21());
-      
+
       var baseInterface = typeof(IZ21ResponseParser);
       var parserTypes = baseInterface.Assembly
                                      .GetTypes()
@@ -60,40 +69,38 @@ namespace Z21.Autofac.UnitTests
     }
 
     [Test]
-    public void AddZ21Transport_Registers_Transport_As_Singleton()
+    public void AddZ21_Registers_Transport_As_Singleton()
     {
       using var container = BuildContainer(containerBuilder => containerBuilder.AddZ21());
-      
-      var t1 = container.Resolve<IZ21Transport>();
-      var t2 = container.Resolve<IZ21Transport>();
+
+      var t1 = container.Resolve<ITransport>();
+      var t2 = container.Resolve<ITransport>();
 
       Assert.That(t1, Is.Not.Null);
-      Assert.That(t2, Is.Not.Null);
       Assert.That(t2, Is.SameAs(t1), "Transport should be singleton");
     }
 
     [Test]
-    public void AddZ21Client_Registers_Client_As_Singleton()
+    public void AddZ21_Registers_CommandStation_As_Singleton()
     {
       using var container = BuildContainer(containerBuilder => containerBuilder.AddZ21());
 
-      var c1 = container.Resolve<IZ21Client>();
-      var c2 = container.Resolve<IZ21Client>();
+      var s1 = container.Resolve<ICommandStation>();
+      var s2 = container.Resolve<IZ21CommandStation>();
 
-      Assert.NotNull(c1);
-      Assert.NotNull(c2);
-      Assert.That(c2, Is.SameAs(c1), "Client should be singleton");
+      Assert.That(s1, Is.Not.Null);
+      Assert.That(s2, Is.SameAs(s1), "ICommandStation and IZ21CommandStation should resolve to the same singleton");
     }
 
     [Test]
-    public void ConfigureZ21Client_Registers_Configuration_Instance()
+    public void AddZ21_Registers_Options_Instance()
     {
-      using var container = BuildContainer(containerBuilder => containerBuilder.AddZ21(cfg => cfg.ResponseTime = TimeSpan.FromSeconds(5)));
+      using var container = BuildContainer(containerBuilder => containerBuilder.AddZ21(optionsConfiguration: options => options.KeepAliveInterval = TimeSpan.FromSeconds(5)));
 
-      var config = container.Resolve<Z21Configuration>();
+      var options = container.Resolve<Z21Options>();
 
-      Assert.NotNull(config);
-      Assert.That(config.ResponseTime, Is.EqualTo(TimeSpan.FromSeconds(5)));
+      Assert.That(options, Is.Not.Null);
+      Assert.That(options.KeepAliveInterval, Is.EqualTo(TimeSpan.FromSeconds(5)));
     }
   }
 }

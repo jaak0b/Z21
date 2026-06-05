@@ -4,7 +4,7 @@ using System.Timers;
 
 namespace Z21.Core.Helper
 {
-  public class DelayedAction
+  public class DelayedAction : IDisposable
   {
     private readonly Timer _connectionKeepAlive;
 
@@ -23,6 +23,14 @@ namespace Z21.Core.Helper
     {
       _connectionKeepAlive.Stop();
       _connectionKeepAlive.Start();
+    }
+
+    public void Stop() => _connectionKeepAlive.Stop();
+
+    public void Dispose()
+    {
+      _connectionKeepAlive.Dispose();
+      GC.SuppressFinalize(this);
     }
   }
 }

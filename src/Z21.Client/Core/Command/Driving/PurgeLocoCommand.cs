@@ -1,4 +1,5 @@
-using Z21.Core.Helper;
+using Z21.Core.Codecs;
+using Z21.Core.Framing;
 
 namespace Z21.Core.Command.Driving
 {
@@ -9,19 +10,10 @@ namespace Z21.Core.Command.Driving
   /// </summary>
   public class PurgeLocoCommand : IZ21Command
   {
-    public PurgeLocoCommand(ushort locoAddress)
+    public PurgeLocoCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, ushort locoAddress)
     {
-      (byte lsb, byte msb) = AddressHelper.SplitLocoAddress(locoAddress);
-      Data =
-      [
-        0x09, 0x00,
-        0x40, 0x00,
-        0xE3,
-        0x44,
-        msb,
-        lsb,
-        (byte)(0xE3 ^ 0x44 ^ msb ^ lsb)
-      ];
+      (byte lsb, byte msb) = addressCodec.SplitLocoAddress(locoAddress);
+      Data = frameBuilder.BuildXBus(0xE3, 0x44, msb, lsb);
     }
 
     public string Name => "LAN_X_PURGE_LOCO";

@@ -6,8 +6,8 @@ namespace Z21.Core.Exception
   {
     public static void ThrowIfExceeded(byte[] datagram)
     {
-      if (datagram.Length > Z21Client.MaxUdpPayload)
-        throw new MtuPayloadLengthExceededException($"Combined UDP payload length '{datagram.Length}' exceeds MTU size '{Z21Client.MaxUdpPayload}'.");
+      if (datagram.Length > Z21CommandStation.MaxUdpPayload)
+        throw new MtuPayloadLengthExceededException($"Combined UDP payload length '{datagram.Length}' exceeds MTU size '{Z21CommandStation.MaxUdpPayload}'.");
     }
   }
 }

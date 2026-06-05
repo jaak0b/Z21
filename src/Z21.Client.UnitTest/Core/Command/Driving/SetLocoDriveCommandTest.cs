@@ -1,10 +1,11 @@
 using Z21.Core.Command.Driving;
 using Z21.Core.Exception;
 using Z21.Core.Model;
+using Z21.UnitTest.Core.Command;
 
 namespace Z21.UnitTest.Core.Command.Driving
 {
-  public class SetLocoDriveCommandTest
+  public class SetLocoDriveCommandTest : CommandTestFixture
   {
     [Test]
     [TestCase(DccSpeedMode.Steps14, (ushort)15)]
@@ -12,7 +13,7 @@ namespace Z21.UnitTest.Core.Command.Driving
     [TestCase(DccSpeedMode.Steps128, (ushort)127)]
     public void Ctor_SpeedOutOfRange_ThrowsLocoSpeedOutOfRangeException(DccSpeedMode dccSpeedMode, ushort locoSpeed)
     {
-      Assert.Throws<LocoSpeedOutOfRangeException>(() => _ = new SetLocoDriveCommand(dccSpeedMode, 0, DrivingDirection.Forward, locoSpeed));
+      Assert.Throws<LocoSpeedOutOfRangeException>(() => _ = Factory.Create<SetLocoDriveCommand>(dccSpeedMode, (ushort)0, DrivingDirection.Forward, locoSpeed));
     }
 
     [Test]
@@ -22,7 +23,7 @@ namespace Z21.UnitTest.Core.Command.Driving
     [TestCase(DccSpeedMode.Steps14, (ushort)130, DrivingDirection.Backward, (ushort)1, new byte[] { 0x0A, 0x00, 0x40, 0x00, 0xE4, 0x10, 0xC0, 0x82, 0x2, 0xB4 })]
     public void Ctor_SetsCorrectDataBits(DccSpeedMode dccSpeedMode, ushort locoAddress, DrivingDirection drivingDirection, ushort locoSpeed, byte[] data)
     {
-      SetLocoDriveCommand command = new(dccSpeedMode, locoAddress, drivingDirection, locoSpeed);
+      SetLocoDriveCommand command = Factory.Create<SetLocoDriveCommand>(dccSpeedMode, locoAddress, drivingDirection, locoSpeed);
       Assert.That(command.Data, Is.EqualTo(data));
     }
   }

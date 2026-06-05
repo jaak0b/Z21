@@ -1,6 +1,7 @@
 using System;
+using Z21.Core.Codecs;
 using Z21.Core.Exception;
-using Z21.Core.Helper;
+using Z21.Core.Framing;
 using Z21.Core.Model;
 
 namespace Z21.Core.Command.Driving
@@ -10,26 +11,15 @@ namespace Z21.Core.Command.Driving
   /// </summary>
   public class SetLocoDriveCommand : IZ21Command
   {
-    public SetLocoDriveCommand(DccSpeedMode dccSpeedMode, ushort locoAddress, DrivingDirection drivingDirection, ushort locoSpeed)
+    public SetLocoDriveCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, ILocoSpeedCodec locoSpeedCodec, DccSpeedMode dccSpeedMode, ushort locoAddress, DrivingDirection drivingDirection, ushort locoSpeed)
     {
       LocoSpeedOutOfRangeException.ThrowIfOutOfRange(dccSpeedMode, locoSpeed);
-      ushort dccSpeed = LocoSpeedHelper.CalculateDccSpeed(dccSpeedMode, locoSpeed);
+      ushort dccSpeed = locoSpeedCodec.CalculateDccSpeed(dccSpeedMode, locoSpeed);
 
-      const byte xHeader = 0xE4;
       byte db0 = (byte)(0x10 | GetByte(dccSpeedMode));
-      (byte lsb, byte msb) = AddressHelper.SplitLocoAddress(locoAddress);
+      (byte lsb, byte msb) = addressCodec.SplitLocoAddress(locoAddress);
       byte db3 = (byte)((byte)drivingDirection | dccSpeed);
-      Data =
-      [
-        0x0A, 0x00,
-        0x40, 0x00,
-        xHeader,
-        db0,
-        msb,
-        lsb,
-        db3,
-        (byte)(xHeader ^ db0 ^ msb ^ lsb ^ db3)
-      ];
+      Data = frameBuilder.BuildXBus(0xE4, db0, msb, lsb, db3);
     }
 
     public string Name => "LAN_X_SET_LOCO_DRIVE";

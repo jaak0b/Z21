@@ -1,13 +1,14 @@
 using Z21.Core.Command.Driving;
+using Z21.UnitTest.Core.Command;
 
 namespace Z21.UnitTest.Core.Command.Driving
 {
-  public class GetLocoInfoCommandTest
+  public class GetLocoInfoCommandTest : CommandTestFixture
   {
     [Test]
     public void Ctor_SetsCorrectDataBits()
     {
-      GetLocoInfoCommand command = new(3);
+      GetLocoInfoCommand command = Factory.Create<GetLocoInfoCommand>((ushort)3);
       Assert.That(command.Data,
                   Is.EqualTo(new byte[]
                              {

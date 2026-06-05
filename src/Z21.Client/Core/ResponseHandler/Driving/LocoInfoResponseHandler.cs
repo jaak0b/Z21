@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.Logging;
+using Z21.Core.Codecs;
 using Z21.Core.Command.Driving;
 using Z21.Core.Command.SystemState;
-using Z21.Core.Helper;
 using Z21.Core.Model;
 using Z21.Core.Model.EventArgs;
 
@@ -21,21 +21,21 @@ namespace Z21.Core.ResponseHandler.Driving
   /// </summary>
   public class LocoInfoResponseHandler : ILocoInfoResponseHandler
   {
+    private readonly ILocoSpeedCodec _locoSpeedCodec;
+    private readonly ILogger<LocoInfoResponseHandler>? _logger;
+
+    public LocoInfoResponseHandler(ILocoSpeedCodec locoSpeedCodec, ILogger<LocoInfoResponseHandler>? logger = null)
+    {
+      _locoSpeedCodec = locoSpeedCodec;
+      _logger = logger;
+    }
+
     public string Name => "LAN_X_LOCO_INFO";
 
     public event EventHandler<LocoInfoReceivedEventArgs>? OnLocoInfoReceived;
 
-    public bool CanHandle(byte[] response)
-    {
-      try
-      {
-        return response[2] == 0x40 && response[3] == 0x00 && response[4] == 0xEF;
-      }
-      catch (IndexOutOfRangeException)
-      {
-        return false;
-      }
-    }
+    public bool CanHandle(byte[] response) =>
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 5, (2, 0x40), (3, 0x00), (4, 0xEF));
 
     public void Handle(byte[] response)
     {
@@ -45,17 +45,16 @@ namespace Z21.Core.ResponseHandler.Driving
       DecoderMode decoderMode = (db2 & 0x10) == 0x10 ? DecoderMode.MM : DecoderMode.DCC;
       bool locoIsBusy = (db2 & 0x8) == 0x8;
 
-      DccSpeedMode speedMode = (DccSpeedMode)999;
-      if ((db2 & 0x1) == 0x1)
-        speedMode = DccSpeedMode.Steps14;
-      if ((db2 & 0x2) == 0x2)
-        speedMode = DccSpeedMode.Steps28;
-      if ((db2 & 0x4) == 0x4)
-        speedMode = DccSpeedMode.Steps128;
+      DccSpeedMode speedMode = (db2 & 0x07) switch
+                               {
+                                 0x02 => DccSpeedMode.Steps28,
+                                 0x04 => DccSpeedMode.Steps128,
+                                 _ => DccSpeedMode.Steps14
+                               };
 
       byte db3 = response[8];
       DrivingDirection drivingDirection = (db3 & 0x80) == 0x80 ? DrivingDirection.Forward : DrivingDirection.Backward;
-      ushort stepSpeed = LocoSpeedHelper.CalculateSpeedStep(speedMode, (ushort)(db3 & 0x7F));
+      ushort stepSpeed = _locoSpeedCodec.CalculateSpeedStep(speedMode, (ushort)(db3 & 0x7F));
 
       byte db4 = response[9];
       bool locoContainedInDoubleTraction = (db4 & 0x40) == 0x40;
@@ -71,7 +70,7 @@ namespace Z21.Core.ResponseHandler.Driving
       ];
 
       int functionAddressCount = 5;
-      for (int index = 10; index < response.Length - 2; index++)
+      for (int index = 10; index < response.Length - 1; index++)
       {
         BitArray functionBits = new(new[] { response[index] });
         for (int temp = 0; temp < 8; temp++)
@@ -80,8 +79,8 @@ namespace Z21.Core.ResponseHandler.Driving
         }
       }
 
-      string function = string.Join(", ", infodata.Select(functionData => $"F{functionData.FunctionIndex}: {functionData.FunctionToggleType}"));
-      Console.WriteLine($"Address: {address}, DecoderMode: {decoderMode}, Busy: {locoIsBusy}, DccSpeedMode: {speedMode}, Direction: {drivingDirection}, Speed: {stepSpeed}, Double Traction: {locoContainedInDoubleTraction}, smartSearch: {smartSearch}\n{function}");
+      _logger?.LogDebug("{name} address {address}, decoderMode {decoderMode}, busy {busy}, speedMode {speedMode}, direction {direction}, speed {speed}, doubleTraction {doubleTraction}, smartSearch {smartSearch}.",
+                        Name, address, decoderMode, locoIsBusy, speedMode, drivingDirection, stepSpeed, locoContainedInDoubleTraction, smartSearch);
 
       OnLocoInfoReceived?.Invoke(this,
                                  new(new()
@@ -98,6 +97,6 @@ namespace Z21.Core.ResponseHandler.Driving
                                      }));
     }
 
-    private static FunctionToggleType GetFunctionToggleType(bool value) => value ? FunctionToggleType.On : FunctionToggleType.Off;
+    private FunctionToggleType GetFunctionToggleType(bool value) => value ? FunctionToggleType.On : FunctionToggleType.Off;
   }
 }

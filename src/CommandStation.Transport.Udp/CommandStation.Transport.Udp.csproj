@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>12</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>CommandStation.Transport.Udp</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
+    <PackageId>CommandStation.Transport.Udp</PackageId>
+    <Title>CommandStation.Transport.Udp</Title>
+    <Authors>Jakob Eichberger</Authors>
+    <Description>UDP transport (ITransport) for model-railway command stations.</Description>
+    <PackageTags>ModelRailway;CommandStation;UDP;Transport</PackageTags>
+    <RepositoryUrl>https://github.com/jaak0b/Z21</RepositoryUrl>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommandStation.Abstractions\CommandStation.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.8" />
+  </ItemGroup>
+
+</Project>

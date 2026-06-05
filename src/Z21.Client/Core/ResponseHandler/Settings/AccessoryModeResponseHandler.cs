@@ -5,7 +5,7 @@ using Z21.Core.Model.EventArgs;
 
 namespace Z21.Core.ResponseHandler.Settings
 {
-  public interface IAccessoryModeResponseHandler
+  public interface IAccessoryModeResponseHandler : IZ21ResponseHandler
   {
     event EventHandler<DecoderModeReceivedEventArgs>? OnAccessoryModeReceived;
   }
@@ -23,17 +23,8 @@ namespace Z21.Core.ResponseHandler.Settings
 
     public string Name => "LAN_GET_TURNOUTMODE";
 
-    public bool CanHandle(byte[] response)
-    {
-      try
-      {
-        return response[2] == 0x70 && response[3] == 0x00;
-      }
-      catch (IndexOutOfRangeException)
-      {
-        return false;
-      }
-    }
+    public bool CanHandle(byte[] response) =>
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 4, (2, 0x70), (3, 0x00));
 
     public void Handle(byte[] response)
     {

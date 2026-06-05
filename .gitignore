@@ -397,3 +397,8 @@ _UpgradeReport_Files/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# DocFX generated output (the site is published by CI via GitHub Pages, never committed)
+docfx/_site/
+docfx/api/
+**/*.manifest

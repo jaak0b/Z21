@@ -4,17 +4,17 @@
     <Nullable>enable</Nullable>
     <LangVersion>12</LangVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
     <Title>Z21</Title>
     <Authors>Jakob Eichberger</Authors>
     <Description>Z21Client partially implements the z21 lan protocoll for the digital command center z21/Z21 from Roco/Fleischmann.</Description>
-    <RepositoryUrl>https://github.com/Jakob-Eichberger/z21Client</RepositoryUrl>
+    <RepositoryUrl>https://github.com/jaak0b/Z21</RepositoryUrl>
     <PackageTags>Z21;Roco;Fleischman</PackageTags>
     <Configurations Condition=" '$(Configuration)' == '' ">Debug</Configurations>
-    <VersionPrefix>4.0.0</VersionPrefix>
     <Platforms>x64</Platforms>
     <Nullable>enable</Nullable>
     <TargetFrameworks>net8.0;net8.0-windows</TargetFrameworks>
-    <Version>6.0.0</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RootNamespace>Z21</RootNamespace>
@@ -26,6 +26,11 @@
   </ItemGroup>
   
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommandStation.Abstractions\CommandStation.Abstractions.csproj" />
   </ItemGroup>
 </Project>

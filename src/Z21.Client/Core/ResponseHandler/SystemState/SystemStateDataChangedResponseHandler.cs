@@ -20,16 +20,8 @@ namespace Z21.Core.ResponseHandler.SystemState
 
     public event EventHandler<SystemStatusChangedReceivedEventArgs>? OnSystemStateDataChangedReceived;
 
-    public bool CanHandle(byte[] response)
-    {
-      try
-      {
-        return response[2] == 0x84 && response[3] == 0x00;
-      } catch (IndexOutOfRangeException)
-      {
-        return false;
-      }
-    }
+    public bool CanHandle(byte[] response) =>
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 4, (2, 0x84), (3, 0x00));
 
     public void Handle(byte[] response)
     {

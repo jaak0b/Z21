@@ -33,13 +33,13 @@ namespace Z21.Console.Command
     {
       if (settings.On)
       {
-        Program.Z21Client.SendCommandsAsync(new SetTrackPowerOnCommand());
+        Program.Station.TrackPowerOnAsync();
         return 0;
       }
 
       if (settings.Off)
       {
-        Program.Z21Client.SendCommandsAsync(new SetTrackPowerOffCommand());
+        Program.Station.TrackPowerOffAsync();
         return 0;
       }
 

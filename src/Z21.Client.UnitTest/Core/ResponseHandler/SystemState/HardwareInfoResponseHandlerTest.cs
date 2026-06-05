@@ -55,6 +55,8 @@ namespace Z21.UnitTest.Core.ResponseHandler.SystemState
       Assert.That(handler, Is.EqualTo(_handler));
       Assert.That(receivedArgs, Is.Not.Null);
       Assert.That(receivedArgs.Z21HardwareType, Is.EqualTo(Z21HardwareType.z21Start));
+      // FW Version bytes 43 01 00 00 => 0x0143 (BCD "1.43") per spec §2.20.
+      Assert.That(receivedArgs.FirmwareVersion, Is.EqualTo(0x0143));
     }
   }
 }

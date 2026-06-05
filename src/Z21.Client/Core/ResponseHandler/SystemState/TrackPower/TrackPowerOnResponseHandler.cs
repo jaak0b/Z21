@@ -19,21 +19,8 @@ namespace Z21.Core.ResponseHandler.SystemState.TrackPower
   
     public string Name => "LAN_X_BC_TRACK_POWER_ON";
 
-    public bool CanHandle(byte[] response)
-    {
-      try
-      {
-        return response[2] == 0x40
-               && response[3] == 0x00
-               && response[4] == 0x61
-               && response[5] == 0x01
-               && (response[4] ^ response[5]) == 0x60;
-      }
-      catch (IndexOutOfRangeException)
-      {
-        return false;
-      }
-    }
+    public bool CanHandle(byte[] response) =>
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 6, (2, 0x40), (3, 0x00), (4, 0x61), (5, 0x01));
 
     public void Handle(byte[] response)
     {

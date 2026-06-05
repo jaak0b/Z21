@@ -18,20 +18,8 @@ namespace Z21.Core.ResponseHandler.SystemState
 
     public string Name => "LAN_X_GET_VERSION";
 
-    public bool CanHandle(byte[] response)
-    {
-      try
-      {
-        return response[2] == 0x40 &&
-               response[4] == 0x63 &&
-               response[5] == 0x21;
-        // TODO handle XOR-Byte
-      }
-      catch (IndexOutOfRangeException)
-      {
-        return false;
-      }
-    }
+    public bool CanHandle(byte[] response) =>
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 6, (2, 0x40), (4, 0x63), (5, 0x21));
 
     public void Handle(byte[] response)
     {

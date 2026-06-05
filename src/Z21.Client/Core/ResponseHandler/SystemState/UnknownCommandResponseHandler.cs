@@ -17,21 +17,8 @@ namespace Z21.Core.ResponseHandler.SystemState
 
     public string Name => "LAN_X_UNKNOWN_COMMAND";
 
-    public bool CanHandle(byte[] response)
-    {
-      try
-      {
-        return response[2] == 0x40
-               && response[3] == 0x00
-               && response[4] == 0x61
-               && response[5] == 0x82
-               && (response[4] ^ response[5]) == 0xE3;
-      }
-      catch (IndexOutOfRangeException)
-      {
-        return false;
-      }
-    }
+    public bool CanHandle(byte[] response) =>
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 6, (2, 0x40), (3, 0x00), (4, 0x61), (5, 0x82));
 
     public void Handle(byte[] response)
     {

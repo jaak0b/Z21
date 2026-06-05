@@ -18,21 +18,9 @@ namespace Z21.Core.ResponseHandler.SystemState
 
     public string Name => "LAN_X_GET_FIRMWARE_VERSION";
 
-    public bool CanHandle(byte[] response)
-    {
-      try
-      {
-        return response[2] == 0x40
-               && response[3] == 0x00
-               && response[4] == 0xF3
-               && response[5] == 0x0A
-               && (response[4] ^ response[5] ^ response[6] ^ response[7]) == response[8];
-      }
-      catch (IndexOutOfRangeException)
-      {
-        return false;
-      }
-    }
+    public bool CanHandle(byte[] response) =>
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 9, (2, 0x40), (3, 0x00), (4, 0xF3), (5, 0x0A))
+      && (response[4] ^ response[5] ^ response[6] ^ response[7]) == response[8];
 
     public void Handle(byte[] response)
     {

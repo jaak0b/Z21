@@ -1,9 +1,10 @@
-using System;
+using Z21.Core.Codecs;
+using Z21.Core.Framing;
 
 namespace Z21.Core.Command.Settings
 {
   /// <summary>
-  /// Read the settings for a given accessory decoder address ("Accessory Decoder" RP-9.2.1). 
+  /// Read the settings for a given accessory decoder address ("Accessory Decoder" RP-9.2.1).
   /// </summary>
   /// <remarks>
   /// In the Z21, the output format (DCC, MM) is persistently stored for each accessory decoder address.
@@ -11,20 +12,10 @@ namespace Z21.Core.Command.Settings
   /// </remarks>
   public class GetAccessoryModeCommand : IZ21Command
   {
-    public GetAccessoryModeCommand(short locoAddress)
+    public GetAccessoryModeCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, short accessoryAddress)
     {
-      byte[] addressBytes = BitConverter.GetBytes(locoAddress);
-      Array.Reverse(addressBytes);
-
-      Data =
-      [
-        0x06,
-        0x00,
-        0x70,
-        0x00,
-        addressBytes[0],
-        addressBytes[1]
-      ];
+      (byte msb, byte lsb) = addressCodec.SplitAddressBigEndian((ushort)accessoryAddress);
+      Data = frameBuilder.BuildLan(0x0070, msb, lsb);
     }
 
     public string Name => "LAN_GET_TURNOUTMODE";

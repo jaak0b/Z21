@@ -78,5 +78,37 @@ namespace Z21.UnitTest.Core.Model
       FirmwareVersion version = new(3, 6);
       Assert.That(version, Is.Not.EqualTo(null));
     }
+
+    [Test]
+    public void EqualityOperators_WithNull_DoNotThrowAndCompareByReference()
+    {
+      FirmwareVersion version = new(3, 6);
+      FirmwareVersion? @null = null;
+
+      Assert.Multiple(() =>
+                      {
+                        Assert.That(@null == null, Is.True, "null == null");
+                        Assert.That(version == @null, Is.False, "version == null");
+                        Assert.That(@null == version, Is.False, "null == version");
+                        Assert.That(version != @null, Is.True, "version != null");
+                      });
+    }
+
+    [Test]
+    public void RelationalOperators_WithNull_TreatNullAsLowest()
+    {
+      FirmwareVersion version = new(1, 0);
+      FirmwareVersion? @null = null;
+      FirmwareVersion? otherNull = null;
+
+      Assert.Multiple(() =>
+                      {
+                        Assert.That(@null < version, Is.True, "null < version");
+                        Assert.That(version > @null, Is.True, "version > null");
+                        Assert.That(version < @null, Is.False, "version < null");
+                        Assert.That(@null <= otherNull, Is.True, "null <= null");
+                        Assert.That(version >= @null, Is.True, "version >= null");
+                      });
+    }
   }
 }

@@ -1,4 +1,5 @@
-using Z21.Core.Helper;
+using Z21.Core.Codecs;
+using Z21.Core.Framing;
 using Z21.Core.Model.ExcAccessoryPayload;
 
 namespace Z21.Core.Command.Switching
@@ -13,7 +14,7 @@ namespace Z21.Core.Command.Switching
     /// </summary>
     /// <remarks>The 10837 Z21 signaldecoder interprets <param name="payload"></param> as one of 256 theoretically possible signal aspects. The actual value range depends to a large extent on the signal type set in the signal decoder. See <see href="https://www.z21.eu/en/products/z21-signal-decoder/signaltypen"/> for all possible values.</remarks>
     /// <remarks>The 10836 Z21 switch DECODER interprets the payload as "switch decoder with reception of switching time". Use <see cref="SwitchDecoderPayload"/> to generate payload. </remarks>
-    public SetExtAccessoryCommand(ushort accessoryAddress, IExcAccessoryPayload payload) : this(accessoryAddress, (byte)payload.Payload)
+    public SetExtAccessoryCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, ushort accessoryAddress, IExcAccessoryPayload payload) : this(frameBuilder, addressCodec, accessoryAddress, (byte)payload.Payload)
     {
     }
 
@@ -22,21 +23,10 @@ namespace Z21.Core.Command.Switching
     /// </summary>
     /// <remarks>The 10837 Z21 signaldecoder interprets <param name="payload"></param> as one of 256 theoretically possible signal aspects. The actual value range depends to a large extent on the signal type set in the signal decoder. See <see href="https://www.z21.eu/en/products/z21-signal-decoder/signaltypen"/> for all possible values.</remarks>
     /// <remarks>The 10836 Z21 switch DECODER interprets the payload as "switch decoder with reception of switching time". Use <see cref="SwitchDecoderPayload"/> to generate payload. </remarks>
-    public SetExtAccessoryCommand(ushort accessoryAddress, byte payload)
+    public SetExtAccessoryCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, ushort accessoryAddress, byte payload)
     {
-      (byte lsb, byte msb) = AddressHelper.SplitAccessoryAddress(accessoryAddress);
-
-      Data =
-      [
-        0x0A, 0x00,
-        0x40, 0x00,
-        0x54,
-        msb,
-        lsb,
-        payload,
-        0x00,
-        (byte)(0x54 ^ msb ^ lsb ^ payload ^ 0x00)
-      ];
+      (byte lsb, byte msb) = addressCodec.SplitExtAccessoryAddress(accessoryAddress);
+      Data = frameBuilder.BuildXBus(0x54, msb, lsb, payload, 0x00);
     }
 
     public string Name => "LAN_X_SET_EXT_ACCESSORY";

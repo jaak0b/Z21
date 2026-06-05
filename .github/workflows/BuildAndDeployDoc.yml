@@ -1,37 +1,67 @@
 name: Github Pages
 
+# Builds the API documentation with DocFX (generated from the source XML doc comments)
+# and publishes it with GitHub's native Pages deployment. Nothing is committed to the
+# repository. Requires Settings -> Pages -> Source = "GitHub Actions".
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'docfx/**'
+      - 'src/**'
+      - '.github/workflows/BuildAndDeployDoc.yml'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'docfx/**'
+      - 'src/**'
+      - '.github/workflows/BuildAndDeployDoc.yml'
   workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; let an in-progress run finish rather than cancel it.
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Copy README as index.md
-        run: cp README.md src/index.md
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # DocFX builds the projects; Nerdbank.GitVersioning needs full history
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.x'
+          dotnet-version: 8.0.x
 
       - name: Install DocFX
         run: dotnet tool install -g docfx
 
-      - name: Build Docs
-        run: docfx src/docfx.json
+      - name: Build docs (docfx -> docfx/_site)
+        run: docfx docfx/docfx.json
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./src/_site
-          destination_dir: .
+          path: docfx/_site
+
+  deploy:
+    # PRs only build (to validate); deployment happens on main / manual dispatch.
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

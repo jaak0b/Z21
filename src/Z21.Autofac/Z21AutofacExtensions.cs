@@ -1,22 +1,37 @@
-﻿using Autofac;
+using Autofac;
+using CommandStation;
+using CommandStation.Framing;
+using CommandStation.Transport;
+using CommandStation.Transport.Udp;
 using Z21.Core;
-using Z21.Core.Model;
+using Z21.Core.Codecs;
+using Z21.Core.Command;
+using Z21.Core.Framing;
+using Z21.Core.Reflection;
 using Z21.Core.ResponseHandler;
 using Z21.Core.ResponseParser;
-using Z21.Transport;
 
 namespace Z21.Autofac
 {
   public static class Z21AutofacExtensions
   {
 
-    public static ContainerBuilder AddZ21(this ContainerBuilder builder, Action<Z21Configuration>? configurationAction = null)
+    public static ContainerBuilder AddZ21(this ContainerBuilder builder, Action<UdpTransportOptions>? transportConfiguration = null, Action<Z21Options>? optionsConfiguration = null)
     {
-      builder.RegisterType<Z21Transport>().As<IZ21Transport>().SingleInstance();
-      builder.RegisterType<Z21Client>().As<IZ21Client>().SingleInstance();
-      builder.RegisterType<Z21ResponseHandler>().AsSelf().SingleInstance().AutoActivate();
+      UdpTransportOptions transportOptions = new();
+      transportConfiguration?.Invoke(transportOptions);
+      builder.RegisterInstance(transportOptions).AsSelf().SingleInstance();
 
-      builder.ConfigureZ21Client(configurationAction);
+      builder.RegisterType<UdpTransport>().As<ITransport>().SingleInstance();
+      builder.RegisterType<Z21FrameReader>().As<IFrameReader>().SingleInstance();
+      builder.RegisterType<Z21FrameBuilder>().As<IZ21FrameBuilder>().SingleInstance();
+      builder.RegisterType<AddressCodec>().As<IAddressCodec>().SingleInstance();
+      builder.RegisterType<LocoSpeedCodec>().As<ILocoSpeedCodec>().SingleInstance();
+      builder.RegisterType<Z21CommandFactory>().As<IZ21CommandFactory>().SingleInstance();
+      builder.RegisterType<Z21CommandStation>().As<IZ21CommandStation>().As<ICommandStation>().SingleInstance();
+      builder.RegisterType<Z21ResponseHandler>().AsSelf().SingleInstance();
+
+      builder.ConfigureZ21Options(optionsConfiguration);
       builder.AddZ21ResponseParser();
       builder.AddZ21ResponseHandler();
       return builder;
@@ -25,31 +40,27 @@ namespace Z21.Autofac
     /// <summary>
     /// Discovers all Z21 response handlers and registers them in the <paramref name="builder"/> container.
     /// </summary>
-    private static ContainerBuilder AddZ21ResponseHandler(this ContainerBuilder builder)
+    private static ContainerBuilder AddZ21ResponseHandler(this ContainerBuilder builder) =>
+      builder.AddDiscovered(typeof(IZ21ResponseHandler), includeBaseInterface: true);
+
+    private static ContainerBuilder AddZ21ResponseParser(this ContainerBuilder builder) =>
+      builder.AddDiscovered(typeof(IZ21ResponseParser), includeBaseInterface: false);
+
+    private static ContainerBuilder AddDiscovered(this ContainerBuilder builder, Type baseInterface, bool includeBaseInterface)
     {
       ArgumentNullException.ThrowIfNull(builder);
 
-      Type baseInterface = typeof(IZ21ResponseHandler);
+      Z21ServiceDiscovery discovery = new();
 
-      IEnumerable<Type> handlerTypes =
-        baseInterface.Assembly
-                     .GetTypes()
-                     .Where(t => t is { IsClass: true, IsAbstract: false } && baseInterface.IsAssignableFrom(t));
-
-      foreach (Type handlerType in handlerTypes)
+      foreach (Type implementationType in discovery.GetImplementations(baseInterface))
       {
-        builder.RegisterType(handlerType)
+        builder.RegisterType(implementationType)
                .AsSelf()
                .SingleInstance();
 
-        List<Type> interfacesToRegister =
-          handlerType.GetInterfaces()
-                     .Where(baseInterface.IsAssignableFrom)
-                     .ToList();
-
-        foreach (Type serviceType in interfacesToRegister)
+        foreach (Type serviceType in discovery.GetServiceInterfaces(implementationType, baseInterface, includeBaseInterface))
         {
-          builder.Register(ctx => ctx.Resolve(handlerType))
+          builder.Register(ctx => ctx.Resolve(implementationType))
                  .As(serviceType)
                  .SingleInstance();
         }
@@ -58,48 +69,15 @@ namespace Z21.Autofac
       return builder;
     }
 
-    private static ContainerBuilder AddZ21ResponseParser(this ContainerBuilder builder)
+    private static ContainerBuilder ConfigureZ21Options(this ContainerBuilder builder, Action<Z21Options>? optionsConfiguration = null)
     {
       ArgumentNullException.ThrowIfNull(builder);
 
-      Type baseInterface = typeof(IZ21ResponseParser);
+      Z21Options options = new();
+      optionsConfiguration?.Invoke(options);
 
-      IEnumerable<Type> parserTypes =
-        baseInterface.Assembly
-                     .GetTypes()
-                     .Where(t => t is { IsClass: true, IsAbstract: false } && baseInterface.IsAssignableFrom(t));
-
-      foreach (Type parserType in parserTypes)
-      {
-        builder.RegisterType(parserType)
-               .AsSelf()
-               .SingleInstance();
-
-        List<Type> interfacesToRegister =
-          parserType.GetInterfaces()
-                    .Where(i => baseInterface.IsAssignableFrom(i) && i != baseInterface)
-                    .ToList();
-
-        foreach (Type serviceType in interfacesToRegister)
-        {
-          builder.Register(ctx => ctx.Resolve(parserType))
-                 .As(serviceType)
-                 .SingleInstance();
-        }
-      }
-
-      return builder;
-    }
-
-    private static ContainerBuilder ConfigureZ21Client(this ContainerBuilder builder, Action<Z21Configuration>? configurationAction = null)
-    {
-      ArgumentNullException.ThrowIfNull(builder);
-
-      var config = new Z21Configuration();
-      configurationAction?.Invoke(config);
-
-      builder.RegisterInstance(config)
-             .As<Z21Configuration>()
+      builder.RegisterInstance(options)
+             .As<Z21Options>()
              .SingleInstance();
 
       return builder;
