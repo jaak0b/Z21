@@ -3,7 +3,6 @@
   <PropertyGroup>
     <Nullable>enable</Nullable>
     <LangVersion>12</LangVersion>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
     <Title>Z21</Title>
@@ -17,12 +16,14 @@
     <TargetFrameworks>net8.0;net8.0-windows</TargetFrameworks>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RootNamespace>Z21</RootNamespace>
     <PackageId>Z21</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="LICENSE" Pack="true" PackagePath="" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   
   <ItemGroup>

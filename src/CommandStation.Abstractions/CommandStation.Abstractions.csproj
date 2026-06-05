@@ -5,7 +5,6 @@
     <Nullable>enable</Nullable>
     <LangVersion>12</LangVersion>
     <ImplicitUsings>disable</ImplicitUsings>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
     <PackageId>CommandStation.Abstractions</PackageId>
@@ -15,6 +14,11 @@
     <PackageTags>ModelRailway;CommandStation;DCC;Abstractions</PackageTags>
     <RepositoryUrl>https://github.com/jaak0b/Z21</RepositoryUrl>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
 </Project>
