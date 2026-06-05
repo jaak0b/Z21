@@ -211,5 +211,48 @@ namespace Z21.UnitTest.Core
 
       Assert.ThrowsAsync<CvOperationTimeoutException>(async () => await task);
     }
+
+    [Test]
+    public void ReadCvAsync_NonPositiveTimeoutThrowsArgumentOutOfRange() =>
+      Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await _station.ReadCvAsync(5, TimeSpan.Zero));
+
+    [Test]
+    public void WriteCvAsync_NegativeTimeoutThrowsArgumentOutOfRange() =>
+      Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await _station.WriteCvAsync(5, 1, TimeSpan.FromSeconds(-1)));
+
+    [Test]
+    public async Task FireAndForgetCv_WhileSafeOperationActive_Throws()
+    {
+      Task<byte> safe = _station.ReadCvAsync(5, TimeSpan.FromSeconds(5));
+      await WaitForSentAsync(1); // safe op has acquired the CV lock and is awaiting a result
+
+      Assert.Multiple(() =>
+      {
+        Assert.Throws<InvalidOperationException>(() => _station.ReadCvAsync(9));
+        Assert.Throws<InvalidOperationException>(() => _station.WriteCvAsync(9, 1));
+      });
+
+      RaiseResult(5, 7); // let the safe op finish so the fixture tears down cleanly
+      Assert.That(await safe, Is.EqualTo(7));
+    }
+
+    [Test]
+    public async Task Dispose_DuringInFlightOperation_ThrowsObjectDisposed()
+    {
+      Task<byte> task = _station.ReadCvAsync(5, TimeSpan.FromSeconds(5));
+      await WaitForSentAsync(1);
+
+      _station.Dispose();
+
+      Assert.ThrowsAsync<ObjectDisposedException>(async () => await task);
+    }
+
+    [Test]
+    public void Operation_AfterDispose_ThrowsObjectDisposed()
+    {
+      _station.Dispose();
+
+      Assert.ThrowsAsync<ObjectDisposedException>(async () => await _station.ReadCvAsync(5, TimeSpan.FromSeconds(2)));
+    }
   }
 }
