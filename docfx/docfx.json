@@ -1,0 +1,54 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../src",
+          "files": [
+            "Z21.Client/Z21.Client.csproj",
+            "Z21.DependencyInjection/Z21.DependencyInjection.csproj",
+            "Z21.Autofac/Z21.Autofac.csproj",
+            "CommandStation.Abstractions/CommandStation.Abstractions.csproj",
+            "CommandStation.Transport.Udp/CommandStation.Transport.Udp.csproj"
+          ]
+        }
+      ],
+      "dest": "api",
+      "properties": {
+        "TargetFramework": "net8.0"
+      }
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "index.md",
+          "toc.yml"
+        ]
+      },
+      {
+        "files": [
+          "api/**.{yml,md}"
+        ]
+      },
+      {
+        "files": [
+          "articles/**.{md,yml}"
+        ]
+      }
+    ],
+    "globalMetadata": {
+      "_appName": "Z21",
+      "_appTitle": "Z21",
+      "_enableSearch": true,
+      "_appFooter": "Z21 — ROCO/Fleischmann Z21 LAN protocol client for .NET (GPL-3.0)"
+    },
+    "template": [
+      "default",
+      "modern"
+    ],
+    "dest": "_site"
+  }
+}

@@ -1,4 +1,5 @@
-using Z21.Core.Helper;
+using Z21.Core.Codecs;
+using Z21.Core.Framing;
 
 namespace Z21.Core.Command.Switching
 {
@@ -7,19 +8,10 @@ namespace Z21.Core.Command.Switching
   /// </summary>
   public class GetExtAccessoryInfoCommand : IZ21Command
   {
-    public GetExtAccessoryInfoCommand(ushort accessoryAddress)
+    public GetExtAccessoryInfoCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, ushort accessoryAddress)
     {
-      (byte lsb, byte msb) = AddressHelper.SplitAccessoryAddress(accessoryAddress);
-      Data =
-      [
-        0x09, 0x00,
-        0x40, 0x00,
-        0x44,
-        msb,
-        lsb,
-        0x00,
-        (byte)(0x44 ^ msb ^ lsb ^ 0x00)
-      ];
+      (byte lsb, byte msb) = addressCodec.SplitExtAccessoryAddress(accessoryAddress);
+      Data = frameBuilder.BuildXBus(0x44, msb, lsb, 0x00);
     }
 
     public string Name => "LAN_X_GET_EXT_ACCESSORY_INFO";

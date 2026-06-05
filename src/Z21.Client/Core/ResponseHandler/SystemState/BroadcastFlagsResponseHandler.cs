@@ -17,17 +17,8 @@ namespace Z21.Core.ResponseHandler.SystemState
 
     public string Name => "LAN_GET_BROADCASTFLAGS";
 
-    public bool CanHandle(byte[] response)
-    {
-      try
-      {
-        return response[2] == 0x51 
-               && response[3] == 0x00;
-      } catch (IndexOutOfRangeException)
-      {
-        return false;
-      }
-    }
+    public bool CanHandle(byte[] response) =>
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 4, (2, 0x51), (3, 0x00));
 
     public void Handle(byte[] response)
     {

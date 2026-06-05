@@ -1,5 +1,6 @@
 using System;
-using Z21.Core.Helper;
+using Z21.Core.Codecs;
+using Z21.Core.Framing;
 using Z21.Core.Model;
 
 namespace Z21.Core.Command.Switching
@@ -16,21 +17,11 @@ namespace Z21.Core.Command.Switching
   public class SetTurnoutCommand : IZ21Command
   {
     /// <exception cref="ArgumentOutOfRangeException"> Thrown when <paramref name="accessoryAddress"/> is smaller than 1.</exception>
-    public SetTurnoutCommand(ushort accessoryAddress, AccessoryOutput accessoryOutput, AccessoryState accessoryState, bool executeImmediately)
+    public SetTurnoutCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, ushort accessoryAddress, AccessoryOutput accessoryOutput, AccessoryState accessoryState, bool executeImmediately)
     {
-      (byte lsb, byte msb) = AddressHelper.SplitAccessoryAddress(accessoryAddress);
-      byte db2 = (byte)(0x80 | (int)accessoryOutput | (int)accessoryState | (executeImmediately ? 0x20 : 0x00));
-
-      Data =
-      [
-        0x09, 0x00,
-        0x40, 0x00,
-        0x53,
-        msb,
-        lsb,
-        db2,
-        (byte)(0x53 ^ msb ^ lsb ^ db2)
-      ];
+      (byte lsb, byte msb) = addressCodec.SplitAccessoryAddress(accessoryAddress);
+      byte db2 = (byte)(0x80 | (int)accessoryOutput | (int)accessoryState | (executeImmediately ? 0x00 : 0x20));
+      Data = frameBuilder.BuildXBus(0x53, msb, lsb, db2);
     }
 
     public string Name => "LAN_X_SET_TURNOUT";

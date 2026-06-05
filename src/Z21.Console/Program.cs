@@ -12,7 +12,7 @@ namespace Z21.Console
 {
   abstract internal class Program
   {
-    internal static IZ21Client Z21Client = null!;
+    internal static IZ21CommandStation Station = null!;
 
     public static void Main(string[] args)
     {
@@ -26,9 +26,9 @@ namespace Z21.Console
       builder.RegisterSerilog(log);
       var container = builder.Build();     
       
-      Z21Client = container.Resolve<IZ21Client>();
-      
-      Z21Client.ConnectAsync();
+      Station = container.Resolve<IZ21CommandStation>();
+
+      Station.ConnectAsync();
       
       CommandApp app = new();
       

@@ -14,7 +14,7 @@ namespace Z21.Console.Command
   {
     override public int Execute([NotNull] CommandContext context, [NotNull] GetFirmwareVersionSettings settings)
     {
-      Program.Z21Client.SendCommandsAsync(new GetFirmwareVersionCommand());
+      Program.Station.RequestFirmwareVersionAsync();
       return 0;
     }
   }

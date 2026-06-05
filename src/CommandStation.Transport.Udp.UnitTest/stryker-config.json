@@ -1,0 +1,16 @@
+{
+  "stryker-config": {
+    "project": "CommandStation.Transport.Udp.csproj",
+    "mutation-level": "Complete",
+    "coverage-analysis": "perTest",
+    "thresholds": {
+      "high": 98,
+      "low": 90,
+      "break": 60
+    },
+    "reporters": [
+      "html",
+      "progress"
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-# Z21 [![Build](https://github.com/Jakob-Eichberger/Z21/actions/workflows/Build.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/Build.yml) [![Github Pages](https://github.com/Jakob-Eichberger/Z21/actions/workflows/BuildAndDeployDoc.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/BuildAndDeployDoc.yml) [![Mutation Testing](https://github.com/Jakob-Eichberger/Z21/actions/workflows/MutationTesting.yml/badge.svg)](https://github.com/Jakob-Eichberger/Z21/actions/workflows/MutationTesting.yml)
+# Z21 [![Build](https://github.com/jaak0b/Z21/actions/workflows/Build.yml/badge.svg)](https://github.com/jaak0b/Z21/actions/workflows/Build.yml) [![Github Pages](https://github.com/jaak0b/Z21/actions/workflows/BuildAndDeployDoc.yml/badge.svg)](https://github.com/jaak0b/Z21/actions/workflows/BuildAndDeployDoc.yml) [![Mutation Testing](https://github.com/jaak0b/Z21/actions/workflows/MutationTesting.yml/badge.svg)](https://github.com/jaak0b/Z21/actions/workflows/MutationTesting.yml)
 
 <img src="https://github.com/ZIMO-Elektronik/Z21/raw/master/data/images/logo.png" width="15%" align="right">
 
@@ -25,23 +25,52 @@ The official documentation of the protocol can be downloaded from the ROCO homep
     - System ✅
     - Driving ✅
     - Switching ✅
+    - CV / POM programming ✅
+    - R-BUS feedback ✅
+    - RailCom ✅
+    - LocoNet gateway ✅
+    - CAN (detector & booster) ✅
+    - Fast clock (model time) ✅
+    - zLink booster / decoder / adapter ✅
  
+## Documentation
+
+The API reference, generated from the library's source XML documentation comments, plus a
+short getting-started guide, is published at **[jaak0b.github.io/Z21](https://jaak0b.github.io/Z21/)**.
+It is built with [DocFX](https://dotnet.github.io/docfx/) from the config in [`docfx/`](docfx);
+to preview locally run `dotnet tool install -g docfx` then `docfx docfx/docfx.json --serve`.
+
 ## Getting Started
 Get started by downloading the provided [Z21](https://www.nuget.org/packages/Z21/) nuget package.
 
-### Commands
-All Commands can be found in the Z21.Core.Command namespace. 
-#### Sending Commands
-> [!WARNING]
-> When sending multiple commands at once take note of the maximum payload length. If the commands exceeds that length an exception will be thrown. 
-
-Create a command instance and hand it to the Z21Client.SendCommandsAsync method. 
-Multiple commands can be send at the same time in the same UDP packet. 
-This is important if certain actions should happen at the same time (i.e. controlling locos in a double traction where it is critical that both locomotives change speed at the same time)
+### Using the command station
+The headline API is the protocol-agnostic `ICommandStation` (implemented for Z21 by `Z21CommandStation`).
+Resolve it from your container, connect, then drive locomotives, switch turnouts, control track power and
+subscribe to status events through its capability interfaces (`ILocoControl`, `IAccessoryControl`,
+`ITrackPowerControl`, `ISystemInfoProvider`).
 
 ```csharp
-    await Z21Client.SendCommandsAsync(new GetFirmwareVersionCommand()); // Sends a single command
-    await Z21Client.SendCommandsAsync(new GetFirmwareVersionCommand(), new GetLocoInfoCommand(locoAddress: 13); // Send multiple commands in a single UDP packet
+    var station = container.Resolve<IZ21CommandStation>(); // or ICommandStation
+    await station.ConnectAsync();
+
+    station.LocoInfoReceived += (_, loco) => Console.WriteLine($"Loco {loco.LocoAddress} @ {loco.LocoSpeed}");
+
+    await station.DriveAsync(locoAddress: 13, DccSpeedMode.Steps128, DrivingDirection.Forward, speed: 40);
+    await station.TrackPowerOffAsync();
+```
+
+#### Raw commands
+For full control you can still build and send raw Z21 commands. Build them via `station.Commands`
+(an `IZ21CommandFactory`) and hand them to `SendCommandsAsync`.
+Multiple commands are sent in the same UDP packet — important when actions must happen simultaneously
+(e.g. a double-traction where both locomotives must change speed at once).
+
+> [!WARNING]
+> When sending multiple commands at once take note of the maximum payload length. If the commands exceed that length an exception will be thrown.
+
+```csharp
+    await station.SendCommandsAsync(station.Commands.Create<GetFirmwareVersionCommand>()); // single command
+    await station.SendCommandsAsync(station.Commands.Create<GetFirmwareVersionCommand>(), station.Commands.Create<GetLocoInfoCommand>((ushort)13)); // one UDP packet
 ```
 
 ###
@@ -53,9 +82,13 @@ This is important if certain actions should happen at the same time (i.e. contro
 
 ```csharp
     var builder = new ContainerBuilder();
-    builder.AddZ21();
-    var container = builder.Build();     
+    builder.AddZ21(transport => transport.RemoteEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.111"), 21105));
+    var container = builder.Build();
+    var station = container.Resolve<IZ21CommandStation>();
 ```
+
+`AddZ21` optionally takes an `Action<UdpTransportOptions>` (transport/endpoint settings) and an
+`Action<Z21Options>` (protocol settings such as broadcast flags and keep-alive interval).
 
 ### Dependency Injection
 Dependency Injection is supported natively via [Z21.DependencyInjection](https://www.nuget.org/packages/Z21.DependencyInjection/) and requires the use of hosted services.
@@ -88,11 +121,11 @@ The host is responsible for starting all Z21‑related hosted services and manag
 | LAN_X_GET_STATUS | ✅ | |
 | LAN_X_SET_TRACK_POWER_OFF | ✅ | |
 | LAN_X_SET_TRACK_POWER_ON | ✅ | |
-| LAN_X_DCC_READ_REGISTER | ❌ | |
+| LAN_X_DCC_READ_REGISTER | ✅ | |
 | LAN_X_CV_READ | ✅ | |
-| LAN_X_DCC_WRITE_REGISTER | ❌ | |
-| LAN_X_CV_WRITE | ❌ | |
-| LAN_X_MM_WRITE_BYTE | ❌ | |
+| LAN_X_DCC_WRITE_REGISTER | ✅ | |
+| LAN_X_CV_WRITE | ✅ | |
+| LAN_X_MM_WRITE_BYTE | ✅ | |
 | LAN_X_GET_TURNOUT_INFO | ✅ | |
 | LAN_X_GET_EXT_ACCESSORY_INFO | ✅ | |
 | LAN_X_SET_TURNOUT | ✅ | |
@@ -103,14 +136,14 @@ The host is responsible for starting all Z21‑related hosted services and manag
 | LAN_X_GET_LOCO_INFO | ✅ | |
 | LAN_X_SET_LOCO_DRIVE | ✅ | |
 | LAN_X_SET_LOCO_FUNCTION | ✅ | |
-| LAN_X_SET_LOCO_FUNCTION_GROUP | ❌ | |
-| LAN_X_SET_LOCO_BINARY_STATE | ❌ | |
-| LAN_X_CV_POM_WRITE_BYTE | ❌ | |
-| LAN_X_CV_POM_WRITE_BIT | ❌ | |
-| LAN_X_CV_POM_READ_BYTE | ❌ | |
-| LAN_X_CV_POM_ACCESSORY_WRITE_BYTE | ❌ | |
-| LAN_X_CV_POM_ACCESSORY_WRITE_BIT | ❌ | |
-| LAN_X_CV_POM_ACCESSORY_READ_BYTE | ❌ | |
+| LAN_X_SET_LOCO_FUNCTION_GROUP | ✅ | |
+| LAN_X_SET_LOCO_BINARY_STATE | ✅ | |
+| LAN_X_CV_POM_WRITE_BYTE | ✅ | |
+| LAN_X_CV_POM_WRITE_BIT | ✅ | |
+| LAN_X_CV_POM_READ_BYTE | ✅ | |
+| LAN_X_CV_POM_ACCESSORY_WRITE_BYTE | ✅ | |
+| LAN_X_CV_POM_ACCESSORY_WRITE_BIT | ✅ | |
+| LAN_X_CV_POM_ACCESSORY_READ_BYTE | ✅ | |
 | LAN_X_GET_FIRMWARE_VERSION | ✅ | |
 | LAN_SET_BROADCASTFLAGS | ✅ | |
 | LAN_GET_BROADCASTFLAGS | ✅ | |
@@ -118,28 +151,28 @@ The host is responsible for starting all Z21‑related hosted services and manag
 | LAN_SET_LOCOMODE | ✅ | |
 | LAN_GET_TURNOUTMODE | ✅ | |
 | LAN_SET_TURNOUTMODE | ✅ | |
-| LAN_RMBUS_GETDATA | ❌ | |
-| LAN_RMBUS_PROGRAMMODULE | ❌ | |
+| LAN_RMBUS_GETDATA | ✅ | |
+| LAN_RMBUS_PROGRAMMODULE | ✅ | |
 | LAN_SYSTEMSTATE_GETDATA | ✅ | |
-| LAN_RAILCOM_GETDATA | ❌ | |
-| LAN_LOCONET_FROM_LAN | ❌ | |
-| LAN_LOCONET_DISPATCH_ADDR | ❌ | |
-| LAN_LOCONET_DETECTOR | ❌ | |
-| LAN_CAN_DETECTOR | ❌ | |
-| LAN_CAN_DEVICE_GET_DESCRIPTION | ❌ | |
-| LAN_CAN_DEVICE_SET_DESCRIPTION | ❌ | |
-| LAN_CAN_BOOSTER_SET_TRACKPOWER | ❌ | |
-| LAN_FAST_CLOCK_CONTROL | ❌ | |
-| LAN_FAST_CLOCK_SETTINGS_GET | ❌ | |
-| LAN_FAST_CLOCK_SETTINGS_SET | ❌ | |
-| LAN_BOOSTER_SET_POWER |❌ | |
-| LAN_BOOSTER_GET_DESCRIPTION | ❌ | |
-| LAN_BOOSTER_SET_DESCRIPTION | ❌ | |
-| LAN_BOOSTER_SYSTEMSTATE_GETDATA | ❌ | |
-| LAN_DECODER_GET_DESCRIPTION | ❌ | |
-| LAN_DECODER_SET_DESCRIPTION | ❌ | |
-| LAN_DECODER_SYSTEMSTATE_GETDATA | ❌ | |
-| LAN_ZLINK_GET_HWINFO| ❌ | |
+| LAN_RAILCOM_GETDATA | ✅ | |
+| LAN_LOCONET_FROM_LAN | ✅ | |
+| LAN_LOCONET_DISPATCH_ADDR | ✅ | |
+| LAN_LOCONET_DETECTOR | ✅ | |
+| LAN_CAN_DETECTOR | ✅ | |
+| LAN_CAN_DEVICE_GET_DESCRIPTION | ✅ | |
+| LAN_CAN_DEVICE_SET_DESCRIPTION | ✅ | |
+| LAN_CAN_BOOSTER_SET_TRACKPOWER | ✅ | |
+| LAN_FAST_CLOCK_CONTROL | ✅ | |
+| LAN_FAST_CLOCK_SETTINGS_GET | ✅ | |
+| LAN_FAST_CLOCK_SETTINGS_SET | ✅ | |
+| LAN_BOOSTER_SET_POWER |✅ | |
+| LAN_BOOSTER_GET_DESCRIPTION | ✅ | |
+| LAN_BOOSTER_SET_DESCRIPTION | ✅ | |
+| LAN_BOOSTER_SYSTEMSTATE_GETDATA | ✅ | |
+| LAN_DECODER_GET_DESCRIPTION | ✅ | |
+| LAN_DECODER_SET_DESCRIPTION | ✅ | |
+| LAN_DECODER_SYSTEMSTATE_GETDATA | ✅ | |
+| LAN_ZLINK_GET_HWINFO| ✅ | |
 
 ## Z21 Responses
 
@@ -157,36 +190,36 @@ The host is responsible for starting all Z21‑related hosted services and manag
  | LAN_X_BC_TRACK_POWER_ON  | ✅ | |
  | LAN_X_BC_PROGRAMMING_MODE  | ✅ | |
  | LAN_X_BC_TRACK_SHORT_CIRCUIT | ✅ | |
- | LAN_X_CV_NACK_SC  | ❌ | |
- | LAN_X_CV_NACK | ❌ | |
+ | LAN_X_CV_NACK_SC  | ✅ | |
+ | LAN_X_CV_NACK | ✅ | |
  | LAN_X_UNKNOWN_COMMAND  | ✅ | |
  | LAN_X_STATUS_CHANGED  | ✅ | |
  | LAN_X_GET_VERSION  | ✅ | |
- | LAN_X_CV_RESULT  | ❌ | |
+ | LAN_X_CV_RESULT  | ✅ | |
  | LAN_X_BC_STOPPED  | ✅ | |
  | LAN_X_LOCO_INFO  | ✅ | |
  | LAN_X_GET_FIRMWARE_VERSION | ✅ | |
  | LAN_GET_BROADCASTFLAGS  | ✅ | |
  | LAN_GET_LOCOMODE | ✅ | |
  | LAN_GET_TURNOUTMODE  | ✅ | |
- | LAN_RMBUS_DATACHANGED  | ❌ | |
+ | LAN_RMBUS_DATACHANGED  | ✅ | |
  | LAN_SYSTEMSTATE_DATACHANGED | ✅ | |
- | LAN_RAILCOM_DATACHANGED  | ❌ | |
- | LAN_LOCONET_Z21_RX  | ❌ | |
- | LAN_LOCONET_Z21_TX  | ❌ | |
- | LAN_LOCONET_FROM_LAN  | ❌ | |
- | LAN_LOCONET_DISPATCH_ADDR | ❌ | |
- | LAN_LOCONET_DETECTOR  | ❌ | |
- | LAN_CAN_DETECTOR  | ❌ | |
- | LAN_CAN_DEVICE_GET_DESCRIPTION | ❌ | |
- | LAN_CAN_BOOSTER_SYSTEMSTATE_CHGD | ❌ | |
- | LAN_FAST_CLOCK_DATA  | ❌ | |
- | LAN_FAST_CLOCK_SETTINGS_GET  | ❌ | |
- | LAN_BOOSTER_GET_DESCRIPTION  | ❌ | |
- | LAN_BOOSTER_SYSTEMSTATE_DATACHANGED  | ❌ | |
- | LAN_DECODER_GET_DESCRIPTION  | ❌ | |
- | LAN_DECODER_SYSTEMSTATE_DATACHANGED  | ❌ | |
- | LAN_ZLINK_GET_HWINFO  | ❌ | |
+ | LAN_RAILCOM_DATACHANGED  | ✅ | |
+ | LAN_LOCONET_Z21_RX  | ✅ | |
+ | LAN_LOCONET_Z21_TX  | ✅ | |
+ | LAN_LOCONET_FROM_LAN  | ✅ | |
+ | LAN_LOCONET_DISPATCH_ADDR | ✅ | |
+ | LAN_LOCONET_DETECTOR  | ✅ | |
+ | LAN_CAN_DETECTOR  | ✅ | |
+ | LAN_CAN_DEVICE_GET_DESCRIPTION | ✅ | |
+ | LAN_CAN_BOOSTER_SYSTEMSTATE_CHGD | ✅ | |
+ | LAN_FAST_CLOCK_DATA  | ✅ | |
+ | LAN_FAST_CLOCK_SETTINGS_GET  | ✅ | |
+ | LAN_BOOSTER_GET_DESCRIPTION  | ✅ | |
+ | LAN_BOOSTER_SYSTEMSTATE_DATACHANGED  | ✅ | |
+ | LAN_DECODER_GET_DESCRIPTION  | ✅ | |
+ | LAN_DECODER_SYSTEMSTATE_DATACHANGED  | ✅ | |
+ | LAN_ZLINK_GET_HWINFO  | ✅ | |
  
 ## Contributing
 

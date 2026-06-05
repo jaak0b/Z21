@@ -1,0 +1,57 @@
+# Continuous delivery: pack and publish the NuGet packages on every merge to main.
+#
+# Versions are produced automatically by Nerdbank.GitVersioning (version.json + git
+# height), so they increment on every commit — no tags or manual version bumps. A push
+# to main (which is what merging a pull request produces) builds, tests, packs the whole
+# solution once, and pushes all packages to NuGet.org with --skip-duplicate.
+
+name: Release
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Nerdbank.GitVersioning needs full history to compute the version
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore src/Z21.sln
+
+      - name: Build (Release)
+        run: dotnet build src/Z21.sln --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test src/Z21.sln --no-build --configuration Release --verbosity normal
+
+      - name: Pack
+        run: dotnet pack src/Z21.sln --no-build --configuration Release --output ./nupkgs
+
+      - name: Upload packages artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nupkgs
+          path: ./nupkgs/*.nupkg
+
+      - name: Push to NuGet
+        if: github.ref == 'refs/heads/main'   # never publish from a manually-dispatched non-main branch
+        run: dotnet nuget push "./nupkgs/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

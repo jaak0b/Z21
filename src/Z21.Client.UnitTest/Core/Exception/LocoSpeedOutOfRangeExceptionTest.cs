@@ -15,12 +15,18 @@ namespace Z21.UnitTest.Core.Exception
     }
 
     [Test]
-    [TestCase(DccSpeedMode.Steps14, (ushort)15)]
-    [TestCase(DccSpeedMode.Steps28, (ushort)29)]
-    [TestCase(DccSpeedMode.Steps128, (ushort)127)]
-    public void ThrowIfOutOfRange_ValuesOutOfRange_ThrowsLocoSpeedOutOfRangeException(DccSpeedMode dccSpeedMode, ushort locoSpeed)
+    [TestCase(DccSpeedMode.Steps14, (ushort)15, "Steps14", "14")]
+    [TestCase(DccSpeedMode.Steps28, (ushort)29, "Steps28", "28")]
+    [TestCase(DccSpeedMode.Steps128, (ushort)127, "Steps128", "126")]
+    public void ThrowIfOutOfRange_ValuesOutOfRange_ThrowsWithDescriptiveMessage(DccSpeedMode dccSpeedMode, ushort locoSpeed, string expectedFragment, string expectedMax)
     {
-      Assert.Throws<LocoSpeedOutOfRangeException>(() => LocoSpeedOutOfRangeException.ThrowIfOutOfRange(dccSpeedMode, locoSpeed));
+      LocoSpeedOutOfRangeException exception = Assert.Throws<LocoSpeedOutOfRangeException>(() => LocoSpeedOutOfRangeException.ThrowIfOutOfRange(dccSpeedMode, locoSpeed))!;
+      Assert.Multiple(() =>
+                      {
+                        Assert.That(exception.Message, Does.Contain(expectedFragment));
+                        Assert.That(exception.Message, Does.Contain($"maximum speed of {expectedMax} steps"),
+                                    "the message must state the actual maximum that the guard enforces");
+                      });
     }
   }
 }

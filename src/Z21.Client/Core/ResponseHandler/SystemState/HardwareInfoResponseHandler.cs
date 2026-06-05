@@ -18,23 +18,14 @@ namespace Z21.Core.ResponseHandler.SystemState
 
     public event EventHandler<HardwareInfoEventArgs>? OnHardwareInfoReceived;
 
-    public bool CanHandle(byte[] response)
-    {
-      try
-      {
-        return response[2] == 0x1A && response[3] == 0x00;
-      }
-      catch (IndexOutOfRangeException)
-      {
-        return false;
-      }
-    }
+    public bool CanHandle(byte[] response) =>
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 4, (2, 0x1A), (3, 0x00));
 
     public void Handle(byte[] response)
     {
-      // TODO: calculate FW version and add to HardwareInfoEventArgs
       int hwType = BitConverter.ToInt32(response, 4);
-      OnHardwareInfoReceived?.Invoke(this, new(hwType));
+      int firmwareVersion = BitConverter.ToInt32(response, 8);
+      OnHardwareInfoReceived?.Invoke(this, new(hwType, firmwareVersion));
     }
 
   }

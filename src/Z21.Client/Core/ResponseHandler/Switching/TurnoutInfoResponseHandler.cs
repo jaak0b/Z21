@@ -1,7 +1,8 @@
 using System;
+using Microsoft.Extensions.Logging;
+using Z21.Core.Codecs;
 using Z21.Core.Command.Switching;
 using Z21.Core.Command.SystemState;
-using Z21.Core.Helper;
 using Z21.Core.Model;
 using Z21.Core.Model.EventArgs;
 
@@ -18,28 +19,27 @@ namespace Z21.Core.ResponseHandler.Switching
   /// </summary>
   public class TurnoutInfoResponseHandler : ITurnoutInfoResponseHandler
   {
+    private readonly IAddressCodec _addressCodec;
+    private readonly ILogger<TurnoutInfoResponseHandler>? _logger;
+
+    public TurnoutInfoResponseHandler(IAddressCodec addressCodec, ILogger<TurnoutInfoResponseHandler>? logger = null)
+    {
+      _addressCodec = addressCodec;
+      _logger = logger;
+    }
 
     public event EventHandler<TurnoutInfoReceivedEventArgs>? OnTurnoutInfoReceived;
 
     public string Name => "LAN_X_TURNOUT_INFO";
 
-    public bool CanHandle(byte[] response)
-    {
-      try
-      {
-        return response[2] == 0x40 && response[3] == 0x00 && response[4] == 0x43;
-      }
-      catch (IndexOutOfRangeException)
-      {
-        return false;
-      }
-    }
+    public bool CanHandle(byte[] response) =>
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 5, (2, 0x40), (3, 0x00), (4, 0x43));
 
     public void Handle(byte[] response)
     {
       byte msb = response[5];
       byte lsb = response[6];
-      ushort address = AddressHelper.CombineAccessoryAddress(lsb, msb);
+      ushort address = _addressCodec.CombineAccessoryAddress(lsb, msb);
 
       byte db2 = response[7];
       AccessoryOutput? accessoryOutput = null;
@@ -48,7 +48,7 @@ namespace Z21.Core.ResponseHandler.Switching
       if (db2 == 0x02)
         accessoryOutput = AccessoryOutput.Output2;
 
-      Console.WriteLine($"Turnout: {address}, State: {accessoryOutput}");
+      _logger?.LogDebug("{name} address {address}, output {accessoryOutput}.", Name, address, accessoryOutput);
       OnTurnoutInfoReceived?.Invoke(this, new(address, accessoryOutput));
     }
   }

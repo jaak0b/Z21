@@ -1,3 +1,4 @@
+using Z21.Core.Codecs;
 using Z21.Core.Model;
 using Z21.Core.Model.EventArgs;
 using Z21.Core.ResponseHandler.Switching;
@@ -11,7 +12,7 @@ namespace Z21.UnitTest.Core.ResponseHandler.Switching
     [SetUp]
     public void Setup()
     {
-      _handler = new();
+      _handler = new(new AddressCodec());
     }
 
     [Test]
@@ -53,7 +54,7 @@ namespace Z21.UnitTest.Core.ResponseHandler.Switching
 
       Assert.That(handler, Is.EqualTo(_handler));
       Assert.That(receivedArgs, Is.Not.Null);
-      Assert.That(receivedArgs.AccessoryAddress, Is.EqualTo(48));
+      Assert.That(receivedArgs.AccessoryAddress, Is.EqualTo(44));
       Assert.That(receivedArgs.EncodedState, Is.EqualTo(db2));
       Assert.That(receivedArgs.DataValid, Is.EqualTo(validData));
     }

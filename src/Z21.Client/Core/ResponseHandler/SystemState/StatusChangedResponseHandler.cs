@@ -21,20 +21,9 @@ namespace Z21.Core.ResponseHandler.SystemState
 
     public string Name => "LAN_X_STATUS_CHANGED";
 
-    public bool CanHandle(byte[] response)
-    {
-      try
-      {
-        return response[2] == 0x40
-               && response[3] == 0x00
-               && response[4] == 0x62
-               && response[5] == 0x22
-               && (response[4] ^ response[5] ^ response[6]) == response[7];
-      } catch (IndexOutOfRangeException)
-      {
-        return false;
-      }
-    }
+    public bool CanHandle(byte[] response) =>
+      ((IZ21ResponseHandler)this).MatchesFrame(response, 8, (2, 0x40), (3, 0x00), (4, 0x62), (5, 0x22))
+      && (response[4] ^ response[5] ^ response[6]) == response[7];
 
     public void Handle(byte[] response)
     {

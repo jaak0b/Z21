@@ -1,4 +1,5 @@
-using Z21.Core.Helper;
+using Z21.Core.Codecs;
+using Z21.Core.Framing;
 
 namespace Z21.Core.Command.Driving
 {
@@ -9,20 +10,10 @@ namespace Z21.Core.Command.Driving
   /// </summary>
   public class SetLocoEStopCommand : IZ21Command
   {
-    public SetLocoEStopCommand(ushort locoAddress)
+    public SetLocoEStopCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, ushort locoAddress)
     {
-      (byte lsb, byte msb) = AddressHelper.SplitLocoAddress(locoAddress);
-      Data =
-      [
-        0x08,
-        0x00,
-        0x40,
-        0x00,
-        0x92,
-        msb,
-        lsb,
-        (byte)(0x92 ^ msb ^ lsb)
-      ];
+      (byte lsb, byte msb) = addressCodec.SplitLocoAddress(locoAddress);
+      Data = frameBuilder.BuildXBus(0x92, msb, lsb);
     }
 
     public string Name => "LAN_X_SET_LOCO_E_STOP";

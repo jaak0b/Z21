@@ -1,0 +1,16 @@
+{
+  "stryker-config": {
+    "project": "Z21.Client.csproj",
+    "mutation-level": "Complete",
+    "coverage-analysis": "perTest",
+    "thresholds": {
+      "high": 98,
+      "low": 90,
+      "break": 85
+    },
+    "reporters": [
+      "html",
+      "progress"
+    ]
+  }
+}

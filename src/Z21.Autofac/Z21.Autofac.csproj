@@ -3,11 +3,12 @@
     <PropertyGroup>
         <TargetFrameworks>net8.0;net8.0-windows</TargetFrameworks>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Authors>Jakob Eichberger</Authors>
-        <RepositoryUrl>https://github.com/Jakob-Eichberger/z21Client</RepositoryUrl>
-        <Version>6.0.0</Version>
+        <RepositoryUrl>https://github.com/jaak0b/Z21</RepositoryUrl>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     </PropertyGroup>
@@ -18,6 +19,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Z21.Client\Z21.Client.csproj" />
+      <ProjectReference Include="..\CommandStation.Transport.Udp\CommandStation.Transport.Udp.csproj" />
     </ItemGroup>
 
     <ItemGroup>

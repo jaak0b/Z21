@@ -1,0 +1,24 @@
+using Z21.Core.Codecs;
+using Z21.Core.Framing;
+
+namespace Z21.Core.Command.Programming
+{
+  /// <summary>
+  /// Writes a single bit of a CV of a locomotive decoder on the main track (POM, protocol §6.7).
+  /// </summary>
+  public class CvPomWriteBitCommand : IZ21Command
+  {
+    public CvPomWriteBitCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, ushort locoAddress, ushort cvAddress, byte bitPosition, bool bitValue)
+    {
+      (byte lsb, byte msb) = addressCodec.SplitLocoAddress(locoAddress);
+      byte db3 = (byte)(0xE8 | ((cvAddress >> 8) & 0x03));
+      byte cvLsb = (byte)(cvAddress & 0xFF);
+      byte db5 = (byte)((bitValue ? 0x08 : 0x00) | (bitPosition & 0x07));
+      Data = frameBuilder.BuildXBus(0xE6, 0x30, msb, lsb, db3, cvLsb, db5);
+    }
+
+    public string Name => "LAN_X_CV_POM_WRITE_BIT";
+
+    public byte[] Data { get; }
+  }
+}

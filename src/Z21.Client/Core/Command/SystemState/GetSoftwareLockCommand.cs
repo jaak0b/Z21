@@ -1,3 +1,5 @@
+using Z21.Core.Framing;
+
 namespace Z21.Core.Command.SystemState
 {
   /// <summary>
@@ -6,14 +8,13 @@ namespace Z21.Core.Command.SystemState
   /// <remarks>This command is of particular interest for the hardware variant "z21 start", in order to be able to check whether driving and switching via LAN is blocked or permitted.</remarks>
   public class GetSoftwareLockCommand : IZ21Command
   {
+    public GetSoftwareLockCommand(IZ21FrameBuilder frameBuilder)
+    {
+      Data = frameBuilder.BuildLan(0x0018);
+    }
+
     public string Name => "LAN_GET_CODE";
 
-    public byte[] Data { get; } =
-      [
-        0x04,
-        0x00,
-        0x18,
-        0x00
-      ];
+    public byte[] Data { get; }
   }
 }

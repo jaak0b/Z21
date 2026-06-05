@@ -1,0 +1,13 @@
+<Project>
+
+  <!--
+    Nerdbank.GitVersioning stamps the assembly and NuGet package versions automatically
+    from version.json + git height (the version increments on every commit). It applies
+    to every project in the repository. PrivateAssets="all" keeps it a build-time-only
+    dependency that is not exposed to package consumers.
+  -->
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.9.50" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

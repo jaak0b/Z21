@@ -1,3 +1,5 @@
+using Z21.Core.Framing;
+
 namespace Z21.Core.Command.SystemState
 {
   /// <summary>
@@ -5,14 +7,13 @@ namespace Z21.Core.Command.SystemState
   /// </summary>
   public class GetHardwareInfoCommand : IZ21Command
   {
+    public GetHardwareInfoCommand(IZ21FrameBuilder frameBuilder)
+    {
+      Data = frameBuilder.BuildLan(0x001A);
+    }
+
     public string Name => "LAN_GET_HWINFO";
 
-    public byte[] Data { get; } =
-      [
-        0x04,
-        0x00,
-        0x1A,
-        0x00
-      ];
+    public byte[] Data { get; }
   }
 }

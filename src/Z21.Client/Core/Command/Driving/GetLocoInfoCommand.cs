@@ -1,5 +1,6 @@
+using Z21.Core.Codecs;
 using Z21.Core.Command.SystemState;
-using Z21.Core.Helper;
+using Z21.Core.Framing;
 using Z21.Core.Model;
 
 namespace Z21.Core.Command.Driving
@@ -9,23 +10,10 @@ namespace Z21.Core.Command.Driving
   /// </summary>
   public class GetLocoInfoCommand : IZ21Command
   {
-    public GetLocoInfoCommand(ushort locoAddress)
+    public GetLocoInfoCommand(IZ21FrameBuilder frameBuilder, IAddressCodec addressCodec, ushort locoAddress)
     {
-      const byte xHeader = 0xE3;
-      const byte db0 = 0xF0;
-
-      (byte lsb, byte msb) = AddressHelper.SplitLocoAddress(locoAddress);
-      byte xor = (byte)(xHeader ^ db0 ^ lsb ^ msb);
-      Data =
-      [
-        0x09, 0x00,
-        0x40, 0x00,
-        xHeader,
-        db0,
-        msb,
-        lsb,
-        xor
-      ];
+      (byte lsb, byte msb) = addressCodec.SplitLocoAddress(locoAddress);
+      Data = frameBuilder.BuildXBus(0xE3, 0xF0, msb, lsb);
     }
 
     public string Name => "LAN_X_GET_LOCO_INFO";

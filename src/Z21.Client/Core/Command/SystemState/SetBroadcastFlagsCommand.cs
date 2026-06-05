@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Linq;
+using Z21.Core.Framing;
 using Z21.Core.Model;
 
 namespace Z21.Core.Command.SystemState
@@ -9,23 +10,14 @@ namespace Z21.Core.Command.SystemState
   /// </summary>
   public class SetBroadcastFlagsCommand : IZ21Command
   {
-    public string Name => "LAN_SET_BROADCASTFLAGS";
-
-    public SetBroadcastFlagsCommand(params uint[] flags)
+    public SetBroadcastFlagsCommand(IZ21FrameBuilder frameBuilder, params uint[] flags)
     {
       uint flag = flags.Length > 0 ? flags.Aggregate((u, u1) => u | u1) : 0;
-      
       byte[] broadcastFlags = BitConverter.GetBytes(flag);
-      Data =
-      [
-        0x08, 0x00,
-        0x50, 0x00,
-        broadcastFlags[0],
-        broadcastFlags[1],
-        broadcastFlags[2],
-        broadcastFlags[3],
-      ];
+      Data = frameBuilder.BuildLan(0x0050, broadcastFlags[0], broadcastFlags[1], broadcastFlags[2], broadcastFlags[3]);
     }
+
+    public string Name => "LAN_SET_BROADCASTFLAGS";
 
     public byte[] Data { get; }
   }
