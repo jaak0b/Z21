@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CommandStation;
 using CommandStation.Transport;
@@ -31,6 +32,7 @@ namespace Z21.Core
     private readonly Z21ResponseHandler _dispatcher;
     private readonly Z21Options _options;
     private readonly DelayedAction _delayedKeepAliveAction;
+    private readonly SemaphoreSlim _cvLock = new(1, 1);
     private readonly ILogger<Z21CommandStation>? _logger;
 
     /// <summary>
@@ -180,6 +182,159 @@ namespace Z21.Core
 
     public Task WriteCvAsync(ushort cvAddress, byte value) => SendCommandsAsync(Commands.Create<CvWriteCommand>(cvAddress, value));
 
+    public async Task<byte> ReadCvAsync(ushort cvAddress, TimeSpan timeout)
+    {
+      using CancellationTokenSource deadline = new(timeout);
+      await AcquireCvLockAsync(cvAddress, timeout, deadline.Token);
+      try
+      {
+        return await AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvReadCommand>(cvAddress)), deadline.Token, timeout);
+      }
+      finally
+      {
+        _cvLock.Release();
+      }
+    }
+
+    public async Task WriteCvAsync(ushort cvAddress, byte value, TimeSpan timeout)
+    {
+      using CancellationTokenSource deadline = new(timeout);
+      await AcquireCvLockAsync(cvAddress, timeout, deadline.Token);
+      try
+      {
+        await AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvWriteCommand>(cvAddress, value)), deadline.Token, timeout);
+      }
+      finally
+      {
+        _cvLock.Release();
+      }
+    }
+
+    public async Task<byte> ReadPomCvAsync(ushort locoAddress, ushort cvAddress, TimeSpan timeout)
+    {
+      using CancellationTokenSource deadline = new(timeout);
+      await AcquireCvLockAsync(cvAddress, timeout, deadline.Token);
+      try
+      {
+        return await AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvPomReadByteCommand>(locoAddress, cvAddress)), deadline.Token, timeout);
+      }
+      finally
+      {
+        _cvLock.Release();
+      }
+    }
+
+    public async Task WritePomCvAsync(ushort locoAddress, ushort cvAddress, byte value, TimeSpan timeout)
+    {
+      using CancellationTokenSource deadline = new(timeout);
+      await AcquireCvLockAsync(cvAddress, timeout, deadline.Token);
+      try
+      {
+        while (true)
+        {
+          await SendCommandsAsync(Commands.Create<CvPomWriteByteCommand>(locoAddress, cvAddress, value));
+          byte readBack = await AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvPomReadByteCommand>(locoAddress, cvAddress)), deadline.Token, timeout);
+          if (readBack == value)
+            return;
+          if (deadline.IsCancellationRequested)
+            throw new CvOperationTimeoutException(cvAddress, timeout);
+        }
+      }
+      finally
+      {
+        _cvLock.Release();
+      }
+    }
+
+    private async Task AcquireCvLockAsync(ushort cvAddress, TimeSpan timeout, CancellationToken deadline)
+    {
+      try
+      {
+        await _cvLock.WaitAsync(deadline);
+      }
+      catch (OperationCanceledException)
+      {
+        throw new CvOperationTimeoutException(cvAddress, timeout);
+      }
+    }
+
+    private async Task<byte> AwaitResultLoopAsync(ushort cvAddress, Func<Task> send, CancellationToken deadline, TimeSpan timeout)
+    {
+      while (true)
+      {
+        if (deadline.IsCancellationRequested)
+          throw new CvOperationTimeoutException(cvAddress, timeout);
+
+        CvAttempt attempt;
+        try
+        {
+          attempt = await AwaitNextCvAsync(cvAddress, send, deadline);
+        }
+        catch (OperationCanceledException)
+        {
+          throw new CvOperationTimeoutException(cvAddress, timeout);
+        }
+
+        switch (attempt.Kind)
+        {
+          case CvAttemptKind.Result:
+            return attempt.Value;
+          case CvAttemptKind.ShortCircuit:
+            throw new CvShortCircuitException(cvAddress);
+          default:
+            break; // missing acknowledgement -> retry until the deadline
+        }
+      }
+    }
+
+    private async Task<CvAttempt> AwaitNextCvAsync(ushort cvAddress, Func<Task> send, CancellationToken deadline)
+    {
+      TaskCompletionSource<CvAttempt> completion = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+      void OnResult(object? sender, CvValue value)
+      {
+        if (value.CvAddress == cvAddress)
+          completion.TrySetResult(new CvAttempt(CvAttemptKind.Result, value.Value));
+      }
+
+      void OnFailed(object? sender, CvProgrammingError error) =>
+        completion.TrySetResult(new CvAttempt(error == CvProgrammingError.ShortCircuit ? CvAttemptKind.ShortCircuit : CvAttemptKind.Nack, 0));
+
+      CvReadCompleted += OnResult;
+      CvProgrammingFailed += OnFailed;
+      try
+      {
+        await send();
+        using (deadline.Register(() => completion.TrySetCanceled(deadline)))
+          return await completion.Task;
+      }
+      finally
+      {
+        CvReadCompleted -= OnResult;
+        CvProgrammingFailed -= OnFailed;
+      }
+    }
+
+    private enum CvAttemptKind
+    {
+      Result,
+      Nack,
+      ShortCircuit
+    }
+
+    private readonly struct CvAttempt
+    {
+      public CvAttempt(CvAttemptKind kind, byte value)
+      {
+        Kind = kind;
+        Value = value;
+      }
+
+      public CvAttemptKind Kind { get; }
+
+      public byte Value { get; }
+    }
+
     public Task RequestFeedbackAsync(byte groupIndex) => SendCommandsAsync(Commands.Create<GetRmBusDataCommand>(groupIndex));
 
     public Task RequestModelTimeAsync() => SendCommandsAsync(Commands.Create<FastClockControlCommand>(FastClockAction.Read));
@@ -208,6 +363,7 @@ namespace Z21.Core
     public void Dispose()
     {
       _delayedKeepAliveAction.Dispose();
+      _cvLock.Dispose();
       GC.SuppressFinalize(this);
     }
   }
