@@ -254,5 +254,73 @@ namespace Z21.UnitTest.Core
 
       Assert.ThrowsAsync<ObjectDisposedException>(async () => await _station.ReadCvAsync(5, TimeSpan.FromSeconds(2)));
     }
+
+    [Test]
+    public async Task WritePomCvBitAsync_ReadBackBitMatchesCompletes()
+    {
+      Task task = _station.WritePomCvBitAsync(3, 5, 2, true, TimeSpan.FromSeconds(2));
+
+      await WaitForSentAsync(2);       // POM write-bit + POM read-back
+      RaiseResult(5, 0b0000_0100);     // bit 2 set -> matches
+
+      await task;
+      Assert.That(_transport.Sent, Has.Count.EqualTo(2));
+    }
+
+    [Test]
+    public async Task WritePomCvBitAsync_RetriesUntilBitMatches()
+    {
+      Task task = _station.WritePomCvBitAsync(3, 5, 2, true, TimeSpan.FromSeconds(5));
+
+      await WaitForSentAsync(2);       // write-bit + read-back
+      RaiseResult(5, 0b0000_0000);     // bit 2 clear -> rewrite + reread
+      await WaitForSentAsync(4);
+      RaiseResult(5, 0b0000_0100);     // bit 2 set -> done
+
+      await task;
+      Assert.That(_transport.Sent, Has.Count.EqualTo(4));
+    }
+
+    [Test]
+    public void WritePomCvBitAsync_NoReplyThrowsTimeout()
+    {
+      Task task = _station.WritePomCvBitAsync(3, 5, 2, true, TimeSpan.FromMilliseconds(100));
+
+      Assert.ThrowsAsync<CvOperationTimeoutException>(async () => await task);
+    }
+
+    [Test]
+    public void WritePomCvBitAsync_InvalidBitPositionThrows() =>
+      Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await _station.WritePomCvBitAsync(3, 5, 8, true, TimeSpan.FromSeconds(2)));
+
+    [Test]
+    public async Task ReadPomCvBitAsync_ReturnsSetBit()
+    {
+      Task<bool> task = _station.ReadPomCvBitAsync(3, 5, 2, TimeSpan.FromSeconds(2));
+      RaiseResult(5, 0b0000_0100);
+
+      Assert.That(await task, Is.True);
+    }
+
+    [Test]
+    public async Task ReadPomCvBitAsync_ReturnsClearBit()
+    {
+      Task<bool> task = _station.ReadPomCvBitAsync(3, 5, 1, TimeSpan.FromSeconds(2));
+      RaiseResult(5, 0b0000_0100);
+
+      Assert.That(await task, Is.False);
+    }
+
+    [Test]
+    public void ReadPomCvBitAsync_NoReplyThrowsTimeout()
+    {
+      Task<bool> task = _station.ReadPomCvBitAsync(3, 5, 2, TimeSpan.FromMilliseconds(100));
+
+      Assert.ThrowsAsync<CvOperationTimeoutException>(async () => await task);
+    }
+
+    [Test]
+    public void ReadPomCvBitAsync_InvalidBitPositionThrows() =>
+      Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await _station.ReadPomCvBitAsync(3, 5, 8, TimeSpan.FromSeconds(2)));
   }
 }
