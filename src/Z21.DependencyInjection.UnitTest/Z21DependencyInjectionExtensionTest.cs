@@ -2,6 +2,7 @@ using CommandStation;
 using CommandStation.Model;
 using CommandStation.Transport;
 using Microsoft.Extensions.DependencyInjection;
+using Z21.Core;
 using Z21.Core.Model;
 using Z21.Core.Model.EventArgs;
 using Z21.Core.ResponseHandler;
@@ -56,6 +57,38 @@ namespace Z21.DependencyInjection.UnitTest
                         Assert.That(received.Minute, Is.EqualTo(30));
                         Assert.That(received.Rate, Is.EqualTo(8));
                       });
+    }
+
+    [Test]
+    public void AddZ21_CommandStation_ExposesProgrammingFeedbackAndFastClockCapabilities()
+    {
+      ServiceCollection services = new();
+      services.AddZ21();
+      ServiceProvider serviceProvider = services.BuildServiceProvider();
+
+      IZ21CommandStation station = serviceProvider.GetRequiredService<IZ21CommandStation>();
+
+      Assert.Multiple(() =>
+      {
+        Assert.That(station, Is.InstanceOf<IProgrammingControl>());
+        Assert.That(station, Is.InstanceOf<IFeedbackControl>());
+        Assert.That(station, Is.InstanceOf<IFastClockControl>());
+      });
+    }
+
+    [Test]
+    public void AddZ21_StationDisposedTwice_DoesNotThrow()
+    {
+      ServiceCollection services = new();
+      services.AddZ21();
+      ServiceProvider serviceProvider = services.BuildServiceProvider();
+
+      // Resolving ICommandStation makes MS.DI capture the IZ21CommandStation singleton for disposal
+      // a second time (factory forwarding), so Dispose() must be idempotent.
+      IDisposable station = (IDisposable)serviceProvider.GetRequiredService<ICommandStation>();
+
+      station.Dispose();
+      Assert.DoesNotThrow(() => station.Dispose());
     }
 
     [Test]

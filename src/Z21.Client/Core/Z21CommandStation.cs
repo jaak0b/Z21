@@ -32,6 +32,7 @@ namespace Z21.Core
     private readonly Z21Options _options;
     private readonly DelayedAction _delayedKeepAliveAction;
     private readonly ILogger<Z21CommandStation>? _logger;
+    private bool _disposed;
 
     /// <summary>
     /// IPv4 safe MTU for payload according to specification.
@@ -207,6 +208,10 @@ namespace Z21.Core
 
     public void Dispose()
     {
+      if (_disposed)
+        return;
+
+      _disposed = true;
       _delayedKeepAliveAction.Dispose();
       GC.SuppressFinalize(this);
     }

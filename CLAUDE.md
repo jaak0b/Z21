@@ -100,8 +100,10 @@ Data flow:
 firmware query). There is **no ICMP watchdog** — liveness is the transport connection state plus the
 protocol keep-alive (the old `Z21Watchdog` was removed as part of the transport decoupling).
 
-The dispatcher must be instantiated for inbound handling to work — both DI extensions register it as
-an **activated/auto-activated singleton** so it wires up `ITransport.OnBytesReceived` eagerly.
+The dispatcher must be instantiated for inbound handling to work. It is registered as a plain
+singleton and is a **constructor dependency of `Z21CommandStation`**, so resolving the station
+instantiates the dispatcher, which wires up `ITransport.OnBytesReceived`. There is no eager
+auto-activation — inbound handling comes up as soon as the station is resolved.
 
 ### DI registration
 
