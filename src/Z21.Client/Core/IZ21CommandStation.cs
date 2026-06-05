@@ -42,5 +42,27 @@ namespace Z21.Core
     /// <exception cref="CvShortCircuitException">The command station reported a short circuit.</exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="timeout"/> is not a positive, in-range duration.</exception>
     Task WritePomCvAsync(ushort locoAddress, ushort cvAddress, byte value, TimeSpan timeout);
+
+    /// <summary>
+    /// Writes a single bit of a CV of a locomotive decoder on the main track (POM). Because a POM write
+    /// returns no acknowledgement, this verifies by reading the CV byte back and retrying until the
+    /// target bit matches the written value (so it requires RailCom). A bit that never reads back is
+    /// reported as a timeout. Do not run other CV operations on this station concurrently.
+    /// </summary>
+    /// <param name="bitPosition">The 0-based bit position within the CV (0–7).</param>
+    /// <exception cref="CvOperationTimeoutException">The write could not be confirmed within <paramref name="timeout"/>.</exception>
+    /// <exception cref="CvShortCircuitException">The command station reported a short circuit.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="bitPosition"/> exceeds 7, or <paramref name="timeout"/> is not a positive, in-range duration.</exception>
+    Task WritePomCvBitAsync(ushort locoAddress, ushort cvAddress, byte bitPosition, bool bitValue, TimeSpan timeout);
+
+    /// <summary>
+    /// Reads a single bit of a CV of a locomotive decoder on the main track (POM) by reading the CV byte
+    /// back (so it requires RailCom) and returning the value of the target bit.
+    /// </summary>
+    /// <param name="bitPosition">The 0-based bit position within the CV (0–7).</param>
+    /// <exception cref="CvOperationTimeoutException">No result arrived within <paramref name="timeout"/>.</exception>
+    /// <exception cref="CvShortCircuitException">The command station reported a short circuit.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="bitPosition"/> exceeds 7, or <paramref name="timeout"/> is not a positive, in-range duration.</exception>
+    Task<bool> ReadPomCvBitAsync(ushort locoAddress, ushort cvAddress, byte bitPosition, TimeSpan timeout);
   }
 }

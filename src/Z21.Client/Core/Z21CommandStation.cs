@@ -221,6 +221,33 @@ namespace Z21.Core
       }
     }
 
+    public async Task WritePomCvBitAsync(ushort locoAddress, ushort cvAddress, byte bitPosition, bool bitValue, TimeSpan timeout)
+    {
+      ValidateBitPosition(bitPosition);
+      await RunUnderCvLockAsync(cvAddress, timeout,
+                                token => WritePomCvBitCoreAsync(locoAddress, cvAddress, bitPosition, bitValue, token, timeout));
+    }
+
+    public async Task<bool> ReadPomCvBitAsync(ushort locoAddress, ushort cvAddress, byte bitPosition, TimeSpan timeout)
+    {
+      ValidateBitPosition(bitPosition);
+      byte value = await ReadPomCvAsync(locoAddress, cvAddress, timeout);
+      return ((value >> bitPosition) & 1) == 1;
+    }
+
+    private async Task<byte> WritePomCvBitCoreAsync(ushort locoAddress, ushort cvAddress, byte bitPosition, bool bitValue, CancellationToken token, TimeSpan timeout)
+    {
+      while (true)
+      {
+        await SendCommandsAsync(Commands.Create<CvPomWriteBitCommand>(locoAddress, cvAddress, bitPosition, bitValue)).WaitAsync(token);
+        byte readBack = await AwaitResultLoopAsync(cvAddress, () => SendCommandsAsync(Commands.Create<CvPomReadByteCommand>(locoAddress, cvAddress)), token, timeout);
+        if ((((readBack >> bitPosition) & 1) == 1) == bitValue)
+          return readBack;
+
+        await DelayBeforeRetryAsync(cvAddress, token, timeout); // read-back bit mismatch -> wait, then re-write
+      }
+    }
+
     private async Task<byte> RunUnderCvLockAsync(ushort cvAddress, TimeSpan timeout, Func<CancellationToken, Task<byte>> operation)
     {
       ObjectDisposedException.ThrowIf(_disposed, this);
@@ -334,6 +361,12 @@ namespace Z21.Core
         throw new ArgumentOutOfRangeException(nameof(timeout), timeout, "The CV operation timeout must be greater than zero.");
       if (timeout.TotalMilliseconds > int.MaxValue)
         throw new ArgumentOutOfRangeException(nameof(timeout), timeout, $"The CV operation timeout must not exceed {int.MaxValue} milliseconds.");
+    }
+
+    private void ValidateBitPosition(byte bitPosition)
+    {
+      if (bitPosition > 7)
+        throw new ArgumentOutOfRangeException(nameof(bitPosition), bitPosition, "The CV bit position must be between 0 and 7.");
     }
 
     private System.Exception MapCancellation(ushort cvAddress, TimeSpan timeout) =>
