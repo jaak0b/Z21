@@ -123,10 +123,25 @@ namespace Z21.Core
       await LogOnAsync();
     }
 
-    public Task DisconnectAsync()
+    public async Task DisconnectAsync()
     {
+      // Tell the Z21 to free this client's slot immediately. Without LAN_LOGOFF the slot lingers
+      // (~60s) on the command station; repeated reconnects then exhaust its client/subscription
+      // table and loco-info broadcasts silently stop arriving for the new client.
+      if (_transport.IsConnected)
+      {
+        try
+        {
+          await SendCommandsAsync(Commands.Create<LogOffCommand>());
+        }
+        catch (System.Exception ex)
+        {
+          _logger?.LogWarning(ex, "Failed to send LAN_LOGOFF during disconnect; closing the transport anyway.");
+        }
+      }
+
       _delayedKeepAliveAction.Stop();
-      return _transport.DisconnectAsync();
+      await _transport.DisconnectAsync();
     }
 
     public async Task SendCommandsAsync(params IZ21Command[] commands)

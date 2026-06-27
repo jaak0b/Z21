@@ -179,6 +179,39 @@ namespace Z21.UnitTest.Core
     }
 
     [Test]
+    public async Task DisconnectAsync_SendsLogOffThenDisconnects()
+    {
+      await _station.ConnectAsync();
+      _transport.Sent.Clear();
+
+      await _station.DisconnectAsync();
+
+      byte[] expected = _factory.Create<LogOffCommand>().Data;
+      Assert.That(_transport.Sent.Single(), Is.EqualTo(expected),
+                  "disconnect should send LAN_LOGOFF so the Z21 frees the client slot immediately");
+      Assert.That(_transport.IsConnected, Is.False, "transport must be disconnected after DisconnectAsync");
+    }
+
+    [Test]
+    public async Task DisconnectAsync_WhenNotConnected_DoesNotSendLogOff()
+    {
+      await _station.DisconnectAsync();
+
+      Assert.That(_transport.Sent, Is.Empty, "no LAN_LOGOFF should be sent when the transport was never connected");
+    }
+
+    [Test]
+    public async Task DisconnectAsync_WhenLogOffSendFails_StillDisconnects()
+    {
+      await _station.ConnectAsync();
+      _transport.ThrowOnSend = true;
+
+      await _station.DisconnectAsync();
+
+      Assert.That(_transport.IsConnected, Is.False, "disconnect must complete even if the LAN_LOGOFF send fails");
+    }
+
+    [Test]
     public async Task ConnectAsync_SendsLogonAndSetsConnected()
     {
       await _station.ConnectAsync();
