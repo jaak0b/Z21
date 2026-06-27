@@ -11,6 +11,9 @@ namespace Z21.UnitTest.Core
 
     public bool IsConnected { get; private set; }
 
+    /// <summary>When true, <see cref="SendAsync"/> throws, modelling a socket error mid-send.</summary>
+    public bool ThrowOnSend { get; set; }
+
     public event EventHandler<BytesReceivedEventArgs>? OnBytesReceived;
 
     public event EventHandler<ConnectionChangedEventArgs>? OnConnectionChanged;
@@ -31,6 +34,9 @@ namespace Z21.UnitTest.Core
 
     public Task SendAsync(ReadOnlyMemory<byte> data)
     {
+      if (ThrowOnSend)
+        throw new System.IO.IOException("Simulated transport send failure.");
+
       Sent.Add(data.ToArray());
       return Task.CompletedTask;
     }
