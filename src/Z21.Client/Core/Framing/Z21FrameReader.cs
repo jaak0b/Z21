@@ -31,6 +31,7 @@ namespace Z21.Core.Framing
     {
       ArgumentNullException.ThrowIfNull(data);
       _buffer.AddRange(data);
+      _logger?.LogDebug("[FR] append {added} bytes; buffer now {total}", data.Length, _buffer.Count);
 
       int offset = 0;
       while (offset + 2 <= _buffer.Count)
@@ -39,17 +40,21 @@ namespace Z21.Core.Framing
 
         if (dataLen == 0 || dataLen > MaxFrameLength)
         {
-          _logger?.LogError("Z21FrameReader read an out-of-range frame length {dataLen}; discarding buffered bytes.", dataLen);
+          _logger?.LogError("[FR] out-of-range frame length {dataLen} at offset {offset}; discarding {discarded} buffered bytes.", dataLen, offset, _buffer.Count);
           _buffer.Clear();
           return;
         }
 
         if (offset + dataLen > _buffer.Count)
+        {
+          _logger?.LogDebug("[FR] partial frame: need {need}, have {have}; buffering remainder", dataLen, _buffer.Count - offset);
           break;
+        }
 
         byte[] frame = new byte[dataLen];
         _buffer.CopyTo(offset, frame, 0, dataLen);
         offset += dataLen;
+        _logger?.LogDebug("[FR] emit frame len {len}: {hex}", dataLen, BitConverter.ToString(frame));
         OnFrameReceived?.Invoke(this, new FrameReceivedEventArgs(frame));
       }
 

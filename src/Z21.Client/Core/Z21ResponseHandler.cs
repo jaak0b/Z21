@@ -36,6 +36,7 @@ namespace Z21.Core
 
     protected virtual void HandleDatagram(byte[] data)
     {
+      bool matched = false;
       foreach (IZ21ResponseHandler handler in _z21ResponseHandlers)
       {
         try
@@ -43,6 +44,7 @@ namespace Z21.Core
           if (!handler.CanHandle(data))
             continue;
 
+          matched = true;
           _logger?.LogDebug("{handlerName} handling datagram {cutDatagram}.", handler.Name, BitConverter.ToString(data));
           handler.Handle(data);
         }
@@ -51,6 +53,9 @@ namespace Z21.Core
           _logger?.LogError(exception, "{handlerName} failed to handle datagram {cutDatagram}.", handler.Name, BitConverter.ToString(data));
         }
       }
+
+      if (!matched)
+        _logger?.LogWarning("[DISP] NO handler matched frame {cutDatagram}", BitConverter.ToString(data));
     }
   }
 }

@@ -36,10 +36,12 @@ namespace CommandStation.Transport.Udp
         if (IsConnected)
           return Task.CompletedTask;
 
-        udpClient = new UdpClient();
+        int localPort = _options.LocalPort ?? _options.RemoteEndPoint.Port;
+        udpClient = new UdpClient(localPort);
         if (OperatingSystem.IsWindows())
           udpClient.AllowNatTraversal(_options.AllowNatTraversal);
         udpClient.Connect(_options.RemoteEndPoint);
+        _logger?.LogDebug("[CONN] local endpoint {local} -> remote {remote}", udpClient.Client.LocalEndPoint, _options.RemoteEndPoint);
 
         _udpClient = udpClient;
         _receiveCancellation = new CancellationTokenSource();
@@ -131,6 +133,8 @@ namespace CommandStation.Transport.Udp
           SignalConnectionLost(udpClient);
           return;
         }
+
+        _logger?.LogDebug("[RX] {length} bytes: {hex}", result.Buffer.Length, BitConverter.ToString(result.Buffer));
 
         try
         {
