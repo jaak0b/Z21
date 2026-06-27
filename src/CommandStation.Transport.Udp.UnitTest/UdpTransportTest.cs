@@ -26,7 +26,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public async Task ConnectAsync_SetsIsConnected_AndRaisesOnConnectionChanged()
     {
-      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       bool? raised = null;
       transport.OnConnectionChanged += (_, args) => raised = args.IsConnected;
 
@@ -39,7 +39,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public async Task SendAsync_TransmitsBytes_ToRemoteEndpoint()
     {
-      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       await transport.ConnectAsync();
       byte[] payload = [0x07, 0x00, 0x40, 0x00, 0x21, 0x21, 0x00];
 
@@ -50,13 +50,29 @@ namespace CommandStation.Transport.Udp.UnitTest
     }
 
     [Test]
+    public async Task ConnectAsync_BindsConfiguredLocalPort()
+    {
+      int localPort;
+      using (UdpClient free = new(new IPEndPoint(IPAddress.Loopback, 0)))
+        localPort = ((IPEndPoint)free.Client.LocalEndPoint!).Port;
+
+      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = localPort });
+      await transport.ConnectAsync();
+
+      await transport.SendAsync(new byte[] { 0x01 });
+
+      var probe = await _station.ReceiveAsync().WaitAsync(TimeSpan.FromSeconds(2));
+      Assert.That(probe.RemoteEndPoint.Port, Is.EqualTo(localPort), "the transport must send from the configured local port");
+    }
+
+    [Test]
     public async Task ReceiveLoop_OnSocketError_RaisesDisconnectedExactlyOnce()
     {
       int deadPort;
       using (UdpClient dead = new(new IPEndPoint(IPAddress.Loopback, 0)))
         deadPort = ((IPEndPoint)dead.Client.LocalEndPoint!).Port;
 
-      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = new IPEndPoint(IPAddress.Loopback, deadPort) });
+      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = new IPEndPoint(IPAddress.Loopback, deadPort), LocalPort = 0 });
       int disconnectedRaises = 0;
       TaskCompletionSource<bool> disconnected = new();
       transport.OnConnectionChanged += (_, args) =>
@@ -95,7 +111,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public void SendAsync_WhenNotConnected_ThrowsWithMessage()
     {
-      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       var exception = Assert.ThrowsAsync<System.InvalidOperationException>(async () => await transport.SendAsync(new byte[] { 0x01 }))!;
       Assert.That(exception.Message, Does.Contain("not connected"));
     }
@@ -103,7 +119,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public async Task ConnectAsync_WhenAlreadyConnected_IsIdempotent()
     {
-      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       int connectedRaises = 0;
       transport.OnConnectionChanged += (_, args) =>
                                        {
@@ -124,7 +140,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public async Task DisconnectAsync_SetsDisconnected_AndRaisesOnce()
     {
-      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       int disconnectedRaises = 0;
       transport.OnConnectionChanged += (_, args) =>
                                        {
@@ -146,7 +162,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public async Task DisconnectAsync_WhenNeverConnected_DoesNotRaise()
     {
-      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       bool raised = false;
       transport.OnConnectionChanged += (_, _) => raised = true;
 
@@ -162,7 +178,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public async Task DisposeAsync_DisconnectsActiveTransport()
     {
-      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       bool disconnected = false;
       transport.OnConnectionChanged += (_, args) =>
                                        {
@@ -183,7 +199,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public async Task Dispose_DisconnectsActiveTransport_AndRaisesOnce()
     {
-      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       int disconnectedRaises = 0;
       transport.OnConnectionChanged += (_, args) =>
                                        {
@@ -204,7 +220,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public void Dispose_WhenNeverConnected_DoesNotRaise()
     {
-      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       bool raised = false;
       transport.OnConnectionChanged += (_, _) => raised = true;
 
@@ -220,7 +236,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public async Task Dispose_CalledTwice_RaisesDisconnectedOnce()
     {
-      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       int disconnectedRaises = 0;
       transport.OnConnectionChanged += (_, args) =>
                                        {
@@ -238,7 +254,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public async Task IncomingBytes_RaiseOnBytesReceived()
     {
-      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       var tcs = new TaskCompletionSource<byte[]>();
       transport.OnBytesReceived += (_, args) => tcs.TrySetResult(args.Data);
       await transport.ConnectAsync();
@@ -256,7 +272,7 @@ namespace CommandStation.Transport.Udp.UnitTest
     [Test]
     public async Task ReceiveLoop_SubscriberThrows_LoopSurvivesAndKeepsDelivering()
     {
-      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint });
+      await using var transport = new UdpTransport(new UdpTransportOptions { RemoteEndPoint = _stationEndPoint, LocalPort = 0 });
       int received = 0;
       var secondReceived = new TaskCompletionSource<bool>();
       transport.OnBytesReceived += (_, _) =>
